@@ -1,0 +1,16 @@
+{
+  "name": "ring-dominion-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "@colyseus/core": "^0.16.0",
+    "@colyseus/schema": "^2.0.0",
+    "@colyseus/uwebsockets-transport": "^0.16.0",
+    "colyseus": "^0.16.0"
+  }
+}
