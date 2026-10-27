@@ -549,7 +549,7 @@
             <p class="hero__eyebrow">像素喵 NFT · Pixel cat NFT · BNB Smart Chain</p>
             <h1>飞升喵境 <span class="x-sub">Ascension Catty</span></h1>
             <p class="hero__sub">天界裂隙打开，一群圆滚滚的小猫咪飞升而出，等待一位守护者把它们带回家。The celestial rift opens and a bunch of round little kittens ascend, waiting for a guardian to take them home.</p>
-            <p class="hero__meta">合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns.</p>
+            <p class="hero__meta">合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0x54a5853d0326d340bA86f1170644176bb003e504" target="_blank" rel="noopener">0x54a5…e504</a>. NFTs are digital collectibles with no promise of returns.</p>
           </div>
           <div class="x-hfloats" aria-hidden="true">
             <div class="x-hcat x-hcat--king">
@@ -581,7 +581,7 @@
           <div class="head">
             <p class="head__eyebrow">铸造 Mint</p>
             <h2>两种方式迎接守护喵，总量 2,222 只。<span class="x-sub">Two ways to welcome a guardian cat, 2,222 total.</span></h2>
-            <p class="head__sub">合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns.</p>
+            <p class="head__sub">合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0x54a5853d0326d340bA86f1170644176bb003e504" target="_blank" rel="noopener">0x54a5…e504</a>. NFTs are digital collectibles with no promise of returns.</p>
           </div>
           <div class="cards">
             <div>
@@ -1097,13 +1097,13 @@
             </div>
             <div>
               <h3>能在哪里交易？Where can I trade?</h3>
-              <p>经审计的合约部署后，内置的喵市 Catty Market 才会开放；现在展示的挂单都是示例。The built-in Catty Market opens once the audited contracts are deployed; the listings shown now are demos.</p>
+              <p>喵市 Catty Market 合约已部署于 BNB 主网（未经审计），手续费 2%。NFT 留在卖家钱包直到售出。The Catty Market contract is live on BNB Smart Chain (unaudited), 2% fee; your NFT stays in your wallet until it sells. <a href="https://bscscan.com/address/0x587433411AD7aE8b325ACA379ADE5F5675867d4A" target="_blank" rel="noopener">0x5874…7d4A</a></p>
             </div>
           </div>
         </section>
       </main>
       <footer class="foot">
-        <p><strong>飞升喵境 Ascension Catty</strong> · 合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns. · © 2026</p>
+        <p><strong>飞升喵境 Ascension Catty</strong> · 合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0x54a5853d0326d340bA86f1170644176bb003e504" target="_blank" rel="noopener">0x54a5…e504</a>. NFTs are digital collectibles with no promise of returns. · © 2026</p>
         <nav aria-label="Back to sections" data-auto></nav>
         <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
           ><span class="hark-mark"></span><span>built by hark</span></a
@@ -1131,13 +1131,13 @@
       const CONFIG = {
         chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
         chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
-        contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
+        contractAddress: '0x54a5853d0326d340bA86f1170644176bb003e504',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
         freeMintFn: 'freeMint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
         summonMintFn: 'summonMint',     // ID: Nama fungsi Summon Mint · EN: Summon Mint function name
         freePriceBNB: '0.0005',         // ID: Harga per NFT Free (BNB) · EN: Free price per NFT (BNB)
         summonPriceBNB: '0.005',        // ID: Harga per NFT Summon (BNB) · EN: Summon price per NFT (BNB)
         maxPerWallet: 20,               // ID: Maksimal per dompet · EN: Max per wallet
-        marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
+        marketAddress: '0x587433411AD7aE8b325ACA379ADE5F5675867d4A',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
         marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
       };
 
