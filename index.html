@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>飞升喵境 Ascension Catty · 像素喵 NFT Pixel cat NFT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Pixelify+Sans:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <style>
+      .x-logo {
+        display: block;
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        image-rendering: pixelated;
+        border-radius: var(--r-s);
+        margin-bottom: 12px;
+      }
+      /* Mint controls on the tier cards */
+      .x-mint { display: grid; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--stroke-secondary); }
+      .x-mint__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .x-stepper { display: inline-flex; align-items: center; border: 1px solid var(--stroke-primary); border-radius: var(--r-s); background: var(--fill-primary-on); }
+      .x-stepper button {
+        width: var(--tap); height: var(--tap); border: 0; background: none; color: var(--text-primary);
+        font: var(--type-heading); cursor: pointer; border-radius: var(--r-s);
+      }
+      .x-stepper button:hover:not(:disabled) { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      .x-stepper button:disabled { color: var(--text-secondary); cursor: not-allowed; }
+      .x-qty { min-width: 3ch; text-align: center; font: var(--type-body-strong); font-variant-numeric: tabular-nums; }
+      .x-total { font: var(--type-small); color: var(--text-secondary); }
+      .x-total b { font: var(--type-heading); color: var(--text-primary); font-variant-numeric: tabular-nums; }
+      .x-pixel {
+        width: 100%; min-height: 56px; padding: 10px 16px; border: 0; border-radius: 0;
+        background: var(--fill-primary); color: var(--text-primary-on);
+        font: var(--weight-regular) var(--size-heading)/1.2 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.06em;
+        clip-path: polygon(0 6px, 6px 6px, 6px 0, calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px));
+        box-shadow: inset 0 -6px 0 color-mix(in srgb, var(--text-primary-on) 22%, transparent), inset 0 6px 0 color-mix(in srgb, var(--text-primary-on) 10%, transparent);
+        cursor: pointer; transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-pixel:hover:not(:disabled) { filter: brightness(1.15); }
+      .x-pixel:active:not(:disabled) { transform: translateY(2px); }
+      .x-pixel:disabled { cursor: not-allowed; }
+      .x-pixel:disabled::after { content: " 🔒"; }
+      /* Connect Wallet in the nav */
+      .x-wallet {
+        flex: none; min-height: 36px; padding: 0 14px; border: 0; border-radius: var(--r-pill);
+        background: var(--fill-primary-on); font: var(--type-label);
+        white-space: nowrap; cursor: pointer;
+      }
+      header.nav .x-wallet, header.nav .x-wallet .x-en { color: var(--text-primary); }
+      .x-wallet:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      @media (max-width: 599px) { .x-wallet { min-height: var(--tap); } .x-wallet .x-en { display: none; } }
+      /* Agent prompt boxes */
+      .x-prompt {
+        margin: 12px 0; padding: 14px 16px; border-radius: var(--r-s); border: 1px solid var(--stroke-secondary);
+        background: var(--fill-primary-on); font: var(--weight-regular) var(--size-small)/1.6 "Geist Mono", ui-monospace, monospace;
+        overflow-wrap: anywhere; white-space: pre-wrap;
+      }
+      .x-prompt.is-empty { color: var(--text-secondary); }
+      .btn:disabled { color: var(--text-secondary); cursor: not-allowed; box-shadow: none; }
+      button.btn { cursor: pointer; }
+      /* Toast */
+      .x-toast {
+        position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); z-index: 30;
+        width: max-content; max-width: calc(100% - 2 * var(--gutter)); transform: translate(-50%, 12px);
+        padding: 12px 18px; border-radius: var(--r-m); background: var(--fill-primary); color: var(--text-primary-on);
+        font: var(--type-small); box-shadow: var(--hark-shadow); overflow-wrap: anywhere;
+        opacity: 0; pointer-events: none; transition: opacity var(--dur-quick) ease, transform var(--dur-quick) var(--ease-out);
+      }
+      .x-toast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+      .x-toast a { color: inherit; text-decoration: underline; }
+
+      /* ===== Celestial pixel theme: night-violet only ===== */
+      :root, :root[data-theme] {
+        color-scheme: dark;
+        --text-primary: #f4eeff; --text-secondary: #c4b5ec; --text-tertiary: #c4b5ec80;
+        --text-primary-on: #2b1700; --text-secondary-on: #c4b5ec;
+        --fill-primary: #ffd36b; --fill-primary-on: #120a2e; --fill-tertiary: rgb(64 40 140 / 0.34);
+        --fill-segment: rgb(255 255 255 / 0.06);
+        --stroke-primary: rgb(201 182 255 / 0.42); --stroke-secondary: rgb(201 182 255 / 0.18);
+        --stroke-primary-on: rgb(255 211 107 / 0.4); --stroke-composer: rgb(255 211 107 / 0.55);
+        --hover-wash: rgb(255 255 255 / 0.08); --hover-wash-primary-on: rgb(255 255 255 / 0.1);
+        --mat-agent: rgb(30 18 72 / 0.74); --mat-inverse: rgb(22 12 54 / 0.84);
+        --hark-shadow: 0 8px 32px rgb(0 0 0 / 0.45);
+        --x-gold: #ffd36b; --x-lav: #c9b6ff; --x-ink: #2b1700;
+        --x-pix: "Pixelify Sans", var(--sans);
+        --x-glow: 2px 2px 0 #5a2ea6, 0 0 14px rgb(255 200 90 / 0.55);
+        --x-numglow: 0 0 12px rgb(255 200 90 / 0.5);
+        --x-glass: rgb(40 24 96 / 0.44);
+        --x-drop: 4px 4px 0 rgb(8 3 24 / 0.7), 0 0 24px rgb(160 120 255 / 0.14);
+        --x-cut: polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px));
+      }
+      body { background: #120a2e; }
+      body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+      body::before {
+        background:
+          radial-gradient(circle at 1px 1px, #fff 1.4px, transparent 0) 0 0 / 97px 113px,
+          radial-gradient(60vmax 40vmax at 85% 8%, rgb(140 70 220 / 0.38), transparent 70%),
+          radial-gradient(50vmax 40vmax at 8% 55%, rgb(60 90 220 / 0.28), transparent 70%),
+          radial-gradient(40vmax 30vmax at 70% 96%, rgb(220 110 200 / 0.22), transparent 70%),
+          linear-gradient(#0d0724, #1a0f40 50%, #120a2e);
+      }
+      body::after {
+        background:
+          radial-gradient(circle at 1px 1px, #ffe7a3 1.6px, transparent 0) 40px 70px / 173px 151px,
+          radial-gradient(circle at 1px 1px, #d9ccff 1.2px, transparent 0) 120px 20px / 211px 197px;
+        animation: x-twinkle 3.6s steps(3) infinite;
+      }
+      @keyframes x-twinkle { 50% { opacity: 0.25; } }
+      @media (prefers-reduced-motion: reduce) { body::after { animation: none; } }
+
+      /* Nav */
+      .nav.glass { border: 2px solid var(--stroke-primary-on); background-color: #1a0f40; }
+      .nav .seg { background: #241650; }
+      .seg a { background-color: #241650; color: #d9ccff; }
+      .seg a:hover { color: var(--text-primary); }
+      .seg a[aria-current="true"] { background: var(--x-gold); color: var(--x-ink); }
+      .theme-btn { display: none; }
+      .x-wallet { background: var(--x-gold); border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); }
+      header.nav .x-wallet, header.nav .x-wallet .x-en { color: var(--x-ink); }
+      .x-wallet:hover { box-shadow: none; filter: brightness(1.08); }
+
+      /* Headings: gold pixel glow, lavender English line */
+      .hero h1, .head h2 { font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-glow); overflow-wrap: break-word; }
+      .x-sub { display: block; margin-top: 6px; font: var(--type-lede); color: var(--x-lav); text-shadow: none; }
+      .head__eyebrow, .step__eyebrow, .hero__eyebrow { font-family: var(--x-pix); color: var(--x-lav); letter-spacing: 0.04em; }
+      .cards h3, .step h3 { color: var(--x-gold); }
+
+      /* Dividers */
+      .section { border-top: 0; padding-top: clamp(24px, 4vw, 48px); }
+      .section::before { content: "✦ 🐾 ✦" / ""; display: block; margin-bottom: clamp(24px, 3vw, 36px); text-align: center; color: var(--x-gold); letter-spacing: 0.6em; text-shadow: var(--x-numglow); }
+      .foot { border-top: 0; }
+      .foot::before { content: "✧ 🐾 ✧" / ""; flex-basis: 100%; text-align: center; color: var(--x-gold); letter-spacing: 0.6em; }
+
+      /* Glass cards with pixel borders */
+      .hero { border: 3px solid var(--x-gold); border-radius: 8px; box-shadow: 0 0 0 3px #3a1f7a, 0 0 40px rgb(180 120 255 / 0.35); }
+      .x-logo { filter: drop-shadow(0 0 10px rgb(255 200 90 / 0.5)); }
+      .cards > div, .steps > .step:nth-child(n), .callout, .table-wrap, .stats, #lore .prose {
+        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
+      }
+      .cards > div:nth-child(even), .steps > .step:nth-child(even), .stats + .stats, #lore .prose, .table-wrap { border-color: rgb(201 182 255 / 0.6); }
+      .steps { display: grid; gap: 14px; }
+      .steps > .step:nth-child(n) { padding: 22px; }
+      .stats { padding: 16px 20px; }
+      .table-wrap { margin-inline: 0; padding: 16px; }
+      #lore .prose { padding: 22px 24px; }
+      .band img { border-radius: 6px; border: 2px solid rgb(201 182 255 / 0.6); box-shadow: var(--x-drop); }
+      .chip { border: 1px solid var(--stroke-primary); }
+
+      /* Glowing gold numbers */
+      .stat__fig, .step__num, .cards .quote, .x-total b, td.num { color: var(--x-gold); text-shadow: var(--x-numglow); }
+      .stat__fig, .step__num, .cards .quote { font-family: var(--x-pix); font-weight: var(--weight-bold); }
+
+      /* Chunky gold pixel buttons */
+      .x-pixel { background: linear-gradient(#ffe08a, #f2b63c); color: var(--x-ink); font-family: var(--x-pix); font-weight: var(--weight-bold); box-shadow: inset 0 -6px 0 #c9861a, inset 0 6px 0 #fff2c4; }
+      .x-pixel:disabled { background: #3b2c66; color: #ddd2f7; box-shadow: inset 0 -6px 0 #2a1f4d, inset 0 6px 0 #4d3b80; }
+      .btn { background: var(--x-gold); color: var(--x-ink); border: 0; border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); font-weight: var(--weight-bold); box-shadow: inset 0 -3px 0 #c9861a; }
+      .btn:hover { box-shadow: inset 0 -3px 0 #c9861a; filter: brightness(1.08); }
+      .btn:disabled { background: #3b2c66; color: #ddd2f7; box-shadow: inset 0 -3px 0 #2a1f4d; filter: none; }
+      .x-pixel:focus-visible, .btn:focus-visible, .x-wallet:focus-visible { clip-path: none; outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-stepper { background: rgb(18 10 46 / 0.6); border: 2px solid var(--stroke-primary); border-radius: 4px; }
+      .x-stepper button { color: var(--x-gold); }
+      .x-stepper button:disabled { color: #a99bd0; }
+      .x-mint { border-top: 2px dashed var(--stroke-primary); }
+      .x-prompt { background: rgb(10 5 30 / 0.6); border: 2px dashed var(--stroke-primary); border-radius: 4px; }
+      .x-toast { border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); }
+
+      /* Agent: one simple card */
+      .x-asteps { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 10px; margin: 0 0 16px; padding: 0; list-style: none; font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary); }
+      .x-asteps li { display: inline-flex; align-items: center; gap: 6px; }
+      .x-asteps .x-en { color: var(--x-lav); }
+      .x-asteps__ic { font-size: var(--size-body); }
+      .x-asteps__arrow { color: var(--x-gold); }
+      .x-agent {
+        display: grid; gap: 16px; max-width: 640px; margin-inline: auto; padding: 22px;
+        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
+      }
+      .x-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .x-toggle button {
+        min-height: 56px; padding: 8px 12px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
+        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-body); font-family: var(--x-pix); font-weight: var(--weight-bold);
+        cursor: pointer; transition: background var(--dur-quick) var(--ease-out);
+      }
+      .x-toggle button:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      .x-toggle button[aria-pressed="true"] { background: var(--x-gold); border-color: var(--x-gold); color: var(--x-ink); box-shadow: 0 0 14px rgb(255 200 90 / 0.45); }
+      .x-toggle button:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-agent__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+      .x-agent__total { display: grid; justify-items: end; margin: 0; font: var(--type-small); color: var(--text-secondary); }
+      .x-agent__total b { font: var(--type-display); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
+      .x-agent .x-prompt { margin: 0; }
+      .x-agent__copy { min-height: 68px; font-size: var(--size-heading); }
+      .x-safety { text-align: center; margin-top: 12px; }
+
+      /* ===== Floating pixel cats (decorative) ===== */
+      html, body { overflow-x: clip; }
+      .x-hcat img, .x-drift img, .x-peek {
+        display: block; height: auto; image-rendering: pixelated; pointer-events: none; user-select: none;
+        filter: drop-shadow(0 0 8px rgb(201 182 255 / 0.75)) drop-shadow(0 0 3px rgb(255 211 107 / 0.6));
+      }
+      /* Hero: cats sit behind the copy, in the top band on phones */
+      .hero__copy { position: relative; z-index: 1; }
+      .x-hfloats { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+      .x-hcat { position: absolute; animation: x-bob var(--d, 8s) ease-in-out var(--delay, 0s) infinite; }
+      .x-hcat img { width: 100%; }
+      .x-hcat--king { --d: 9s; --delay: -2s; --r: 3deg; width: 92px; top: 16px; right: 12px; }
+      .x-hcat--angel { --d: 7s; --delay: -5s; --r: -4deg; width: 72px; top: 34px; right: 118px; }
+      .x-hcat--wizard { --d: 10s; --delay: -1s; --r: 5deg; width: 52px; top: 14px; left: 18px; }
+      @keyframes x-bob {
+        0%, 100% { transform: translateY(0) rotate(calc(var(--r) * -1)); }
+        50% { transform: translateY(-12px) rotate(var(--r)); }
+      }
+      @media (max-width: 760px) { .hero__copy { padding-top: 140px; } }
+      @media (min-width: 761px) {
+        .x-hcat--king { width: 190px; top: 8%; right: 5%; }
+        .x-hcat--angel { width: 140px; top: 14%; right: 27%; }
+        .x-hcat--wizard { width: 110px; top: auto; left: auto; bottom: 10%; right: 9%; }
+        @keyframes x-bob {
+          0%, 100% { transform: translateY(0) rotate(calc(var(--r) * -1)); }
+          50% { transform: translateY(-20px) rotate(var(--r)); }
+        }
+      }
+      /* Sparkles trailing the hero cats */
+      .x-spark {
+        position: absolute; width: 6px; height: 6px; background: var(--x-gold);
+        box-shadow: 0 0 6px rgb(255 211 107 / 0.9); opacity: 0;
+        animation: x-spark 2.8s steps(4) var(--sd, 0s) infinite;
+      }
+      .x-spark:nth-of-type(2n) { width: 4px; height: 4px; background: var(--x-lav); box-shadow: 0 0 6px rgb(201 182 255 / 0.9); }
+      @keyframes x-spark {
+        0%, 100% { opacity: 0; transform: scale(0.4) translateY(0); }
+        40% { opacity: 1; transform: scale(1) translateY(-4px); }
+        70% { opacity: 0.6; transform: scale(0.7) translateY(-8px); }
+      }
+      /* Drifting cats across the sky, behind the content */
+      .x-sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+      .x-drift {
+        position: absolute; left: 0; width: 84px; opacity: 0.7;
+        animation: x-drift 72s linear var(--delay, 0s) infinite backwards;
+      }
+      .x-drift img { width: 100%; animation: x-bob var(--d, 8s) ease-in-out infinite; }
+      .x-drift--angel { --delay: 3s; --r: -3deg; --d: 7s; top: 28%; }
+      .x-drift--ice { --delay: 39s; --r: 2deg; --d: 9s; top: 64%; animation-direction: reverse; }
+      @keyframes x-drift {
+        0% { transform: translateX(-160px); }
+        45%, 100% { transform: translateX(calc(100vw + 20px)); }
+      }
+      @media (min-width: 761px) { .x-drift { width: 130px; } }
+      /* Peeking cats on card corners: above the card, over its padding only */
+      #tiers .cards { margin-top: 44px; }
+      #tiers .cards > div:first-child, .x-agent { position: relative; }
+      .x-peek { position: absolute; z-index: 1; animation: x-bob 8s ease-in-out infinite; }
+      .x-peek--wizard { --r: 4deg; width: 42px; top: -60px; right: 14px; }
+      .x-peek--king { --r: -3deg; width: 52px; top: -54px; right: 10px; }
+      #agent .x-asteps { margin-bottom: 68px; }
+      @media (min-width: 761px) { .x-peek--wizard { width: 48px; top: -70px; } .x-peek--king { width: 60px; top: -62px; } }
+      @media (prefers-reduced-motion: reduce) {
+        .x-hcat, .x-hcat img, .x-peek, .x-drift img { animation: none; }
+        .x-spark { animation: none; opacity: 0.8; }
+        .x-sky { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="nav glass" data-auto></header>
+      <main class="main">
+        <section class="hero">
+          <img class="hero__img" src="hero.png" alt="像素风紫金色天界裂隙，漂浮的岛屿间圆滚滚的小猫飞升而出 · A pixel-art violet and gold celestial portal with floating islands and chubby kittens ascending" />
+          <div class="hero__copy">
+            <img class="x-logo" src="logo.png" alt="飞升喵境徽标：紫色菱形传送门里带光环和翅膀的小猫 · Ascension Catty logo: a haloed, winged kitten in a violet diamond portal" />
+            <p class="hero__eyebrow">像素喵 NFT · Pixel cat NFT · BNB Smart Chain</p>
+            <h1>飞升喵境 <span class="x-sub">Ascension Catty</span></h1>
+            <p class="hero__sub">天界裂隙打开，一群圆滚滚的小猫咪飞升而出，等待一位守护者把它们带回家。The celestial rift opens and a bunch of round little kittens ascend, waiting for a guardian to take them home.</p>
+            <p class="hero__meta">合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns.</p>
+          </div>
+          <div class="x-hfloats" aria-hidden="true">
+            <div class="x-hcat x-hcat--king">
+              <img src="float_king.png" alt="" />
+              <i class="x-spark" style="top: 6%; left: -8%; --sd: 0s"></i>
+              <i class="x-spark" style="top: 40%; left: -14%; --sd: 0.9s"></i>
+              <i class="x-spark" style="bottom: 2%; right: 18%; --sd: 1.7s"></i>
+            </div>
+            <div class="x-hcat x-hcat--angel">
+              <img src="float_angel.png" alt="" />
+              <i class="x-spark" style="top: -4%; right: 8%; --sd: 0.4s"></i>
+              <i class="x-spark" style="bottom: 8%; left: -10%; --sd: 1.3s"></i>
+            </div>
+            <div class="x-hcat x-hcat--wizard">
+              <img src="float_wizard.png" alt="" />
+              <i class="x-spark" style="top: 4%; right: -16%; --sd: 0.6s"></i>
+              <i class="x-spark" style="top: 48%; right: -22%; --sd: 2s"></i>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats">
+          <div class="stat"><span class="stat__fig">0 / 2,222</span><span class="stat__label">已飞升 Ascended</span></div>
+          <div class="stat"><span class="stat__fig">20</span><span class="stat__label">免费名额剩余 Free spots left · 每个钱包最多 20 只 Max 20 per wallet</span></div>
+        </section>
+        <p><span class="chip" id="status-chip">即将开放 Opening soon</span></p>
+
+        <section class="section" id="tiers" data-nav="迎接 Tiers">
+          <div class="head">
+            <p class="head__eyebrow">铸造 Mint</p>
+            <h2>两种方式迎接守护喵，总量 2,222 只。<span class="x-sub">Two ways to welcome a guardian cat, 2,222 total.</span></h2>
+            <p class="head__sub">合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns.</p>
+          </div>
+          <div class="cards">
+            <div>
+              <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
+              <h3>免费铸造 Free Mint</h3>
+              <p class="quote">0.0005 BNB</p>
+              <ul>
+                <li>每个钱包最多 20 只 Max 20 per wallet</li>
+                <li>附赠 100,000 $PURR（虚构宝石代币）Comes with 100,000 $PURR, a fictional gem token</li>
+              </ul>
+              <div class="x-mint">
+                <div class="x-mint__row">
+                  <div class="x-stepper" role="group" aria-label="数量 Quantity">
+                    <button type="button" data-tier="free" data-step="-1" aria-label="减少 Decrease">−</button>
+                    <output class="x-qty" data-qty="free" aria-live="polite">1</output>
+                    <button type="button" data-tier="free" data-step="1" aria-label="增加 Increase">+</button>
+                  </div>
+                  <p class="x-total">合计 Total <b data-total="free">0.0005 BNB</b></p>
+                </div>
+                <button type="button" class="x-pixel" data-mint="free" data-label="铸造 Mint" disabled>即将开放 Coming soon</button>
+              </div>
+            </div>
+            <div>
+              <h3>召唤铸造 Summon Mint</h3>
+              <p class="quote">0.005 BNB</p>
+              <ul>
+                <li>每个钱包最多 20 只 Max 20 per wallet</li>
+                <li>✨ 更高稀有度概率 Higher rarity odds</li>
+                <li>附赠 100,000 $PURR（虚构宝石代币）Comes with 100,000 $PURR, a fictional gem token</li>
+              </ul>
+              <div class="x-mint">
+                <div class="x-mint__row">
+                  <div class="x-stepper" role="group" aria-label="数量 Quantity">
+                    <button type="button" data-tier="summon" data-step="-1" aria-label="减少 Decrease">−</button>
+                    <output class="x-qty" data-qty="summon" aria-live="polite">1</output>
+                    <button type="button" data-tier="summon" data-step="1" aria-label="增加 Increase">+</button>
+                  </div>
+                  <p class="x-total">合计 Total <b data-total="summon">0.005 BNB</b></p>
+                </div>
+                <button type="button" class="x-pixel" data-mint="summon" data-label="召唤 Summon" disabled>即将开放 Coming soon</button>
+              </div>
+            </div>
+          </div>
+          <p class="fineprint">数量 1 到 20。合约地址在本官网公布后，按钮才会开放；交易需在你的钱包中确认。Quantity 1 to 20. Buttons open only once the contract address is published on this site; every transaction is confirmed in your own wallet.</p>
+        </section>
+
+        <section class="section" id="agent" data-nav="Agent">
+          <div class="head">
+            <p class="head__eyebrow">币安 Agent Binance Agent</p>
+            <h2>用币安 Agent 铸造 <span class="x-sub">Mint with Binance Agent</span></h2>
+          </div>
+          <ol class="x-asteps">
+            <li><span class="x-asteps__ic" aria-hidden="true">📋</span>① 复制 <span class="x-en">Copy</span></li>
+            <li aria-hidden="true" class="x-asteps__arrow">→</li>
+            <li><span class="x-asteps__ic" aria-hidden="true">🤖</span>② 粘贴给 Agent <span class="x-en">Paste to your Agent</span></li>
+            <li aria-hidden="true" class="x-asteps__arrow">→</li>
+            <li><span class="x-asteps__ic" aria-hidden="true">✅</span>③ 预览后确认 <span class="x-en">Preview &amp; confirm</span></li>
+          </ol>
+          <div class="x-agent">
+            <img class="x-peek x-peek--king" src="float_king.png" alt="" aria-hidden="true" />
+            <div class="x-toggle" role="group" aria-label="铸造方式 Mint type">
+              <button type="button" data-agent-tier="free" aria-pressed="true">免费 Free · 0.0005</button>
+              <button type="button" data-agent-tier="summon" aria-pressed="false">召唤 Summon · 0.005</button>
+            </div>
+            <div class="x-agent__row">
+              <div class="x-stepper" role="group" aria-label="数量 Quantity">
+                <button type="button" data-tier="agent" data-step="-1" aria-label="减少 Decrease">−</button>
+                <output class="x-qty" data-qty="agent" aria-live="polite">1</output>
+                <button type="button" data-tier="agent" data-step="1" aria-label="增加 Increase">+</button>
+              </div>
+              <p class="x-agent__total"><span>合计 Total</span><b data-total="agent" aria-live="polite">0.0005 BNB</b></p>
+            </div>
+            <p class="x-prompt is-empty" data-prompt="agent">合约地址即将公布 Contract address coming soon</p>
+            <button type="button" class="x-pixel x-agent__copy" data-copy="agent" disabled>即将开放 Coming soon</button>
+          </div>
+          <p class="fineprint x-safety">只认准本官网合约地址 · 永不泄露助记词 · 签名前核对金额 Only trust this site's contract · Never share your seed phrase · Check the amount before signing.</p>
+        </section>
+
+        <section class="section" id="cats" data-nav="守护喵 Cats">
+          <div class="head">
+            <p class="head__eyebrow">角色 Characters</p>
+            <h2>七位守护喵 <span class="x-sub">Seven Guardian Cats</span></h2>
+          </div>
+          <figure class="band">
+            <img src="cats7.png" alt="七只像素守护喵从左到右排列：天使橘猫、王冠黑猫、披风灰猫、花冠三花、冰晶白猫、火尾橘猫、巫师奶牛猫 · Seven pixel guardian cats, left to right: Angel Tabby, Crown Noir, Caped Grey, Blossom Calico, Frost Puff, Ember Tail, Wizard Tux" />
+            <figcaption>从左到右 Left to right · 1 → 7</figcaption>
+          </figure>
+          <div class="cards">
+            <div><h3>1 · 天使橘猫 Angel Tabby</h3><p>金色光环和白色翅膀 Golden halo and white wings</p></div>
+            <div><h3>2 · 王冠黑猫 Crown Noir</h3><p>戴着小金冠的黑猫 A black cat with a tiny gold crown</p></div>
+            <div><h3>3 · 披风灰猫 Caped Grey</h3><p>蓝色英雄披风 A blue hero cape</p></div>
+            <div><h3>4 · 花冠三花 Blossom Calico</h3><p>头戴花环 A flower crown</p></div>
+            <div><h3>5 · 冰晶白猫 Frost Puff</h3><p>冰晶光环环绕 Surrounded by an ice-crystal aura</p></div>
+            <div><h3>6 · 火尾橘猫 Ember Tail</h3><p>尾巴燃着小火苗 A tail with a little flame</p></div>
+            <div><h3>7 · 巫师奶牛猫 Wizard Tux</h3><p>紫色巫师帽和星星魔杖 A purple wizard hat and star wand</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="realms" data-nav="图鉴 Realms">
+          <div class="head">
+            <p class="head__eyebrow">喵境图鉴 Realm gallery</p>
+            <h2>四个喵境，四种小猫 <span class="x-sub">Four realms, four kinds of kitten</span></h2>
+          </div>
+          <figure class="band">
+            <img src="realms.png" alt="四格像素小猫：森林花猫、余烬橘猫、极光白猫、带翅膀的星海黑猫 · A 2x2 pixel grid: forest tabby, ember orange cat, aurora white cat, cosmic black winged cat" />
+            <figcaption>森林 · 荒原 · 苔原 · 虚空 Forest · Wastes · Tundra · Void</figcaption>
+          </figure>
+          <div class="cards">
+            <div>
+              <h3>🌲 神秘森林 Mystic Forest</h3>
+              <p>小花猫在苔藓上打滚。Tabby kittens rolling in the moss.</p>
+            </div>
+            <div>
+              <h3>🔥 余烬荒原 Ember Wastes</h3>
+              <p>橘猫顶着火尾巴。Orange cats with a flame tail.</p>
+            </div>
+            <div>
+              <h3>❄️ 极光苔原 Aurora Tundra</h3>
+              <p>白猫追着极光。White cats chasing the aurora.</p>
+            </div>
+            <div>
+              <h3>🌀 星海虚空 Cosmic Void</h3>
+              <p>黑猫长出小翅膀。Black cats with tiny wings.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="lore" data-nav="传说 Lore">
+          <div class="head">
+            <p class="head__eyebrow">传说 Lore</p>
+            <h2>巨猫也有宝宝 <span class="x-sub">The giants had kittens</span></h2>
+          </div>
+          <div class="prose">
+            <p>守护者们曾追寻天界的巨猫，直到有一天裂隙另一边传来小小的「喵呜」。原来巨猫也有宝宝，太小太可爱，守护者们放下追寻，决定一只只把它们接回家。</p>
+            <p>The guardians once sought the great celestial cats, until one day a tiny "meow" echoed from the other side of the rift. The giants had kittens, too small and too cute, so the guardians stopped chasing and began welcoming them home one by one.</p>
+          </div>
+        </section>
+
+        <section class="section" id="traits" data-nav="特征 Traits">
+          <div class="head">
+            <p class="head__eyebrow">特征与稀有度 Traits &amp; rarity</p>
+            <h2>金色星星眼最稀有 <span class="x-sub">Gold star eyes are the rarest</span></h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">特征 Trait</th>
+                  <th scope="col">种类 Values</th>
+                  <th scope="col">概率 Odds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">物种 Species</th>
+                  <td>花猫·橘猫·黑猫·白猫 <small>Tabby·Orange·Black·White</small></td>
+                  <td class="num">25% ×4</td>
+                </tr>
+                <tr>
+                  <th scope="row">喵境 Realm</th>
+                  <td>森林·荒原·苔原·虚空 <small>Forest·Wastes·Tundra·Void</small></td>
+                  <td class="num">25% ×4</td>
+                </tr>
+                <tr class="is-highlight">
+                  <th scope="row">✨ 金色星星眼 Gold star eyes<span class="dot">最稀有 Rarest</span></th>
+                  <td>稀有 Rare</td>
+                  <td class="num">10%</td>
+                </tr>
+                <tr>
+                  <th scope="row">😇 光环 Halo</th>
+                  <td>飞升证明 Proof of ascension</td>
+                  <td class="num">25%</td>
+                </tr>
+                <tr>
+                  <th scope="row">等级 Tier</th>
+                  <td>Free · Summon</td>
+                  <td class="muted">按方式 By choice</td>
+                </tr>
+                <tr>
+                  <th scope="row">角色 Character</th>
+                  <td>7 位守护喵 <small>7 guardian cats</small></td>
+                  <td class="muted">按角色 By character</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" id="purr" data-nav="$PURR">
+          <div class="head">
+            <p class="head__eyebrow">$PURR 代币（概念）$PURR token (concept)</p>
+            <h2>喵境宝石，仅为概念设定的虚构代币。<span class="x-sub">A fictional gem token, concept only.</span></h2>
+          </div>
+          <section class="stats">
+            <div class="stat"><span class="stat__fig">222.3M</span><span class="stat__label">硬顶 Hard cap</span></div>
+            <div class="stat"><span class="stat__fig">222.2M</span><span class="stat__label">归守护者 To guardians · 2,222 × 100,000</span></div>
+            <div class="stat"><span class="stat__fig">100,000</span><span class="stat__label">每只 Per cat</span></div>
+            <div class="stat"><span class="stat__fig">0.1M</span><span class="stat__label">团队 Team</span></div>
+          </section>
+          <p class="fineprint">BNB Smart Chain (56) · NFT: TBA · $PURR: TBA。以上均为占位符，仅为概念。These are placeholders, concept only.</p>
+        </section>
+
+        <section class="section" id="roadmap" data-nav="路线图 Roadmap">
+          <div class="head">
+            <p class="head__eyebrow">路线图 Roadmap · 虚构 Fictional</p>
+            <h2>四个阶段 <span class="x-sub">Four stages</span></h2>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">阶段一 Stage 1</p></div>
+              <div><h3>召唤 Summoning</h3><p>揭晓概念，聚集社区。Concept reveal and community.</p></div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">阶段二 Stage 2</p></div>
+              <div><h3>飞升开启 Ascension opens</h3><p>仅为概念设定。Concept only.</p></div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">阶段三 Stage 3</p></div>
+              <div><h3>揭示 Reveal</h3><p>特征揭晓。Traits revealed.</p></div>
+            </article>
+            <article class="step">
+              <div class="step__intro"><p class="step__num">04</p><p class="step__eyebrow">阶段四 Stage 4</p></div>
+              <div><h3>喵境扩张 Realm expansion</h3><p>持有者活动。Holder events.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="faq" data-nav="FAQ">
+          <div class="head">
+            <p class="head__eyebrow">常见问题 FAQ</p>
+            <h2>安全第一 <span class="x-sub">Safety first</span></h2>
+          </div>
+          <div class="cards">
+            <div>
+              <h3>这是真实项目吗？Is this a real project?</h3>
+              <p>不是，这是一个概念展示页面。No, this is a concept showcase page.</p>
+            </div>
+            <div>
+              <h3>免费真的免费吗？Is free really free?</h3>
+              <p>概念设定里是的；本页不涉及任何交易。In the concept, yes; this page involves no transactions.</p>
+            </div>
+            <div>
+              <h3>图片存在哪里？Where is the art stored?</h3>
+              <p>概念设定为全链上渲染。In the concept, rendered fully on-chain.</p>
+            </div>
+            <div>
+              <h3>怎样避免诈骗？How do I stay safe?</h3>
+              <p>永远不要泄露助记词或私钥，警惕冒充的铸造链接。Never share your seed phrase or private key, and beware of fake mint links.</p>
+            </div>
+            <div>
+              <h3>怎么确认合约是真的？How do I know the contract is real?</h3>
+              <p>只看本官网公布的地址，并在 BscScan 上核对已验证源码。Only use the address published on this site, and check its verified source code on BscScan.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="foot">
+        <p><strong>飞升喵境 Ascension Catty</strong> · 合约尚未部署，铸造功能暂未开放。NFT 仅为数字藏品，不承诺任何收益。Contract not yet deployed; minting is not live. NFTs are digital collectibles with no promise of returns. · © 2026</p>
+        <nav aria-label="Back to sections" data-auto></nav>
+        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
+          ><span class="hark-mark"></span><span>built by hark</span></a
+        >
+      </footer>
+    </div>
+    <div class="x-sky" aria-hidden="true">
+      <div class="x-drift x-drift--angel"><img src="float_angel.png" alt="" /></div>
+      <div class="x-drift x-drift--ice"><img src="float_ice.png" alt="" /></div>
+    </div>
+    <div class="x-toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="hark.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+    <script>
+      /* =====================================================================
+       * KONFIGURASI / CONFIG
+       * ID: Isi contractAddress dengan alamat kontrak NFT setelah deploy.
+       *     Selama contractAddress kosong (''), semua tombol mint, prompt Agent
+       *     dan tombol Connect Wallet tetap NONAKTIF dan tidak ada permintaan
+       *     ke dompet yang dikirim.
+       * EN: Set contractAddress to the NFT contract address after deploying.
+       *     While contractAddress is empty (''), every mint button, the Agent
+       *     prompts and Connect Wallet stay INACTIVE and no wallet request is sent.
+       * ===================================================================== */
+      const CONFIG = {
+        chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
+        chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
+        contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
+        freeMintFn: 'freeMint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
+        summonMintFn: 'summonMint',     // ID: Nama fungsi Summon Mint · EN: Summon Mint function name
+        freePriceBNB: '0.0005',         // ID: Harga per NFT Free (BNB) · EN: Free price per NFT (BNB)
+        summonPriceBNB: '0.005',        // ID: Harga per NFT Summon (BNB) · EN: Summon price per NFT (BNB)
+        maxPerWallet: 20                // ID: Maksimal per dompet · EN: Max per wallet
+      };
+
+      // ID: Fragmen ABI · EN: ABI fragments
+      const ABI = [
+        `function ${CONFIG.freeMintFn}(uint256 quantity) payable`,
+        `function ${CONFIG.summonMintFn}(uint256 quantity) payable`
+      ];
+
+      (function () {
+        const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
+        const ADDR = CONFIG.contractAddress.trim();
+        const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
+        const TIERS = {
+          free: { fn: CONFIG.freeMintFn, price: CONFIG.freePriceBNB },
+          summon: { fn: CONFIG.summonMintFn, price: CONFIG.summonPriceBNB }
+        };
+        const qty = { free: 1, summon: 1, agent: 1 };
+        let agentTier = 'free';
+        let account = null;
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+        // Exact decimal total: price × qty, without float drift
+        // (integer math in 1e-4 units, so at most 4 decimals: 0.0005 × 20 = 0.01)
+        function totalOf(price, n) {
+          const units = Math.round(Number(price) * 1e4) * n;
+          const s = String(units).padStart(5, '0');
+          return (s.slice(0, -4) + '.' + s.slice(-4)).replace(/0+$/, '').replace(/\.$/, '');
+        }
+        function total(tier) { return totalOf(TIERS[tier].price, qty[tier]); }
+        const agentTotal = () => totalOf(TIERS[agentTier].price, qty.agent);
+
+        // Toast
+        const toastEl = document.getElementById('toast');
+        let toastTimer;
+        function toast(html, ms) {
+          toastEl.innerHTML = html;
+          toastEl.classList.add('is-on');
+          clearTimeout(toastTimer);
+          if (ms !== 0) toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), ms || 4500);
+        }
+        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const NOT_DEPLOYED = '合约尚未部署 Contract not deployed yet';
+
+        function promptText() {
+          const n = qty.agent;
+          return `用我的币安 Agentic Wallet 铸造 ${n} 只 Ascension Catty：调用 ${ADDR} 的 ${TIERS[agentTier].fn}(${n})，附 ${agentTotal()} BNB。先预览，我确认后再签名。`;
+        }
+
+        function renderAgent() {
+          $$('[data-qty="agent"]').forEach((el) => (el.textContent = qty.agent));
+          $$('[data-total="agent"]').forEach((el) => (el.textContent = agentTotal() + ' BNB'));
+          $$('[data-tier="agent"]').forEach((b) => {
+            b.disabled = +b.dataset.step < 0 ? qty.agent <= 1 : qty.agent >= CONFIG.maxPerWallet;
+          });
+          $$('[data-agent-tier]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.agentTier === agentTier)));
+          $$('[data-prompt="agent"]').forEach((el) => {
+            if (ACTIVE) { el.textContent = promptText(); el.classList.remove('is-empty'); }
+            else { el.textContent = '合约地址即将公布 Contract address coming soon'; el.classList.add('is-empty'); }
+          });
+        }
+
+        $$('[data-agent-tier]').forEach((b) =>
+          b.addEventListener('click', () => { agentTier = b.dataset.agentTier; renderAgent(); })
+        );
+
+        function render(tier) {
+          $$(`[data-qty="${tier}"]`).forEach((el) => (el.textContent = qty[tier]));
+          $$(`[data-total="${tier}"]`).forEach((el) => (el.textContent = total(tier) + ' BNB'));
+          $$(`[data-tier="${tier}"]`).forEach((b) => {
+            const d = +b.dataset.step;
+            b.disabled = d < 0 ? qty[tier] <= 1 : qty[tier] >= CONFIG.maxPerWallet;
+          });
+        }
+
+        // Steppers (1 to maxPerWallet)
+        $$('[data-step]').forEach((b) =>
+          b.addEventListener('click', () => {
+            const t = b.dataset.tier;
+            qty[t] = Math.min(CONFIG.maxPerWallet, Math.max(1, qty[t] + +b.dataset.step));
+            t === 'agent' ? renderAgent() : render(t);
+          })
+        );
+
+        // Mint buttons
+        $$('[data-mint]').forEach((b) => {
+          if (ACTIVE) { b.disabled = false; b.textContent = b.dataset.label; }
+          else { b.disabled = true; b.textContent = '即将开放 Coming soon'; }
+          b.addEventListener('click', () => { if (ACTIVE && !b.disabled) mint(b.dataset.mint, b); });
+        });
+
+        // Copy buttons
+        const COPY_LABEL = '一键复制 Copy Prompt';
+        $$('[data-copy]').forEach((b) => {
+          let copyTimer;
+          b.disabled = !ACTIVE;
+          b.textContent = ACTIVE ? COPY_LABEL : '即将开放 Coming soon';
+          b.addEventListener('click', async () => {
+            if (!ACTIVE) return;
+            try {
+              await navigator.clipboard.writeText(promptText());
+              b.textContent = '已复制 ✓ Copied';
+              clearTimeout(copyTimer);
+              copyTimer = setTimeout(() => (b.textContent = COPY_LABEL), 2000);
+            } catch (e) { toast('复制失败，请手动选择文字 Copy failed, select the text manually'); }
+          });
+        });
+
+        if (ACTIVE) {
+          const chip = document.getElementById('status-chip');
+          if (chip) { chip.textContent = '铸造开放 Mint live'; chip.classList.add('chip--solid'); }
+        }
+
+        async function ensureChain() {
+          try {
+            await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_HEX }] });
+          } catch (e) {
+            if (e && (e.code === 4902 || (e.data && e.data.originalError && e.data.originalError.code === 4902))) {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: CHAIN_HEX, chainName: CONFIG.chainName,
+                  nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+                  rpcUrls: ['https://bsc-dataseed.bnbchain.org'],
+                  blockExplorerUrls: ['https://bscscan.com']
+                }]
+              });
+            } else throw e;
+          }
+        }
+
+        async function connect() {
+          if (!ACTIVE) { toast(NOT_DEPLOYED); return null; }
+          if (!window.ethereum) { toast('未检测到钱包 No wallet found'); return null; }
+          try {
+            const accts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            await ensureChain();
+            account = accts[0];
+            walletBtn.textContent = account.slice(0, 6) + '…' + account.slice(-4);
+            toast('钱包已连接 Wallet connected');
+            return account;
+          } catch (e) {
+            toast('连接失败 Connection failed: ' + esc(e.shortMessage || e.message || e));
+            return null;
+          }
+        }
+
+        async function mint(tier, btn) {
+          const n = qty[tier];
+          if (n < 1 || n > CONFIG.maxPerWallet) { toast(`数量需为 1 到 ${CONFIG.maxPerWallet} Quantity must be 1 to ${CONFIG.maxPerWallet}`); return; }
+          if (typeof ethers === 'undefined') { toast('钱包库加载失败 Wallet library failed to load'); return; }
+          if (!account && !(await connect())) return;
+          btn.disabled = true;
+          try {
+            await ensureChain();
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(ADDR, ABI, signer);
+            const value = ethers.parseEther(TIERS[tier].price) * BigInt(n);
+            const tx = await contract[TIERS[tier].fn](n, { value });
+            const link = `<a href="https://bscscan.com/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
+            toast('交易处理中 Transaction pending: ' + link, 0);
+            const receipt = await tx.wait();
+            if (receipt && receipt.status === 1) toast('铸造成功 Mint successful: ' + link, 8000);
+            else toast('交易失败 Transaction failed: ' + link, 8000);
+          } catch (e) {
+            toast('交易失败 Transaction failed: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
+          } finally {
+            btn.disabled = false;
+          }
+        }
+
+        // Connect Wallet button in the nav (the nav is filled by hark.js first)
+        const walletBtn = document.createElement('button');
+        walletBtn.type = 'button';
+        walletBtn.className = 'x-wallet';
+        walletBtn.innerHTML = '连接钱包<span class="x-en"> Connect Wallet</span>';
+        walletBtn.addEventListener('click', connect);
+        function mountWallet() {
+          const nav = document.querySelector('header.nav');
+          if (!nav) return;
+          const theme = nav.querySelector('.theme-btn');
+          theme ? nav.insertBefore(walletBtn, theme) : nav.appendChild(walletBtn);
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountWallet);
+        else mountWallet();
+
+        if (ACTIVE && window.ethereum && window.ethereum.on) {
+          window.ethereum.on('accountsChanged', (a) => {
+            account = a[0] || null;
+            walletBtn.innerHTML = account ? account.slice(0, 6) + '…' + account.slice(-4) : '连接钱包<span class="x-en"> Connect Wallet</span>';
+          });
+        }
+
+        render('free');
+        render('summon');
+        renderAgent();
+      })();
+    </script>
+  </body>
+</html>
