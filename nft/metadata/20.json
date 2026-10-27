@@ -1,0 +1,28 @@
+{
+  "name": "Ascension Catty #20 · 小帽子喵 Beanie Mew",
+  "description": "小帽子喵 Beanie Mew: a common guardian of the Ascension Catty realm on BNB Chain. 飞升喵境的普通守护喵。",
+  "image": "https://ascensionrealm.fun/nft/images/20.jpg",
+  "external_url": "https://ascensionrealm.fun/#gallery",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Grey Tabby"
+    },
+    {
+      "trait_type": "Headwear",
+      "value": "Yellow Beanie"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "None"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Lavender"
+    }
+  ]
+}
