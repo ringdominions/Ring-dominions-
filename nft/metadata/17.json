@@ -1,0 +1,28 @@
+{
+  "name": "Ascension Catty #17 · 气球喵 Balloon Mew",
+  "description": "气球喵 Balloon Mew: a common guardian of the Ascension Catty realm on BNB Chain. 飞升喵境的普通守护喵。",
+  "image": "https://ascensionrealm.fun/nft/images/17.jpg",
+  "external_url": "https://ascensionrealm.fun/#gallery",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Cream"
+    },
+    {
+      "trait_type": "Headwear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Heart Balloon"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Lavender"
+    }
+  ]
+}
