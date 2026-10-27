@@ -1,0 +1,222 @@
+[
+ {
+  "id": 1,
+  "rarity": "Legendary",
+  "zh": "星辰剑圣喵",
+  "en": "Starblade Sage Mew",
+  "fur": "Silver",
+  "hat": "Star Crown",
+  "acc": "Glowing Star Sword",
+  "bg": "Golden Nebula",
+  "desc": "a tiny silver kitten samurai holding a glowing star sword, little star crown"
+ },
+ {
+  "id": 2,
+  "rarity": "Legendary",
+  "zh": "樱花女神喵",
+  "en": "Sakura Goddess Mew",
+  "fur": "Pink",
+  "hat": "Sakura Tiara",
+  "acc": "Petal Wings",
+  "bg": "Golden Nebula",
+  "desc": "a tiny pink kitten goddess with a sakura flower tiara and pink petal wings, cherry blossoms swirling"
+ },
+ {
+  "id": 3,
+  "rarity": "Legendary",
+  "zh": "雷霆龙骑喵",
+  "en": "Thunder Dragon Rider Mew",
+  "fur": "Black",
+  "hat": "Dragon Helm",
+  "acc": "Baby Dragon",
+  "bg": "Golden Nebula",
+  "desc": "a tiny black kitten in a little dragon helmet riding a chubby baby blue dragon, tiny lightning sparks"
+ },
+ {
+  "id": 4,
+  "rarity": "Legendary",
+  "zh": "彩虹天使喵",
+  "en": "Rainbow Seraph Mew",
+  "fur": "White",
+  "hat": "Double Halo",
+  "acc": "Rainbow Wings",
+  "bg": "Golden Nebula",
+  "desc": "a tiny white kitten with two golden halos and six small rainbow wings, holding a tiny harp"
+ },
+ {
+  "id": 5,
+  "rarity": "Rare",
+  "zh": "甜甜圈厨师喵",
+  "en": "Donut Chef Mew",
+  "fur": "Calico",
+  "hat": "Chef Hat",
+  "acc": "Pink Donut",
+  "bg": "Indigo Sky",
+  "desc": "a tiny orange kitten in a chef hat holding a pink sprinkle donut"
+ },
+ {
+  "id": 6,
+  "rarity": "Rare",
+  "zh": "海盗船长喵",
+  "en": "Pirate Captain Mew",
+  "fur": "Calico",
+  "hat": "Pirate Hat",
+  "acc": "Eye Patch",
+  "bg": "Indigo Sky",
+  "desc": "a tiny calico kitten pirate captain with a pirate hat and cute eye patch, tiny telescope"
+ },
+ {
+  "id": 7,
+  "rarity": "Rare",
+  "zh": "耳机DJ喵",
+  "en": "DJ Headphones Mew",
+  "fur": "Grey",
+  "hat": "Neon Headphones",
+  "acc": "Mini Turntable",
+  "bg": "Indigo Sky",
+  "desc": "a tiny grey kitten DJ wearing big neon headphones with a mini turntable, music notes"
+ },
+ {
+  "id": 8,
+  "rarity": "Rare",
+  "zh": "小熊睡衣喵",
+  "en": "Bear Pajama Mew",
+  "fur": "Cream",
+  "hat": "Bear Hood",
+  "acc": "Teddy",
+  "bg": "Indigo Sky",
+  "desc": "a tiny cream kitten in a brown bear-ear pajama hood hugging a mini teddy"
+ },
+ {
+  "id": 9,
+  "rarity": "Rare",
+  "zh": "魔法学徒喵",
+  "en": "Apprentice Witch Mew",
+  "fur": "Tuxedo",
+  "hat": "Mini Witch Hat",
+  "acc": "Broom",
+  "bg": "Indigo Sky",
+  "desc": "a tiny tuxedo kitten in a mini witch hat sitting on a little broom, pumpkin sparkles"
+ },
+ {
+  "id": 10,
+  "rarity": "Rare",
+  "zh": "冰淇淋喵",
+  "en": "Ice Cream Mew",
+  "fur": "Mint",
+  "hat": "Cone Hat",
+  "acc": "Sprinkles",
+  "bg": "Indigo Sky",
+  "desc": "a tiny mint-colored kitten wearing an ice cream cone hat with sprinkles"
+ },
+ {
+  "id": 11,
+  "rarity": "Common",
+  "zh": "毛线球喵",
+  "en": "Yarn Ball Mew",
+  "fur": "Orange Tabby",
+  "hat": "None",
+  "acc": "Yarn Ball",
+  "bg": "Lavender",
+  "desc": "a tiny orange tabby kitten playing with a blue yarn ball"
+ },
+ {
+  "id": 12,
+  "rarity": "Common",
+  "zh": "蝴蝶结喵",
+  "en": "Ribbon Mew",
+  "fur": "White",
+  "hat": "Pink Bow",
+  "acc": "None",
+  "bg": "Lavender",
+  "desc": "a tiny white kitten with a big pink bow on its head"
+ },
+ {
+  "id": 13,
+  "rarity": "Common",
+  "zh": "小鱼干喵",
+  "en": "Fishy Snack Mew",
+  "fur": "Grey",
+  "hat": "None",
+  "acc": "Fish Boba",
+  "bg": "Lavender",
+  "desc": "a tiny grey kitten holding a little fish snack in its mouth"
+ },
+ {
+  "id": 14,
+  "rarity": "Common",
+  "zh": "纸箱喵",
+  "en": "Box Mew",
+  "fur": "Black",
+  "hat": "None",
+  "acc": "Cardboard Box",
+  "bg": "Lavender",
+  "desc": "a tiny black kitten peeking out of a cardboard box"
+ },
+ {
+  "id": 15,
+  "rarity": "Common",
+  "zh": "围巾喵",
+  "en": "Scarf Mew",
+  "fur": "Calico",
+  "hat": "Strawberry Hood",
+  "acc": "Red Scarf",
+  "bg": "Lavender",
+  "desc": "a tiny calico kitten wearing a cozy red scarf"
+ },
+ {
+  "id": 16,
+  "rarity": "Common",
+  "zh": "眼镜喵",
+  "en": "Nerd Glasses Mew",
+  "fur": "Siamese",
+  "hat": "None",
+  "acc": "Round Glasses",
+  "bg": "Lavender",
+  "desc": "a tiny siamese kitten wearing round glasses holding a tiny book"
+ },
+ {
+  "id": 17,
+  "rarity": "Common",
+  "zh": "气球喵",
+  "en": "Balloon Mew",
+  "fur": "Cream",
+  "hat": "None",
+  "acc": "Heart Balloon",
+  "bg": "Lavender",
+  "desc": "a tiny cream kitten holding a red heart balloon"
+ },
+ {
+  "id": 18,
+  "rarity": "Common",
+  "zh": "铃铛喵",
+  "en": "Bell Collar Mew",
+  "fur": "Tuxedo",
+  "hat": "None",
+  "acc": "Gold Bell & Boba",
+  "bg": "Lavender",
+  "desc": "a tiny tuxedo kitten with a gold bell collar"
+ },
+ {
+  "id": 19,
+  "rarity": "Common",
+  "zh": "花朵喵",
+  "en": "Flower Mew",
+  "fur": "Ginger",
+  "hat": "Daisy",
+  "acc": "Boba Tea",
+  "bg": "Lavender",
+  "desc": "a tiny ginger kitten with a daisy flower behind its ear"
+ },
+ {
+  "id": 20,
+  "rarity": "Common",
+  "zh": "小帽子喵",
+  "en": "Beanie Mew",
+  "fur": "Grey Tabby",
+  "hat": "Yellow Beanie",
+  "acc": "None",
+  "bg": "Lavender",
+  "desc": "a tiny grey tabby kitten wearing a yellow knit beanie"
+ }
+]
