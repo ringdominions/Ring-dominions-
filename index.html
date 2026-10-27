@@ -536,6 +536,16 @@
         .x-gcard--leg, .x-gmodal[open] { animation: none; }
         .x-gcard:hover { transform: none; }
       }
+          .x-live { margin: 10px 0 4px; }
+      .x-live__bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(245,199,107,.35); overflow: hidden; }
+      .x-live__bar span { display: block; height: 100%; background: linear-gradient(90deg,#f5c76b,#e79bd8); transition: width .8s ease; }
+      .x-live__meta { display: flex; align-items: center; gap: 8px; font-size: var(--size-small, 13px); opacity: .85; margin: 6px 0 0; }
+      .x-live__dot { width: 8px; height: 8px; border-radius: 50%; background: #888; flex: none; }
+      .x-live__dot.is-on { background: #3ddc84; box-shadow: 0 0 8px #3ddc84; animation: xlivepulse 2s infinite; }
+      .x-live__dot.is-off { background: #ff8a5c; }
+      @keyframes xlivepulse { 50% { opacity: .4; } }
+      @media (prefers-reduced-motion: reduce) { .x-live__dot.is-on { animation: none; } .x-live__bar span { transition: none; } }
+
     </style>
   </head>
   <body>
@@ -572,9 +582,13 @@
         </section>
 
         <section class="stats">
-          <div class="stat"><span class="stat__fig">0 / 2,222</span><span class="stat__label">已飞升 Ascended</span></div>
-          <div class="stat"><span class="stat__fig">20</span><span class="stat__label">免费名额剩余 Free spots left · 每个钱包最多 20 只 Max 20 per wallet</span></div>
+          <div class="stat"><span class="stat__fig" id="live-minted">… / 2,222</span><span class="stat__label">已飞升 Minted</span></div>
+          <div class="stat"><span class="stat__fig" id="live-left">…</span><span class="stat__label">剩余供应 Supply left · 每个钱包最多 20 只 Max 20 per wallet</span></div>
         </section>
+        <div class="x-live" aria-live="polite">
+          <div class="x-live__bar"><span id="live-bar" style="width:0%"></span></div>
+          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status">链上实时连接中… Connecting to BNB Chain…</span></p>
+        </div>
         <p><span class="chip chip--solid" id="status-chip">铸造开放 Mint live</span></p>
 
         <section class="section" id="tiers" data-nav="迎接 Tiers">
@@ -590,7 +604,7 @@
               <p class="quote">0.0005 BNB</p>
               <ul>
                 <li>每个钱包最多 20 只 Max 20 per wallet</li>
-                <li>附赠 100,000 $PURR（虚构宝石代币）Comes with 100,000 $PURR, a fictional gem token</li>
+                <li>$PURR 代币仍为概念，不随铸造发放 $PURR is still a concept and isn't included with the mint</li>
               </ul>
               <div class="x-mint">
                 <div class="x-mint__row">
@@ -610,7 +624,7 @@
               <ul>
                 <li>每个钱包最多 20 只 Max 20 per wallet</li>
                 <li>✨ 更高稀有度概率 Higher rarity odds</li>
-                <li>附赠 100,000 $PURR（虚构宝石代币）Comes with 100,000 $PURR, a fictional gem token</li>
+                <li>$PURR 代币仍为概念，不随铸造发放 $PURR is still a concept and isn't included with the mint</li>
               </ul>
               <div class="x-mint">
                 <div class="x-mint__row">
@@ -625,7 +639,7 @@
               </div>
             </div>
           </div>
-          <p class="fineprint">数量 1 到 20。合约地址在本官网公布后，按钮才会开放；交易需在你的钱包中确认。Quantity 1 to 20. Buttons open only once the contract address is published on this site; every transaction is confirmed in your own wallet.</p>
+          <p class="fineprint">数量 1 到 20。每笔交易都需在你的钱包中确认。Quantity 1 to 20. Every transaction is confirmed in your own wallet.</p>
         </section>
 
         <section class="section" id="agent" data-nav="Agent">
@@ -1301,6 +1315,7 @@
             const link = `<a href="https://bscscan.com/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
             toast('交易处理中 Transaction pending: ' + link, 0);
             const receipt = await tx.wait();
+            if (window.cattyRefreshSupply) window.cattyRefreshSupply();
             if (receipt && receipt.status === 1) toast('铸造成功 Mint successful: ' + link, 8000);
             else toast('交易失败 Transaction failed: ' + link, 8000);
           } catch (e) {
@@ -1873,5 +1888,45 @@
       });
     </script>
   <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}</script>
+<script>
+/* Live supply: reads totalMinted() from the NFT contract on BNB Chain every 15s. */
+(function () {
+  var ADDR = '0x54a5853d0326d340bA86f1170644176bb003e504', MAX = 2222, SEL = '0xa2309ff8';
+  var RPCS = ['https://bsc-dataseed.bnbchain.org', 'https://bsc-dataseed1.defibit.io', 'https://bsc-rpc.publicnode.com', 'https://bsc-dataseed2.ninicoin.io'];
+  var ri = 0, timer = null, last = null;
+  var $ = function (id) { return document.getElementById(id); };
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function show(n) {
+    last = n;
+    $('live-minted').textContent = fmt(n) + ' / ' + fmt(MAX);
+    $('live-left').textContent = fmt(Math.max(0, MAX - n));
+    $('live-bar').style.width = Math.min(100, n / MAX * 100).toFixed(2) + '%';
+    var t = new Date().toLocaleTimeString('en-GB');
+    $('live-dot').className = 'x-live__dot is-on';
+    $('live-status').textContent = (n >= MAX ? '已售罄 Sold out · ' : '') + '链上实时 Live on-chain · 更新于 Updated ' + t;
+  }
+  async function call(url) {
+    var ctl = new AbortController(); var to = setTimeout(function () { ctl.abort(); }, 8000);
+    try {
+      var r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: ADDR, data: SEL }, 'latest'] }) });
+      var j = await r.json(); if (!j.result || j.result === '0x') throw new Error('bad');
+      return parseInt(j.result, 16);
+    } finally { clearTimeout(to); }
+  }
+  async function refresh() {
+    for (var k = 0; k < RPCS.length; k++) {
+      try { show(await call(RPCS[(ri + k) % RPCS.length])); ri = (ri + k) % RPCS.length; return; } catch (e) {}
+    }
+    $('live-dot').className = 'x-live__dot is-off';
+    $('live-status').textContent = '重新连接中… Reconnecting…' + (last === null ? '' : ' (显示上次数据 showing last value)');
+  }
+  function start() { clearInterval(timer); refresh(); timer = setInterval(refresh, 15000); }
+  window.cattyRefreshSupply = refresh;
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
+  window.addEventListener('online', start);
+  start();
+})();
+</script>
 </body>
 </html>
