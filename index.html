@@ -476,6 +476,66 @@
         .x-lcard:hover { transform: none; }
         .x-sleepy img, .x-zzz { animation: none; }
       }
+
+      /* ===== 喵喵图鉴 Collection Gallery ===== */
+      #gallery .x-fpills { margin-bottom: 16px; }
+      .x-ggrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+      @media (min-width: 761px) { .x-ggrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
+      @media (min-width: 1100px) { .x-ggrid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+      .x-ggrid [hidden] { display: none; }
+      .x-gcard {
+        display: grid; gap: 8px; align-content: start; width: 100%; height: 100%; padding: 10px; text-align: left;
+        border: 3px solid var(--stroke-primary); border-radius: var(--r-m); color: var(--text-primary); font: inherit; cursor: pointer;
+        background: linear-gradient(rgb(46 26 92 / 0.9), rgb(24 14 58 / 0.9)); box-shadow: 4px 4px 0 rgb(8 3 24 / 0.7);
+        transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-gcard:hover { transform: translateY(-3px); }
+      .x-gcard:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-gcard--leg {
+        border-color: transparent;
+        background:
+          linear-gradient(rgb(46 26 92 / 0.92), rgb(30 16 66 / 0.92)) padding-box,
+          conic-gradient(from var(--x-ang), #ffd36b, #fff4c8, #f2a93c, #ffe08a, #c9861a, #fff4c8, #ffd36b) border-box;
+        box-shadow: 0 0 18px rgb(255 200 90 / 0.4), 4px 4px 0 rgb(8 3 24 / 0.7);
+        animation: x-spin 4s linear infinite;
+      }
+      .x-gcard--rare { border-color: #8fc8ff; box-shadow: 0 0 14px rgb(120 190 255 / 0.3), 4px 4px 0 rgb(8 3 24 / 0.7); }
+      .x-gcard--com { border-color: rgb(201 182 255 / 0.6); }
+      .x-gcard__media { display: block; aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: rgb(10 5 30 / 0.5); }
+      .x-gcard__media img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+      .x-gcard__id { font: var(--type-caption); font-family: "Geist Mono", ui-monospace, monospace; color: var(--text-secondary); }
+      .x-gcard__name { font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
+      .x-gcard__name .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
+      .x-gcard--leg .x-gcard__name { color: var(--x-gold); }
+      .x-badge--lav { background-color: #ddd0ff; color: #24124f; box-shadow: inset 0 -2px 0 #b9a3f5; }
+      /* Modal */
+      .x-gmodal {
+        width: min(440px, calc(100% - 2 * var(--gutter))); max-height: calc(100dvh - 32px); padding: 0; overflow: auto;
+        border: 3px solid var(--x-gold); border-radius: var(--r-l); color: var(--text-primary);
+        background: linear-gradient(rgb(46 26 92 / 0.98), rgb(24 14 58 / 0.98)); box-shadow: 0 0 0 3px #3a1f7a, 0 0 40px rgb(180 120 255 / 0.35), var(--hark-shadow);
+      }
+      .x-gmodal::backdrop { background: rgb(8 3 24 / 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+      .x-gmodal[open] { animation: x-pop var(--dur-quick) var(--ease-out); }
+      @keyframes x-pop { from { opacity: 0; transform: translateY(12px) scale(0.96); } }
+      .x-gmodal--rare { border-color: #8fc8ff; }
+      .x-gmodal--com { border-color: var(--x-lav); }
+      .x-gmodal__body { position: relative; display: grid; gap: 12px; padding: 18px; }
+      .x-gmodal__img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; image-rendering: pixelated; border-radius: var(--r-m); background: rgb(10 5 30 / 0.5); }
+      .x-gmodal__close {
+        position: absolute; top: 26px; right: 26px; z-index: 1; width: var(--tap); height: var(--tap); border: 2px solid var(--stroke-primary);
+        border-radius: var(--r-pill); background: rgb(18 10 46 / 0.85); color: var(--text-primary); font: var(--type-heading); cursor: pointer;
+      }
+      .x-gmodal__close:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      .x-gmodal__close:focus-visible, .x-gmodal .link:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-gmodal h3 { margin: 0; font: var(--type-title); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-glow); }
+      .x-gmodal h3 .x-en { display: block; margin-top: 2px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); text-shadow: none; }
+      .x-gmodal__row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0; }
+      .x-gmodal .x-traits b { color: var(--x-lav); font-weight: var(--weight-regular); }
+      .x-gmodal .fineprint { margin: 0; }
+      @media (prefers-reduced-motion: reduce) {
+        .x-gcard--leg, .x-gmodal[open] { animation: none; }
+        .x-gcard:hover { transform: none; }
+      }
     </style>
   </head>
   <body>
@@ -696,6 +756,52 @@
               </article>
             </li>
           </ul>
+        </section>
+
+        <section class="section" id="gallery" data-nav="图鉴 Gallery">
+          <div class="head">
+            <p class="head__eyebrow">喵喵图鉴 #1–#20</p>
+            <h2>喵喵图鉴 <span class="x-sub">Collection Gallery · #1–#20</span></h2>
+          </div>
+          <div class="x-fpills" role="group" aria-label="按稀有度筛选 Filter by rarity">
+            <button type="button" data-gfilter="all" aria-pressed="true">全部 All (20)</button>
+            <button type="button" data-gfilter="Legendary" aria-pressed="false">传说 Legendary (4)</button>
+            <button type="button" data-gfilter="Rare" aria-pressed="false">稀有 Rare (6)</button>
+            <button type="button" data-gfilter="Common" aria-pressed="false">普通 Common (10)</button>
+          </div>
+          <ul class="x-ggrid" id="x-ggrid">
+            <li data-id="1" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft1.jpg" alt="星辰剑圣喵 Starblade Sage Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#1</span><span class="x-gcard__name">星辰剑圣喵 <span class="x-en">Starblade Sage Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
+            <li data-id="2" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft2.jpg" alt="樱花女神喵 Sakura Goddess Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#2</span><span class="x-gcard__name">樱花女神喵 <span class="x-en">Sakura Goddess Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
+            <li data-id="3" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft3.jpg" alt="雷霆龙骑喵 Thunder Dragon Rider Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#3</span><span class="x-gcard__name">雷霆龙骑喵 <span class="x-en">Thunder Dragon Rider Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
+            <li data-id="4" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft4.jpg" alt="彩虹天使喵 Rainbow Seraph Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#4</span><span class="x-gcard__name">彩虹天使喵 <span class="x-en">Rainbow Seraph Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
+            <li data-id="5" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft5.jpg" alt="甜甜圈厨师喵 Donut Chef Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#5</span><span class="x-gcard__name">甜甜圈厨师喵 <span class="x-en">Donut Chef Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="6" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft6.jpg" alt="海盗船长喵 Pirate Captain Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#6</span><span class="x-gcard__name">海盗船长喵 <span class="x-en">Pirate Captain Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="7" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft7.jpg" alt="耳机DJ喵 DJ Headphones Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#7</span><span class="x-gcard__name">耳机DJ喵 <span class="x-en">DJ Headphones Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="8" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft8.jpg" alt="小熊睡衣喵 Bear Pajama Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#8</span><span class="x-gcard__name">小熊睡衣喵 <span class="x-en">Bear Pajama Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="9" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft9.jpg" alt="魔法学徒喵 Apprentice Witch Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#9</span><span class="x-gcard__name">魔法学徒喵 <span class="x-en">Apprentice Witch Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="10" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft10.jpg" alt="冰淇淋喵 Ice Cream Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#10</span><span class="x-gcard__name">冰淇淋喵 <span class="x-en">Ice Cream Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
+            <li data-id="11" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft11.jpg" alt="毛线球喵 Yarn Ball Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#11</span><span class="x-gcard__name">毛线球喵 <span class="x-en">Yarn Ball Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="12" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft12.jpg" alt="蝴蝶结喵 Ribbon Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#12</span><span class="x-gcard__name">蝴蝶结喵 <span class="x-en">Ribbon Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="13" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft13.jpg" alt="小鱼干喵 Fishy Snack Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#13</span><span class="x-gcard__name">小鱼干喵 <span class="x-en">Fishy Snack Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="14" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft14.jpg" alt="纸箱喵 Box Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#14</span><span class="x-gcard__name">纸箱喵 <span class="x-en">Box Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="15" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft15.jpg" alt="围巾喵 Scarf Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#15</span><span class="x-gcard__name">围巾喵 <span class="x-en">Scarf Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="16" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft16.jpg" alt="眼镜喵 Nerd Glasses Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#16</span><span class="x-gcard__name">眼镜喵 <span class="x-en">Nerd Glasses Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="17" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft17.jpg" alt="气球喵 Balloon Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#17</span><span class="x-gcard__name">气球喵 <span class="x-en">Balloon Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="18" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft18.jpg" alt="铃铛喵 Bell Collar Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#18</span><span class="x-gcard__name">铃铛喵 <span class="x-en">Bell Collar Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="19" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft19.jpg" alt="花朵喵 Flower Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#19</span><span class="x-gcard__name">花朵喵 <span class="x-en">Flower Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+            <li data-id="20" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft20.jpg" alt="小帽子喵 Beanie Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#20</span><span class="x-gcard__name">小帽子喵 <span class="x-en">Beanie Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
+          </ul>
+          <p class="fineprint">示例藏品，最终以链上为准 Sample collection; final art and metadata set on-chain.</p>
+          <dialog class="x-gmodal" id="x-gmodal" aria-labelledby="x-gm-name">
+            <div class="x-gmodal__body">
+              <button type="button" class="x-gmodal__close" data-gclose aria-label="关闭 Close">✕</button>
+              <img class="x-gmodal__img" id="x-gm-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' viewBox='0 0 1 1'/%3E" width="1" height="1" alt="" />
+              <p class="x-gmodal__row"><span class="x-gcard__id" id="x-gm-id"></span><span class="x-badge" id="x-gm-badge"></span></p>
+              <h3 id="x-gm-name"></h3>
+              <ul class="x-traits" id="x-gm-traits" aria-label="特征 Traits"></ul>
+              <p class="fineprint"><a class="link" id="x-gm-meta" href="#" target="_blank" rel="noopener">查看元数据 View metadata</a></p>
+            </div>
+          </dialog>
         </section>
 
         <section class="section" id="market" data-nav="喵市 Market">
@@ -1663,6 +1769,99 @@
               setTimeout(() => spawn(card, 'x-heart', i % 2 ? '♡' : '♥', x, y, (Math.random() - 0.5) * 70, 0, 1200), i * 70);
             }
           });
+        });
+      })();
+    </script>
+    <script>
+      // 喵喵图鉴 Collection Gallery
+      (function () {
+        const GALLERY = [
+          { id: 1, rarity: 'Legendary', zh: '星辰剑圣喵', en: 'Starblade Sage Mew', traits: { Fur: 'Silver', Headwear: 'Star Crown', Accessory: 'Glowing Star Sword', Background: 'Golden Nebula' } },
+          { id: 2, rarity: 'Legendary', zh: '樱花女神喵', en: 'Sakura Goddess Mew', traits: { Fur: 'Pink', Headwear: 'Sakura Tiara', Accessory: 'Petal Wings', Background: 'Golden Nebula' } },
+          { id: 3, rarity: 'Legendary', zh: '雷霆龙骑喵', en: 'Thunder Dragon Rider Mew', traits: { Fur: 'Black', Headwear: 'Dragon Helm', Accessory: 'Baby Dragon', Background: 'Golden Nebula' } },
+          { id: 4, rarity: 'Legendary', zh: '彩虹天使喵', en: 'Rainbow Seraph Mew', traits: { Fur: 'White', Headwear: 'Double Halo', Accessory: 'Rainbow Wings', Background: 'Golden Nebula' } },
+          { id: 5, rarity: 'Rare', zh: '甜甜圈厨师喵', en: 'Donut Chef Mew', traits: { Fur: 'Calico', Headwear: 'Chef Hat', Accessory: 'Pink Donut', Background: 'Indigo Sky' } },
+          { id: 6, rarity: 'Rare', zh: '海盗船长喵', en: 'Pirate Captain Mew', traits: { Fur: 'Calico', Headwear: 'Pirate Hat', Accessory: 'Eye Patch', Background: 'Indigo Sky' } },
+          { id: 7, rarity: 'Rare', zh: '耳机DJ喵', en: 'DJ Headphones Mew', traits: { Fur: 'Grey', Headwear: 'Neon Headphones', Accessory: 'Mini Turntable', Background: 'Indigo Sky' } },
+          { id: 8, rarity: 'Rare', zh: '小熊睡衣喵', en: 'Bear Pajama Mew', traits: { Fur: 'Cream', Headwear: 'Bear Hood', Accessory: 'Teddy', Background: 'Indigo Sky' } },
+          { id: 9, rarity: 'Rare', zh: '魔法学徒喵', en: 'Apprentice Witch Mew', traits: { Fur: 'Tuxedo', Headwear: 'Mini Witch Hat', Accessory: 'Broom', Background: 'Indigo Sky' } },
+          { id: 10, rarity: 'Rare', zh: '冰淇淋喵', en: 'Ice Cream Mew', traits: { Fur: 'Mint', Headwear: 'Cone Hat', Accessory: 'Sprinkles', Background: 'Indigo Sky' } },
+          { id: 11, rarity: 'Common', zh: '毛线球喵', en: 'Yarn Ball Mew', traits: { Fur: 'Orange Tabby', Headwear: 'None', Accessory: 'Yarn Ball', Background: 'Lavender' } },
+          { id: 12, rarity: 'Common', zh: '蝴蝶结喵', en: 'Ribbon Mew', traits: { Fur: 'White', Headwear: 'Pink Bow', Accessory: 'None', Background: 'Lavender' } },
+          { id: 13, rarity: 'Common', zh: '小鱼干喵', en: 'Fishy Snack Mew', traits: { Fur: 'Grey', Headwear: 'None', Accessory: 'Fish Boba', Background: 'Lavender' } },
+          { id: 14, rarity: 'Common', zh: '纸箱喵', en: 'Box Mew', traits: { Fur: 'Black', Headwear: 'None', Accessory: 'Cardboard Box', Background: 'Lavender' } },
+          { id: 15, rarity: 'Common', zh: '围巾喵', en: 'Scarf Mew', traits: { Fur: 'Calico', Headwear: 'Strawberry Hood', Accessory: 'Red Scarf', Background: 'Lavender' } },
+          { id: 16, rarity: 'Common', zh: '眼镜喵', en: 'Nerd Glasses Mew', traits: { Fur: 'Siamese', Headwear: 'None', Accessory: 'Round Glasses', Background: 'Lavender' } },
+          { id: 17, rarity: 'Common', zh: '气球喵', en: 'Balloon Mew', traits: { Fur: 'Cream', Headwear: 'None', Accessory: 'Heart Balloon', Background: 'Lavender' } },
+          { id: 18, rarity: 'Common', zh: '铃铛喵', en: 'Bell Collar Mew', traits: { Fur: 'Tuxedo', Headwear: 'None', Accessory: 'Gold Bell & Boba', Background: 'Lavender' } },
+          { id: 19, rarity: 'Common', zh: '花朵喵', en: 'Flower Mew', traits: { Fur: 'Ginger', Headwear: 'Daisy', Accessory: 'Boba Tea', Background: 'Lavender' } },
+          { id: 20, rarity: 'Common', zh: '小帽子喵', en: 'Beanie Mew', traits: { Fur: 'Grey Tabby', Headwear: 'Yellow Beanie', Accessory: 'None', Background: 'Lavender' } },
+        ];
+        const BADGE = {
+          Legendary: ['x-badge--leg', 'LEGENDARY ✦', 'x-gmodal'],
+          Rare: ['x-badge--rare', 'RARE ◆', 'x-gmodal x-gmodal--rare'],
+          Common: ['x-badge--lav', 'COMMON', 'x-gmodal x-gmodal--com'],
+        };
+        const sec = document.getElementById('gallery');
+        if (!sec) return;
+        const grid = document.getElementById('x-ggrid');
+        const dlg = document.getElementById('x-gmodal');
+        const $ = (id) => document.getElementById(id);
+        let opener = null;
+
+        sec.querySelectorAll('[data-gfilter]').forEach((b) =>
+          b.addEventListener('click', () => {
+            const f = b.dataset.gfilter;
+            sec.querySelectorAll('[data-gfilter]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+            grid.querySelectorAll('li').forEach((li) => (li.hidden = f !== 'all' && li.dataset.rarity !== f));
+          })
+        );
+
+        function open(li) {
+          const item = GALLERY.find((g) => g.id === Number(li.dataset.id));
+          if (!item) return;
+          const b = BADGE[item.rarity];
+          const src = li.querySelector('img');
+          const img = $('x-gm-img');
+          img.src = src.currentSrc || src.src;
+          img.alt = src.alt;
+          $('x-gm-id').textContent = '#' + item.id;
+          $('x-gm-badge').className = 'x-badge ' + b[0];
+          $('x-gm-badge').textContent = b[1];
+          $('x-gm-name').innerHTML = '';
+          $('x-gm-name').append(item.zh + ' ');
+          const en = document.createElement('span');
+          en.className = 'x-en';
+          en.textContent = item.en;
+          $('x-gm-name').append(en);
+          const ul = $('x-gm-traits');
+          ul.innerHTML = '';
+          Object.entries(item.traits).forEach(([k, v]) => {
+            if (v === 'None') return;
+            const t = document.createElement('li');
+            const lab = document.createElement('b');
+            lab.textContent = k + ' ';
+            t.append(lab, v);
+            ul.append(t);
+          });
+          $('x-gm-meta').href = 'nft/metadata/' + item.id + '.json';
+          dlg.className = b[2];
+          opener = li.querySelector('button');
+          if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+        }
+        function close() {
+          if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+        }
+        grid.addEventListener('click', (e) => {
+          const li = e.target.closest('li[data-id]');
+          if (li) open(li);
+        });
+        dlg.addEventListener('click', (e) => {
+          if (e.target === dlg || e.target.closest('[data-gclose]')) close();
+        });
+        dlg.addEventListener('close', () => opener && opener.focus());
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && dlg.open) close();
         });
       })();
     </script>
