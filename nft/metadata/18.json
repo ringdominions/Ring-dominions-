@@ -1,0 +1,28 @@
+{
+  "name": "Ascension Catty #18 · 铃铛喵 Bell Collar Mew",
+  "description": "铃铛喵 Bell Collar Mew: a common guardian of the Ascension Catty realm on BNB Chain. 飞升喵境的普通守护喵。",
+  "image": "https://ascensionrealm.fun/nft/images/18.jpg",
+  "external_url": "https://ascensionrealm.fun/#gallery",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Tuxedo"
+    },
+    {
+      "trait_type": "Headwear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Gold Bell & Boba"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Lavender"
+    }
+  ]
+}
