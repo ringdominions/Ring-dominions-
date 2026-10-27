@@ -1,0 +1,28 @@
+{
+  "name": "Ascension Catty #9 · 魔法学徒喵 Apprentice Witch Mew",
+  "description": "魔法学徒喵 Apprentice Witch Mew: a rare guardian of the Ascension Catty realm on BNB Chain. 飞升喵境的稀有守护喵。",
+  "image": "https://ascensionrealm.fun/nft/images/9.jpg",
+  "external_url": "https://ascensionrealm.fun/#gallery",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Tuxedo"
+    },
+    {
+      "trait_type": "Headwear",
+      "value": "Mini Witch Hat"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Broom"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Indigo Sky"
+    }
+  ]
+}
