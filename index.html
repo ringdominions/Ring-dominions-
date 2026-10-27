@@ -270,6 +270,100 @@
         .x-spark { animation: none; opacity: 0.8; }
         .x-sky { display: none; }
       }
+
+      /* ===== Rarity showcase ===== */
+      @property --x-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+      #rarity .x-intro { margin: 0 0 12px; font: var(--type-body); color: var(--text-primary); }
+      .x-ladder { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; padding: 0; list-style: none; }
+      .x-ladder li {
+        display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 14px;
+        border-radius: var(--r-pill); border: 2px solid var(--stroke-primary); background: rgb(18 10 46 / 0.6);
+        font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary);
+      }
+      .x-ladder b { font-weight: var(--weight-bold); font-variant-numeric: tabular-nums; }
+      .x-ladder .is-rare { border-color: #8fc8ff; } .x-ladder .is-rare b { color: #b9ddff; }
+      .x-ladder .is-leg { border-color: var(--x-gold); box-shadow: 0 0 10px rgb(255 200 90 / 0.4); } .x-ladder .is-leg b { color: var(--x-gold); }
+      .x-ladder .is-myth { border-color: #f5a3ff; box-shadow: 0 0 10px rgb(245 163 255 / 0.4); } .x-ladder .is-myth b { color: #f9c6ff; }
+      .x-rowhead { display: flex; align-items: center; gap: 10px; margin: 32px 0 14px; font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); letter-spacing: 0.04em; }
+      .x-rowhead--leg { color: var(--x-gold); text-shadow: var(--x-numglow); }
+      .x-rowhead--rare { color: #b9ddff; text-shadow: 0 0 12px rgb(120 190 255 / 0.5); }
+      .x-rrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 4px 0 8px; list-style: none; }
+      @media (max-width: 760px) {
+        .x-rrow {
+          display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px;
+          margin-inline: calc(var(--gutter) * -1); padding: 8px var(--gutter) 14px; scroll-padding-inline: var(--gutter);
+          -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+        }
+        .x-rrow > li { flex: 0 0 78vw; max-width: 340px; scroll-snap-align: start; }
+      }
+      .x-rcard {
+        position: relative; display: grid; gap: 10px; align-content: start; height: 100%; padding: 16px;
+        border: 3px solid transparent; border-radius: var(--r-m); overflow: hidden;
+        transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-rcard:hover { transform: translateY(-3px); }
+      .x-rcard--leg {
+        background:
+          linear-gradient(rgb(46 26 92 / 0.92), rgb(30 16 66 / 0.92)) padding-box,
+          conic-gradient(from var(--x-ang), #ffd36b, #fff4c8, #f2a93c, #ffe08a, #c9861a, #fff4c8, #ffd36b) border-box;
+        box-shadow: 0 0 22px rgb(255 200 90 / 0.45), 4px 4px 0 rgb(8 3 24 / 0.7);
+        animation: x-spin 4s linear infinite;
+      }
+      @keyframes x-spin { to { --x-ang: 360deg; } }
+      .x-rcard--rare {
+        background:
+          linear-gradient(rgb(30 34 92 / 0.9), rgb(20 18 60 / 0.9)) padding-box,
+          linear-gradient(140deg, #d8ecff, #8fc8ff 45%, #c9d3e6) border-box;
+        box-shadow: 0 0 18px rgb(120 190 255 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7);
+      }
+      .x-rcard__media { margin: 0; border-radius: var(--r-s); overflow: hidden; aspect-ratio: 1; background: rgb(10 5 30 / 0.5); }
+      .x-rcard__media img {
+        display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;
+        border-radius: var(--r-s); animation: x-float 5s ease-in-out infinite;
+      }
+      .x-rrow > li:nth-child(2) .x-rcard__media img { animation-delay: -1.6s; }
+      .x-rrow > li:nth-child(3) .x-rcard__media img { animation-delay: -3.2s; }
+      @keyframes x-float { 0%, 100% { transform: translateY(0) scale(1.02); } 50% { transform: translateY(-6px) scale(1.02); } }
+      .x-badge {
+        justify-self: start; padding: 4px 10px; border-radius: 4px; font: var(--type-tag); font-family: var(--x-pix);
+        font-weight: var(--weight-bold); letter-spacing: 0.08em;
+      }
+      .x-badge--leg { background-color: #ffd36b; color: var(--x-ink); box-shadow: inset 0 -2px 0 #e0a43a, 0 0 10px rgb(255 200 90 / 0.6); }
+      .x-badge--rare { background-color: #b9ddff; color: #0b2340; box-shadow: inset 0 -2px 0 #8fc8ff, 0 0 10px rgb(120 190 255 / 0.5); }
+      .x-rcard h3 { margin: 0; font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
+      .x-rcard h3 .x-en { display: block; margin-top: 2px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
+      .x-rcard--leg h3 { color: var(--x-gold); }
+      .x-rcard--rare h3 { color: #d8ecff; }
+      .x-traits { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+      .x-traits li { padding: 4px 10px; border-radius: var(--r-pill); background-color: #2c1b63; border: 1px solid var(--stroke-secondary); font: var(--type-small); color: var(--text-primary); }
+      .x-paw {
+        justify-self: end; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+        min-width: var(--tap); min-height: var(--tap); padding: 0 12px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
+        background: rgb(18 10 46 / 0.6); color: #ffb3d1; font: var(--type-body); cursor: pointer;
+        transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-paw:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      .x-paw:active { transform: scale(0.9); }
+      .x-paw:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-heart, .x-burst {
+        position: absolute; z-index: 2; pointer-events: none; user-select: none; line-height: 1;
+      }
+      .x-heart { color: #ff8fc0; font-size: 18px; text-shadow: 0 0 6px rgb(255 143 192 / 0.8); animation: x-heart 1.1s ease-out forwards; }
+      @keyframes x-heart {
+        0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+        20% { opacity: 1; transform: translate(calc(var(--dx) * 0.3), -14px) scale(1.1); }
+        100% { opacity: 0; transform: translate(var(--dx), -80px) scale(0.8); }
+      }
+      .x-burst { color: #fff4c8; font-size: 16px; text-shadow: 0 0 8px rgb(255 211 107 / 0.95); animation: x-burst 0.8s ease-out forwards; }
+      @keyframes x-burst {
+        0% { opacity: 1; transform: translate(-50%, -50%) scale(0.3); }
+        100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(90deg); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .x-rcard--leg, .x-rcard__media img { animation: none; }
+        .x-rcard:hover { transform: none; }
+        .x-heart, .x-burst { display: none; }
+      }
     </style>
   </head>
   <body>
@@ -412,6 +506,84 @@
             <div><h3>6 · 火尾橘猫 Ember Tail</h3><p>尾巴燃着小火苗 A tail with a little flame</p></div>
             <div><h3>7 · 巫师奶牛猫 Wizard Tux</h3><p>紫色巫师帽和星星魔杖 A purple wizard hat and star wand</p></div>
           </div>
+        </section>
+
+        <section class="section" id="rarity" data-nav="稀有 Rarity">
+          <div class="head">
+            <p class="head__eyebrow">稀有图鉴 Rarity Showcase</p>
+            <h2>最闪耀的喵喵藏在召唤里！<span class="x-sub">The shiniest kittens hide in the Summon.</span></h2>
+          </div>
+          <p class="x-intro">召唤铸造 Summon Mint 有更高的稀有与传说概率。Summon Mint has higher odds for Rare and Legendary.</p>
+          <p><span class="chip">概念稀有度，最终以合约为准 Concept rarity; the final odds are set by the contract.</span></p>
+          <ul class="x-ladder" aria-label="概念稀有度占比 Concept share of supply">
+            <li>普通 Common <b>60%</b></li>
+            <li class="is-rare">◆ 稀有 Rare <b>30%</b></li>
+            <li class="is-leg">✦ 传说 Legendary <b>8%</b></li>
+            <li class="is-myth">✧ 神话 Mythic <b>2%</b></li>
+          </ul>
+          <p class="fineprint">概念占位数值，占总量比例。神话 = 七位守护喵。Concept placeholders, share of supply. Mythic = the 7 guardians.</p>
+
+          <h3 class="x-rowhead x-rowhead--leg"><span aria-hidden="true">✦</span> 传说 LEGENDARY</h3>
+          <ul class="x-rrow">
+            <li>
+              <article class="x-rcard x-rcard--leg" data-sparkle>
+                <figure class="x-rcard__media"><img src="leg1.jpg" alt="戴星冠、坐在月牙上的白色小猫 · A white kitten with a crown sitting on a crescent moon" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                <h3>月光公主喵 <span class="x-en">Moon Princess Mew</span></h3>
+                <ul class="x-traits"><li>星冠 Star Crown</li><li>月牙座 Crescent Throne</li></ul>
+                <button type="button" class="x-paw" aria-label="给月光公主喵比心 Send hearts to Moon Princess Mew">🐾 ♡</button>
+              </article>
+            </li>
+            <li>
+              <article class="x-rcard x-rcard--leg" data-sparkle>
+                <figure class="x-rcard__media"><img src="leg2.jpg" alt="长着火焰翅膀、顶着光环的橘色小猫 · An orange kitten with flame wings and a halo" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                <h3>小凤凰喵 <span class="x-en">Baby Phoenix Mew</span></h3>
+                <ul class="x-traits"><li>火羽 Flame Wings</li><li>太阳光环 Sun Halo</li></ul>
+                <button type="button" class="x-paw" aria-label="给小凤凰喵比心 Send hearts to Baby Phoenix Mew">🐾 ♡</button>
+              </article>
+            </li>
+            <li>
+              <article class="x-rcard x-rcard--leg" data-sparkle>
+                <figure class="x-rcard__media"><img src="leg3.jpg" alt="薰衣草色星云小猫，长着独角和彩虹翅膀，抱着一颗星星 · A lavender nebula kitten with a horn and rainbow wings, holding a star" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                <h3>银河独角喵 <span class="x-en">Galaxy Unicorn Mew</span></h3>
+                <ul class="x-traits"><li>星云毛 Nebula Fur</li><li>彩虹翼 Rainbow Wings</li></ul>
+                <button type="button" class="x-paw" aria-label="给银河独角喵比心 Send hearts to Galaxy Unicorn Mew">🐾 ♡</button>
+              </article>
+            </li>
+          </ul>
+
+          <h3 class="x-rowhead x-rowhead--rare"><span aria-hidden="true">◆</span> 稀有 RARE</h3>
+          <ul class="x-rrow">
+            <li>
+              <article class="x-rcard x-rcard--rare">
+                <figure class="x-rcard__media"><img src="rare1.jpg" alt="戴泡泡头盔的灰色小猫 · A grey kitten in a bubble helmet" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--rare">RARE ◆</span>
+                <h3>太空泡泡喵 <span class="x-en">Astro Bubble Mew</span></h3>
+                <ul class="x-traits"><li>泡泡头盔 Bubble Helmet</li></ul>
+                <button type="button" class="x-paw" aria-label="给太空泡泡喵比心 Send hearts to Astro Bubble Mew">🐾 ♡</button>
+              </article>
+            </li>
+            <li>
+              <article class="x-rcard x-rcard--rare">
+                <figure class="x-rcard__media"><img src="rare2.jpg" alt="戴草莓兜帽、捧着珍珠奶茶的三花小猫 · A calico kitten in a strawberry hood with boba tea" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--rare">RARE ◆</span>
+                <h3>草莓波霸喵 <span class="x-en">Strawberry Boba Mew</span></h3>
+                <ul class="x-traits"><li>草莓帽 Strawberry Hood</li><li>珍奶 Boba</li></ul>
+                <button type="button" class="x-paw" aria-label="给草莓波霸喵比心 Send hearts to Strawberry Boba Mew">🐾 ♡</button>
+              </article>
+            </li>
+            <li>
+              <article class="x-rcard x-rcard--rare">
+                <figure class="x-rcard__media"><img src="rare3.jpg" alt="戴青蛙帽、在云朵上睡着的黑色小猫 · A black kitten in a frog hat asleep on a cloud" loading="lazy" decoding="async" /></figure>
+                <span class="x-badge x-badge--rare">RARE ◆</span>
+                <h3>呱呱睡睡喵 <span class="x-en">Sleepy Froggy Mew</span></h3>
+                <ul class="x-traits"><li>青蛙帽 Frog Hat</li><li>云朵枕 Cloud Pillow</li></ul>
+                <button type="button" class="x-paw" aria-label="给呱呱睡睡喵比心 Send hearts to Sleepy Froggy Mew">🐾 ♡</button>
+              </article>
+            </li>
+          </ul>
         </section>
 
         <section class="section" id="realms" data-nav="图鉴 Realms">
@@ -804,6 +976,61 @@
         render('summon');
         renderAgent();
       })();
+    </script>
+    <script>
+      // Rarity showcase: sparkle bursts and paw hearts (decorative only)
+      (function () {
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+        function spawn(host, cls, char, x, y, dx, dy, ms) {
+          const s = document.createElement('span');
+          s.className = cls; s.textContent = char; s.setAttribute('aria-hidden', 'true');
+          s.style.left = x + 'px'; s.style.top = y + 'px';
+          s.style.setProperty('--dx', dx + 'px'); s.style.setProperty('--dy', dy + 'px');
+          host.appendChild(s);
+          setTimeout(() => s.remove(), ms);
+        }
+        function burst(card, x, y) {
+          if (still.matches) return;
+          const chars = ['✦', '✧', '⋆', '✦'];
+          for (let i = 0; i < 10; i++) {
+            const a = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
+            const r = 40 + Math.random() * 40;
+            spawn(card, 'x-burst', chars[i % 4], x, y, Math.cos(a) * r, Math.sin(a) * r, 900);
+          }
+        }
+        document.querySelectorAll('[data-sparkle]').forEach((card) => {
+          let last = 0;
+          const fire = (e) => {
+            const now = Date.now();
+            if (now - last < 500) return;
+            last = now;
+            const r = card.getBoundingClientRect();
+            const x = e && e.clientX ? e.clientX - r.left : r.width / 2;
+            const y = e && e.clientY ? e.clientY - r.top : r.height / 3;
+            burst(card, x, y);
+          };
+          card.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') fire(e); });
+          card.addEventListener('click', (e) => { if (!e.target.closest('.x-paw')) fire(e); });
+        });
+        document.querySelectorAll('.x-paw').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            if (still.matches) return;
+            const card = btn.closest('.x-rcard');
+            const c = card.getBoundingClientRect(), b = btn.getBoundingClientRect();
+            const x = b.left - c.left + b.width / 2 - 8, y = b.top - c.top;
+            for (let i = 0; i < 6; i++) {
+              setTimeout(() => spawn(card, 'x-heart', i % 2 ? '♡' : '♥', x, y, (Math.random() - 0.5) * 70, 0, 1200), i * 70);
+            }
+          });
+        });
+      })();
+    </script>
+    <script>
+      // sw.js is unavailable on some preview hosts; swallow only that registration failure
+      window.addEventListener('unhandledrejection', function (e) {
+        var m = String((e.reason && (e.reason.message || e.reason)) || '');
+        if (/ServiceWorker|sw\.js/i.test(m)) e.preventDefault();
+      });
     </script>
   <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js")}</script>
 </body>
