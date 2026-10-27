@@ -670,6 +670,14 @@
             </div>
             <p class="x-prompt" data-prompt="agent">用我的币安 Agentic Wallet 在 BNB Chain（chain id 56）调用合约 0xD7C69FCd1a506eCEe23d8D0557c52b467626f596 的 mint(10)，附 0.005 BNB。先预览，我确认后再签名。</p>
             <button type="button" class="x-pixel x-agent__copy" data-copy="agent">一键复制 Copy Prompt</button>
+          <div class="x-wchk" style="margin-top:18px;padding:16px;border:2px dashed var(--stroke-primary);border-radius:8px;background:rgb(10 5 30 / 0.6)">
+            <p style="margin:0 0 8px;font-weight:700">粘贴你的 Agentic Wallet 地址 <span class="x-en">Paste your Agentic Wallet</span></p>
+            <input id="wc-in" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x…" style="width:100%;box-sizing:border-box;padding:12px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff;font-size:14px">
+            <button type="button" id="wc-go" class="x-pixel" style="width:100%;margin-top:10px">检查并生成 Check &amp; Build Prompt</button>
+            <p id="wc-st" class="fineprint" style="margin:10px 0 0" aria-live="polite"></p>
+            <pre id="wc-pr" hidden style="white-space:pre-wrap;word-break:break-all;margin:10px 0 0;font-size:13px"></pre>
+            <button type="button" id="wc-cp" class="x-pixel" hidden style="width:100%;margin-top:10px">一键复制 Copy Prompt</button>
+          </div>
           </div>
           <p class="fineprint x-safety">只认准本官网合约地址 · 永不泄露助记词 · 签名前核对金额 Only trust this site's contract · Never share your seed phrase · Check the amount before signing.</p>
         </section>
@@ -1928,5 +1936,28 @@
   start();
 })();
 </script>
-</body>
+<script>
+(function(){
+var NFT='0xD7C69FCd1a506eCEe23d8D0557c52b467626f596',P=0.0005;
+var RS=['https://bsc-dataseed.bnbchain.org','https://bsc-dataseed1.defibit.io','https://bsc-rpc.publicnode.com','https://bsc-dataseed2.ninicoin.io'];
+var $=function(i){return document.getElementById(i)};
+async function call(data){for(var i=0;i<RS.length;i++){try{var r=await fetch(RS[i],{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:NFT,data:data},'latest']})});var j=await r.json();if(j.result)return j.result}catch(e){}}throw new Error('rpc')}
+$('wc-go').onclick=async function(){
+ var w=$('wc-in').value.trim();var st=$('wc-st');$('wc-pr').hidden=true;$('wc-cp').hidden=true;
+ if(!/^0x[0-9a-fA-F]{40}$/.test(w)){st.textContent='地址格式不对 Invalid address';return}
+ st.textContent='读取合约中… Reading contract…';
+ var pad=w.slice(2).toLowerCase().padStart(64,'0');
+ try{
+  var ag=parseInt(await call('0x1ffbb064'+pad),16)===1;var left=parseInt(await call('0x24c0c499'+pad),16);
+  if(!ag){st.textContent='❌ 此钱包没有 Agent ID，合约会拒绝。请先在币安钱包 Agentic Wallet 领取 Agent ID。This wallet has no Agent ID; claim one in your Binance Agentic Wallet first.';return}
+  if(!left){st.textContent='✅ 此 Agent 已铸满 10 只。This Agent already minted its 10.';return}
+  var v=(P*left).toFixed(4).replace(/0+$/,'').replace(/\.$/,'');
+  st.textContent='✅ 可铸造 Eligible · 剩余 '+left+' 只 left';
+  $('wc-pr').textContent='用我的币安 Agentic Wallet '+w+' 在 BNB Chain（chain id 56）调用合约 '+NFT+' 的 mint('+left+')，附 '+v+' BNB。先预览，我确认后再签名。\n\nUse my Binance Agentic Wallet '+w+' on BNB Chain (chain id 56) to call mint('+left+') on contract '+NFT+' with '+v+' BNB. Preview first; sign after I confirm.';
+  $('wc-pr').hidden=false;$('wc-cp').hidden=false;
+ }catch(e){st.textContent='网络繁忙，请重试 Network busy, try again'}
+};
+$('wc-cp').onclick=function(){navigator.clipboard.writeText($('wc-pr').textContent);var b=$('wc-cp');b.textContent='已复制 Copied';setTimeout(function(){b.textContent='一键复制 Copy Prompt'},2000)};
+})();
+</script></body>
 </html>
