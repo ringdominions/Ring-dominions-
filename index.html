@@ -364,6 +364,118 @@
         .x-rcard:hover { transform: none; }
         .x-heart, .x-burst { display: none; }
       }
+
+      /* ===== 喵市 Catty Market ===== */
+      .x-mchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
+      .x-mchips li {
+        display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 14px;
+        border-radius: var(--r-pill); border: 2px solid var(--stroke-primary); background: rgb(18 10 46 / 0.6);
+        font: var(--type-label); font-family: var(--x-pix); color: var(--text-secondary);
+      }
+      .x-mchips b { color: var(--x-gold); font-weight: var(--weight-bold); font-variant-numeric: tabular-nums; text-shadow: var(--x-numglow); }
+      .x-mchips .is-fee { border-color: rgb(255 211 107 / 0.55); }
+      .x-market {
+        display: grid; gap: 16px; padding: 16px; position: relative;
+        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
+      }
+      @media (min-width: 761px) { .x-market { padding: 22px; } }
+      .x-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+      .x-tabs button, .x-fpills button, .x-ghost {
+        min-height: var(--tap); padding: 6px 10px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
+        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold);
+        cursor: pointer; transition: background var(--dur-quick) var(--ease-out);
+      }
+      .x-tabs button { line-height: 1.2; }
+      .x-tabs .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
+      .x-tabs button:hover, .x-fpills button:hover, .x-ghost:hover:not(:disabled) { box-shadow: inset 0 0 0 100px var(--hover-wash); }
+      .x-tabs button[aria-selected="true"], .x-fpills button[aria-pressed="true"] {
+        background: var(--x-gold); border-color: var(--x-gold); color: var(--x-ink); box-shadow: 0 0 14px rgb(255 200 90 / 0.45);
+      }
+      .x-tabs button[aria-selected="true"] .x-en { color: var(--x-ink); }
+      .x-tabs button:focus-visible, .x-fpills button:focus-visible, .x-ghost:focus-visible, .x-input:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
+      .x-ghost:disabled { color: #a99bd0; cursor: not-allowed; }
+      .x-mbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+      .x-fpills { display: flex; gap: 6px; overflow-x: auto; padding: 2px; margin: -2px; scrollbar-width: none; }
+      .x-fpills button { flex: none; padding-inline: 14px; font-weight: var(--weight-regular); }
+      .x-sort { display: inline-flex; align-items: center; gap: 8px; font: var(--type-small); color: var(--text-secondary); }
+      .x-input {
+        min-height: var(--tap); padding: 8px 12px; border: 2px solid var(--stroke-primary); border-radius: 4px;
+        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-body); font-variant-numeric: tabular-nums;
+      }
+      .x-input::placeholder { color: #a99bd0; }
+      select.x-input { padding-right: 8px; cursor: pointer; }
+      select.x-input option { background: #1a0f40; color: var(--text-primary); }
+      .x-mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+      @media (min-width: 761px) { .x-mgrid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; } }
+      .x-lcard {
+        position: relative; display: grid; gap: 8px; align-content: start; padding: 10px; overflow: hidden;
+        border: 2px solid var(--stroke-primary); border-radius: var(--r-m);
+        background: linear-gradient(rgb(46 26 92 / 0.9), rgb(24 14 58 / 0.9)); box-shadow: 4px 4px 0 rgb(8 3 24 / 0.7);
+        transition: transform var(--dur-quick) var(--ease-out);
+      }
+      .x-lcard:hover { transform: translateY(-3px); }
+      .x-lcard--legendary { border-color: var(--x-gold); box-shadow: 0 0 16px rgb(255 200 90 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7); }
+      .x-lcard--rare { border-color: #8fc8ff; box-shadow: 0 0 14px rgb(120 190 255 / 0.3), 4px 4px 0 rgb(8 3 24 / 0.7); }
+      .x-lcard--mythic { border-color: #f5a3ff; box-shadow: 0 0 16px rgb(245 163 255 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7); }
+      .x-lcard__media { margin: 0; aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: rgb(10 5 30 / 0.5); display: grid; place-items: center; }
+      .x-lcard__media img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+      .x-lcard__media svg { width: 56%; height: auto; color: var(--x-lav); }
+      .x-lcard h3 { margin: 0; font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
+      .x-lcard h3 .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
+      .x-lcard__price { margin: 0; font: var(--type-small); color: var(--text-secondary); }
+      .x-lcard__price b { font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
+      .x-lcard__seller { margin: 0; font: var(--type-caption); font-family: "Geist Mono", ui-monospace, monospace; color: var(--text-secondary); overflow-wrap: anywhere; }
+      .x-ribbon {
+        position: absolute; z-index: 2; top: 14px; left: -36px; width: 132px; transform: rotate(-45deg);
+        padding: 3px 0; text-align: center; background: #f5a3ff; color: #2a0b33;
+        font: var(--type-tag); font-family: var(--x-pix); font-weight: var(--weight-bold); letter-spacing: 0.06em;
+        box-shadow: 0 2px 0 #b05cc2, 0 0 10px rgb(245 163 255 / 0.5); pointer-events: none;
+      }
+      .x-badge--myth { background-color: #f9c6ff; color: #2a0b33; box-shadow: inset 0 -2px 0 #f5a3ff, 0 0 10px rgb(245 163 255 / 0.5); }
+      .x-badge--com { background-color: #2c1b63; color: var(--text-primary); border: 1px solid var(--stroke-primary); }
+      .x-market [hidden] { display: none !important; }
+      .x-pixel.is-done:disabled::after { content: none; }
+      .x-pixel--sm { min-height: var(--tap); padding: 8px 10px; font-size: var(--size-small); letter-spacing: 0.02em; }
+      .x-mnone { margin: 16px 0 0; text-align: center; font: var(--type-small); color: var(--text-secondary); }
+      /* Sell */
+      .x-sell { display: grid; gap: 16px; max-width: 560px; margin-inline: auto; }
+      .x-field { display: grid; gap: 6px; }
+      .x-field label { font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
+      .x-field__row { display: flex; gap: 8px; flex-wrap: wrap; }
+      .x-field__row .x-input { flex: 1 1 140px; min-width: 0; }
+      .x-mycats { display: flex; flex-wrap: wrap; gap: 6px; }
+      .x-mycats .x-ghost { min-height: 36px; padding: 4px 12px; font-weight: var(--weight-regular); }
+      .x-receive {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+        padding: 14px 16px; border: 2px dashed var(--stroke-primary); border-radius: 4px; background: rgb(10 5 30 / 0.5);
+        font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary);
+      }
+      .x-receive small { display: block; font: var(--type-caption); color: var(--text-secondary); }
+      .x-receive b { font: var(--type-title); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
+      .x-steps2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .x-steps2 .x-pixel { font-size: var(--size-body); }
+      .x-sell .fineprint { text-align: center; margin: 0; }
+      /* My listings */
+      .x-mempty { display: grid; justify-items: center; gap: 6px; padding: 20px 0 8px; text-align: center; }
+      .x-mempty p { margin: 0; }
+      .x-mempty__title { font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); }
+      .x-mempty__title .x-en { display: block; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
+      .x-sleepy { position: relative; width: 112px; }
+      .x-sleepy img { display: block; width: 100%; height: auto; image-rendering: pixelated; filter: drop-shadow(0 0 8px rgb(201 182 255 / 0.75)); animation: x-bob 6s ease-in-out infinite; --r: 2deg; }
+      .x-zzz { position: absolute; top: -6px; right: -18px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); animation: x-zzz 2.4s ease-in-out infinite; }
+      @keyframes x-zzz { 0%, 100% { opacity: 0.3; transform: translateY(4px); } 50% { opacity: 1; transform: translateY(-4px); } }
+      .x-mrows { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+      .x-mrows li {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+        padding: 12px 14px; border: 2px solid var(--stroke-primary); border-radius: var(--r-s); background: rgb(18 10 46 / 0.6);
+        font: var(--type-label); font-family: var(--x-pix);
+      }
+      .x-mrows b { color: var(--x-gold); font-variant-numeric: tabular-nums; }
+      @media (prefers-reduced-motion: reduce) {
+        .x-lcard:hover { transform: none; }
+        .x-sleepy img, .x-zzz { animation: none; }
+      }
     </style>
   </head>
   <body>
@@ -586,6 +698,142 @@
           </ul>
         </section>
 
+        <section class="section" id="market" data-nav="喵市 Market">
+          <div class="head">
+            <p class="head__eyebrow">喵市 Catty Market</p>
+            <h2>喵市 <span class="x-sub">Catty Market</span></h2>
+            <p class="head__sub">买卖你的飞升喵 Buy &amp; sell your Ascension cats <span class="chip" id="mk-status">即将开放 Coming soon</span></p>
+          </div>
+          <ul class="x-mchips" aria-label="市场数据 Market stats">
+            <li>地板价 Floor <b id="mk-floor">—</b></li>
+            <li>在售 Listed <b id="mk-listed">—</b></li>
+            <li>成交量 Volume <b id="mk-volume">—</b></li>
+            <li class="is-fee">手续费 Fee <b data-fee>2%</b></li>
+            <li>版税 Royalty <b>—</b></li>
+          </ul>
+
+          <div class="x-market">
+            <div class="x-tabs" role="tablist" aria-label="喵市 Market">
+              <button type="button" role="tab" id="mk-tab-browse" aria-controls="mk-browse" aria-selected="true">浏览<span class="x-en">Browse</span></button>
+              <button type="button" role="tab" id="mk-tab-sell" aria-controls="mk-sell" aria-selected="false" tabindex="-1">出售<span class="x-en">Sell</span></button>
+              <button type="button" role="tab" id="mk-tab-mine" aria-controls="mk-mine" aria-selected="false" tabindex="-1">我的挂单<span class="x-en">My Listings</span></button>
+            </div>
+
+            <div id="mk-browse" role="tabpanel" aria-labelledby="mk-tab-browse">
+              <div class="x-mbar">
+                <div class="x-fpills" role="group" aria-label="稀有度 Rarity">
+                  <button type="button" data-filter="all" aria-pressed="true">全部 All</button>
+                  <button type="button" data-filter="mythic" aria-pressed="false">神话 Mythic</button>
+                  <button type="button" data-filter="legendary" aria-pressed="false">传说 Legendary</button>
+                  <button type="button" data-filter="rare" aria-pressed="false">稀有 Rare</button>
+                  <button type="button" data-filter="common" aria-pressed="false">普通 Common</button>
+                </div>
+                <label class="x-sort">排序 Sort
+                  <select class="x-input" id="mk-sort">
+                    <option value="low">价格低→高 Price low→high</option>
+                    <option value="high">价格高→低 Price high→low</option>
+                    <option value="new">最新 Newest</option>
+                  </select>
+                </label>
+              </div>
+              <ul class="x-mgrid" id="mk-grid">
+                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.42" data-ts="4">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="leg1.jpg" alt="示例：月光公主喵 · Demo: Moon Princess Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                  <h3>月光公主喵 #18<span class="x-en">Moon Princess Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.42</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0x3f2a…c91e</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.38" data-ts="2">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="leg2.jpg" alt="示例：小凤凰喵 · Demo: Baby Phoenix Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                  <h3>小凤凰喵 #207<span class="x-en">Baby Phoenix Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.38</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0x8b41…07da</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.55" data-ts="6">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="leg3.jpg" alt="示例：银河独角喵 · Demo: Galaxy Unicorn Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
+                  <h3>银河独角喵 #1111<span class="x-en">Galaxy Unicorn Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.55</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0xc07e…5b22</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.12" data-ts="5">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="rare1.jpg" alt="示例：太空泡泡喵 · Demo: Astro Bubble Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--rare">RARE ◆</span>
+                  <h3>太空泡泡喵 #64<span class="x-en">Astro Bubble Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.12</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0x51d9…a3f0</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.09" data-ts="1">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="rare2.jpg" alt="示例：草莓波霸喵 · Demo: Strawberry Boba Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--rare">RARE ◆</span>
+                  <h3>草莓波霸喵 #533<span class="x-en">Strawberry Boba Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.09</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0x9e3c…4417</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.15" data-ts="3">
+                  <span class="x-ribbon">示例 Demo</span>
+                  <figure class="x-lcard__media"><img src="rare3.jpg" alt="示例：呱呱睡睡喵 · Demo: Sleepy Froggy Mew" loading="lazy" decoding="async" /></figure>
+                  <span class="x-badge x-badge--rare">RARE ◆</span>
+                  <h3>呱呱睡睡喵 #890<span class="x-en">Sleepy Froggy Mew</span></h3>
+                  <p class="x-lcard__price"><b>0.15</b> BNB</p>
+                  <p class="x-lcard__seller">卖家 Seller 0x2a77…e8bc</p>
+                  <button type="button" class="x-pixel x-pixel--sm" disabled>即将开放 Coming soon</button>
+                </li>
+              </ul>
+              <p class="x-mnone" id="mk-none" hidden>这个稀有度暂时没有挂单 No listings in this rarity yet</p>
+            </div>
+
+            <div id="mk-sell" role="tabpanel" aria-labelledby="mk-tab-sell" hidden>
+              <div class="x-sell">
+                <div class="x-field">
+                  <label for="mk-id">喵喵编号 Token ID</label>
+                  <div class="x-field__row">
+                    <input class="x-input" id="mk-id" type="number" inputmode="numeric" min="0" step="1" placeholder="例如 e.g. 42" />
+                    <button type="button" class="x-ghost" id="mk-load" disabled>加载我的喵 Load my cats</button>
+                  </div>
+                  <div class="x-mycats" id="mk-mycats" role="group" aria-label="我的喵 My cats" hidden></div>
+                </div>
+                <div class="x-field">
+                  <label for="mk-price">价格 Price (BNB)</label>
+                  <input class="x-input" id="mk-price" type="number" inputmode="decimal" min="0" step="0.001" placeholder="0.1" />
+                </div>
+                <div class="x-receive">
+                  <span>你将收到 You receive<small>扣除 <span data-fee>2%</span> 手续费 · After the <span data-fee>2%</span> fee</small></span>
+                  <b id="mk-receive" aria-live="polite">— BNB</b>
+                </div>
+                <div class="x-steps2">
+                  <button type="button" class="x-pixel" id="mk-approve" disabled>① 授权 Approve</button>
+                  <button type="button" class="x-pixel" id="mk-list" disabled>② 上架 List</button>
+                </div>
+                <p class="fineprint" id="mk-sellnote">喵市合约部署后开放。Opens once the market contract is deployed.</p>
+              </div>
+            </div>
+
+            <div id="mk-mine" role="tabpanel" aria-labelledby="mk-tab-mine" hidden>
+              <div class="x-mempty" id="mk-mine-empty">
+                <div class="x-sleepy"><img src="float_ice.png" alt="睡着的冰晶小猫 · A sleeping ice kitten" /><span class="x-zzz" aria-hidden="true">z Z</span></div>
+                <p class="x-mempty__title">还没有挂单<span class="x-en">No listings yet</span></p>
+                <p class="fineprint" id="mk-mine-hint">喵市开放后，你的挂单会出现在这里。Your listings show here once the market opens.</p>
+                <button type="button" class="x-ghost" id="mk-connect" hidden>连接钱包 Connect wallet</button>
+              </div>
+              <ul class="x-mrows" id="mk-mine-list" hidden></ul>
+            </div>
+          </div>
+          <p class="fineprint x-safety">🛡️ 只在本官网交易 · 核对价格和合约地址 · 永不泄露助记词<br />Trade only on this site · Check the price and contract address · Never share your seed phrase</p>
+        </section>
+
         <section class="section" id="realms" data-nav="图鉴 Realms">
           <div class="head">
             <p class="head__eyebrow">喵境图鉴 Realm gallery</p>
@@ -741,6 +989,10 @@
               <h3>怎么确认合约是真的？How do I know the contract is real?</h3>
               <p>只看本官网公布的地址，并在 BscScan 上核对已验证源码。Only use the address published on this site, and check its verified source code on BscScan.</p>
             </div>
+            <div>
+              <h3>能在哪里交易？Where can I trade?</h3>
+              <p>经审计的合约部署后，内置的喵市 Catty Market 才会开放；现在展示的挂单都是示例。The built-in Catty Market opens once the audited contracts are deployed; the listings shown now are demos.</p>
+            </div>
           </div>
         </section>
       </main>
@@ -778,7 +1030,9 @@
         summonMintFn: 'summonMint',     // ID: Nama fungsi Summon Mint · EN: Summon Mint function name
         freePriceBNB: '0.0005',         // ID: Harga per NFT Free (BNB) · EN: Free price per NFT (BNB)
         summonPriceBNB: '0.005',        // ID: Harga per NFT Summon (BNB) · EN: Summon price per NFT (BNB)
-        maxPerWallet: 20                // ID: Maksimal per dompet · EN: Max per wallet
+        maxPerWallet: 20,               // ID: Maksimal per dompet · EN: Max per wallet
+        marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
+        marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
       };
 
       // ID: Fragmen ABI · EN: ABI fragments
@@ -978,6 +1232,393 @@
       })();
     </script>
     <script>
+      /* =====================================================================
+       * 喵市 CATTY MARKET
+       * Uses CONFIG.contractAddress (NFT), CONFIG.marketAddress and
+       * CONFIG.marketFeePercent from the CONFIG block above. While either
+       * address is empty, the market shows demo cards and every action button
+       * stays disabled; nothing is ever sent to a wallet without a user click.
+       *
+       * Assumed marketplace ABI (edit MARKET_ABI if your contract differs):
+       *   listItem(uint256 tokenId, uint256 priceWei)
+       *   cancelListing(uint256 tokenId)
+       *   buyItem(uint256 tokenId) payable            // value = listing price
+       *   getActiveListings() view returns (tuple(uint256 tokenId, address seller, uint256 price)[])
+       * NFT (ERC-721): setApprovalForAll(marketAddress, true) is step 1 before listing.
+       * "Load my cats" assumes ERC721Enumerable (balanceOf + tokenOfOwnerByIndex);
+       * without it, sellers type the token ID by hand.
+       * ===================================================================== */
+      const MARKET_ABI = [
+        'function listItem(uint256 tokenId, uint256 priceWei)',
+        'function cancelListing(uint256 tokenId)',
+        'function buyItem(uint256 tokenId) payable',
+        'function getActiveListings() view returns (tuple(uint256 tokenId, address seller, uint256 price)[])'
+      ];
+      const NFT_MARKET_ABI = [
+        'function setApprovalForAll(address operator, bool approved)',
+        'function isApprovedForAll(address owner, address operator) view returns (bool)',
+        'function balanceOf(address owner) view returns (uint256)',
+        'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',
+        'function tokenURI(uint256 tokenId) view returns (string)'
+      ];
+
+      (function () {
+        const isAddr = (a) => /^0x[0-9a-fA-F]{40}$/.test(String(a || '').trim());
+        const NFT = String(CONFIG.contractAddress || '').trim();
+        const MKT = String(CONFIG.marketAddress || '').trim();
+        const LIVE = isAddr(NFT) && isAddr(MKT);
+        const FEE = Math.max(0, Number(CONFIG.marketFeePercent) || 0);
+        const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
+        const RPC = CONFIG.chainId === 56 ? 'https://bsc-dataseed.bnbchain.org' : CONFIG.chainId === 97 ? 'https://data-seed-prebsc-1-s1.bnbchain.org:8545' : null;
+        const EXPLORER = CONFIG.chainId === 97 ? 'https://testnet.bscscan.com' : 'https://bscscan.com';
+        const root = document.getElementById('market');
+        if (!root) return;
+        const $ = (id) => document.getElementById(id);
+        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        const short = (a) => a.slice(0, 6) + '…' + a.slice(-4);
+        const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+
+        // Toast (shares the page toast element)
+        const toastEl = $('toast');
+        let toastTimer;
+        function toast(html, ms) {
+          toastEl.innerHTML = html;
+          toastEl.classList.add('is-on');
+          clearTimeout(toastTimer);
+          if (ms !== 0) toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), ms || 4500);
+        }
+
+        // Max 4 decimals, rounded down so the seller never sees more than they get
+        function fmt4(n) {
+          if (!isFinite(n) || n <= 0) return '0';
+          if (n < 0.0001) return '<0.0001';
+          return (Math.floor(n * 1e4 + 1e-6) / 1e4).toLocaleString('en-US', { maximumFractionDigits: 4 });
+        }
+        root.querySelectorAll('[data-fee]').forEach((n) => (n.textContent = FEE + '%'));
+
+        // ----- Tabs -----
+        const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
+        function selectTab(t, focus) {
+          tabs.forEach((x) => {
+            const on = x === t;
+            x.setAttribute('aria-selected', String(on));
+            x.tabIndex = on ? 0 : -1;
+            $(x.getAttribute('aria-controls')).hidden = !on;
+          });
+          if (focus) t.focus();
+        }
+        tabs.forEach((t, i) => {
+          t.addEventListener('click', () => selectTab(t));
+          t.addEventListener('keydown', (e) => {
+            const j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+            if (j === null) return;
+            e.preventDefault();
+            selectTab(tabs[(j + tabs.length) % tabs.length], true);
+          });
+        });
+
+        // ----- Browse: filter and sort -----
+        const grid = $('mk-grid'), none = $('mk-none');
+        let filter = 'all', sort = 'low';
+        const NO_MATCH = '这个稀有度暂时没有挂单 No listings in this rarity yet';
+        function applyView() {
+          const cards = Array.from(grid.children);
+          cards.sort((a, b) =>
+            sort === 'low' ? a.dataset.price - b.dataset.price : sort === 'high' ? b.dataset.price - a.dataset.price : b.dataset.ts - a.dataset.ts
+          );
+          let shown = 0;
+          cards.forEach((c) => {
+            grid.appendChild(c);
+            const vis = filter === 'all' || c.dataset.rarity === filter;
+            c.hidden = !vis;
+            if (vis) shown++;
+          });
+          if (shown) none.hidden = true;
+          else if (cards.length) { none.textContent = NO_MATCH; none.hidden = false; }
+        }
+        root.querySelectorAll('[data-filter]').forEach((b) =>
+          b.addEventListener('click', () => {
+            filter = b.dataset.filter;
+            root.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+            applyView();
+          })
+        );
+        $('mk-sort').addEventListener('change', (e) => { sort = e.target.value; applyView(); });
+
+        // ----- Sell: live math -----
+        const idIn = $('mk-id'), priceIn = $('mk-price'), receiveEl = $('mk-receive');
+        const approveBtn = $('mk-approve'), listBtn = $('mk-list'), loadBtn = $('mk-load');
+        const PRICE_RE = /^\d+(\.\d{1,18})?$/;
+        function updateReceive() {
+          const v = priceIn.value.trim();
+          const p = Number(v);
+          receiveEl.textContent = PRICE_RE.test(v) && p > 0 ? fmt4(p * (1 - FEE / 100)) + ' BNB' : '— BNB';
+        }
+        priceIn.addEventListener('input', updateReceive);
+        updateReceive();
+
+        applyView();
+        if (!LIVE) return; // Template mode: demo cards, all actions disabled.
+
+        // ================= Live mode (both addresses set) =================
+        if (typeof ethers === 'undefined') { toast('钱包库加载失败 Wallet library failed to load'); return; }
+        let account = null, approved = false, listings = [];
+        const status = $('mk-status');
+        status.textContent = '已开放 Open';
+        status.classList.add('chip--solid');
+        $('mk-sellnote').textContent = '每一步都需要你在钱包里确认。Every step asks you to confirm in your wallet.';
+        approveBtn.disabled = false;
+        listBtn.disabled = false;
+        loadBtn.disabled = false;
+        const reader = RPC ? new ethers.JsonRpcProvider(RPC, CONFIG.chainId) : window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null;
+        const market = reader && new ethers.Contract(MKT, MARKET_ABI, reader);
+        const nft = reader && new ethers.Contract(NFT, NFT_MARKET_ABI, reader);
+
+        async function ensureChain() {
+          try {
+            await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_HEX }] });
+          } catch (e) {
+            if (e && (e.code === 4902 || (e.data && e.data.originalError && e.data.originalError.code === 4902))) {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{ chainId: CHAIN_HEX, chainName: CONFIG.chainName, nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 }, rpcUrls: [RPC || 'https://bsc-dataseed.bnbchain.org'], blockExplorerUrls: [EXPLORER] }]
+              });
+            } else throw e;
+          }
+        }
+        async function connect() {
+          if (!window.ethereum) { toast('未检测到钱包 No wallet found'); return null; }
+          try {
+            const accts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            await ensureChain();
+            account = accts[0];
+            approved = false;
+            toast('钱包已连接 Wallet connected: ' + esc(short(account)));
+            renderGrid();
+            renderMine();
+            return account;
+          } catch (e) {
+            toast('连接失败 Connection failed: ' + esc(e.shortMessage || e.message || e));
+            return null;
+          }
+        }
+        // Every write: one click, one wallet confirmation, then pending / success / error toasts
+        async function send(btn, run, okMsg) {
+          if (!account && !(await connect())) return false;
+          const prev = btn.textContent;
+          btn.disabled = true;
+          try {
+            await ensureChain();
+            const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
+            const tx = await run(signer);
+            const link = `<a href="${EXPLORER}/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
+            toast('交易处理中 Transaction pending: ' + link, 0);
+            const r = await tx.wait();
+            if (r && r.status === 1) { toast(okMsg + ': ' + link, 8000); return true; }
+            toast('交易失败 Transaction failed: ' + link, 8000);
+            return false;
+          } catch (e) {
+            if (e && (e.code === 'ACTION_REJECTED' || e.code === 4001)) toast('已取消 Cancelled in wallet');
+            else toast('交易失败 Transaction failed: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
+            return false;
+          } finally {
+            btn.disabled = false;
+            btn.textContent = prev;
+          }
+        }
+
+        // ----- Listings -----
+        const RAR = { mythic: ['x-badge--myth', 'MYTHIC ✧'], legendary: ['x-badge--leg', 'LEGENDARY ✦'], rare: ['x-badge--rare', 'RARE ◆'], common: ['x-badge--com', 'COMMON'] };
+        function rarityOf(v) {
+          v = String(v).toLowerCase();
+          if (/myth|神话/.test(v)) return 'mythic';
+          if (/legend|传说/.test(v)) return 'legendary';
+          if (/rare|稀有/.test(v)) return 'rare';
+          if (/common|普通/.test(v)) return 'common';
+          return null;
+        }
+        const gw = (u) => (u.startsWith('ipfs://') ? 'https://ipfs.io/ipfs/' + u.slice(7) : u);
+        async function fetchMeta(uri) {
+          if (uri.startsWith('data:application/json;base64,')) return JSON.parse(atob(uri.slice(uri.indexOf(',') + 1)));
+          if (uri.startsWith('data:application/json')) return JSON.parse(decodeURIComponent(uri.slice(uri.indexOf(',') + 1)));
+          const r = await fetch(gw(uri));
+          return r.json();
+        }
+        const CAT_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 2h2v1h1v1h6V3h1V2h2v9h-1v2h-2v1H5v-1H3v-2H2z"/><path style="fill:var(--fill-primary-on)" d="M5 7h2v2H5zM9 7h2v2H9zM7 10h2v1H7z"/></svg>';
+
+        async function loadMeta(l, li) {
+          try {
+            const j = await fetchMeta(await nft.tokenURI(l.id));
+            const h3 = li.querySelector('h3');
+            if (j.name) h3.textContent = String(j.name).includes('#') ? j.name : j.name + ' #' + l.id;
+            const img = String(j.image || j.image_data || '');
+            if (/^(https:|ipfs:|data:image\/)/.test(img)) {
+              const im = el('img');
+              im.alt = h3.textContent;
+              im.decoding = 'async';
+              im.src = gw(img);
+              li.querySelector('.x-lcard__media').replaceChildren(im);
+            }
+            const attr = (j.attributes || []).find((a) => /rarity|稀有/i.test(a.trait_type || ''));
+            const r = attr && rarityOf(attr.value);
+            if (r) {
+              li.dataset.rarity = r;
+              li.classList.add('x-lcard--' + r);
+              const badge = li.querySelector('.x-badge');
+              badge.className = 'x-badge ' + RAR[r][0];
+              badge.textContent = RAR[r][1];
+              badge.hidden = false;
+              applyView();
+            }
+          } catch (e) { /* metadata is optional; the card keeps its placeholder */ }
+        }
+
+        function renderGrid() {
+          grid.replaceChildren(
+            ...listings.map((l) => {
+              const li = el('li', 'x-lcard');
+              li.dataset.rarity = 'unknown';
+              li.dataset.price = ethers.formatEther(l.price);
+              li.dataset.ts = l.idx;
+              const fig = el('figure', 'x-lcard__media');
+              fig.innerHTML = CAT_SVG;
+              const badge = el('span', 'x-badge x-badge--com');
+              badge.hidden = true;
+              const price = el('p', 'x-lcard__price');
+              price.append(el('b', null, fmt4(Number(li.dataset.price))), ' BNB');
+              const mine = account && l.seller.toLowerCase() === account.toLowerCase();
+              const btn = el('button', 'x-pixel x-pixel--sm', mine ? '你的挂单 Yours' : '购买 Buy');
+              btn.type = 'button';
+              btn.disabled = !!mine;
+              btn.addEventListener('click', async () => {
+                const ok = await send(btn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).buyItem(l.id, { value: l.price }), '购买成功 Purchase successful');
+                if (ok) loadListings();
+              });
+              li.append(fig, badge, el('h3', null, 'Ascension Catty #' + l.id), price, el('p', 'x-lcard__seller', '卖家 Seller ' + short(l.seller)), btn);
+              loadMeta(l, li);
+              return li;
+            })
+          );
+          if (!listings.length) { none.textContent = '暂时没有挂单 No listings yet'; none.hidden = false; }
+          applyView();
+        }
+
+        const mineList = $('mk-mine-list'), mineEmpty = $('mk-mine-empty'), mineHint = $('mk-mine-hint'), connectBtn = $('mk-connect');
+        connectBtn.addEventListener('click', connect);
+        function renderMine() {
+          const mine = account ? listings.filter((l) => l.seller.toLowerCase() === account.toLowerCase()) : [];
+          mineList.replaceChildren(
+            ...mine.map((l) => {
+              const li = el('li');
+              const label = el('span', null, 'Ascension Catty #' + l.id + ' · ');
+              label.append(el('b', null, fmt4(Number(ethers.formatEther(l.price))) + ' BNB'));
+              const btn = el('button', 'x-ghost', '下架 Cancel');
+              btn.type = 'button';
+              btn.addEventListener('click', async () => {
+                const ok = await send(btn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).cancelListing(l.id), '已下架 Listing cancelled');
+                if (ok) loadListings();
+              });
+              li.append(label, btn);
+              return li;
+            })
+          );
+          mineList.hidden = !mine.length;
+          mineEmpty.hidden = !!mine.length;
+          connectBtn.hidden = !!account;
+          mineHint.textContent = account ? '你还没有在售的喵。You have no active listings.' : '连接钱包查看你的挂单。Connect your wallet to see your listings.';
+        }
+
+        async function loadListings() {
+          if (!market) { none.textContent = '未检测到钱包 No wallet found'; none.hidden = false; return; }
+          try {
+            const raw = await market.getActiveListings();
+            listings = Array.from(raw).map((x, idx) => ({ id: x.tokenId.toString(), seller: String(x.seller), price: BigInt(x.price), idx }));
+            $('mk-listed').textContent = listings.length.toLocaleString('en-US');
+            $('mk-floor').textContent = listings.length
+              ? fmt4(Number(ethers.formatEther(listings.reduce((m, l) => (l.price < m ? l.price : m), listings[0].price)))) + ' BNB'
+              : '—';
+            renderGrid();
+            renderMine();
+          } catch (e) {
+            none.textContent = '读取挂单失败 Could not load listings';
+            none.hidden = false;
+          }
+        }
+
+        // ----- Sell: Approve → List -----
+        function markApproved() {
+          approved = true;
+          approveBtn.textContent = '✓ 已授权 Approved';
+          approveBtn.classList.add('is-done');
+          approveBtn.disabled = true;
+        }
+        async function checkApproval() {
+          try { if (account && (await nft.isApprovedForAll(account, MKT))) markApproved(); } catch (e) {}
+          return approved;
+        }
+        approveBtn.addEventListener('click', async () => {
+          if (!account && !(await connect())) return;
+          if (await checkApproval()) { toast('已授权，可以上架 Already approved, you can list'); return; }
+          const ok = await send(approveBtn, (s) => new ethers.Contract(NFT, NFT_MARKET_ABI, s).setApprovalForAll(MKT, true), '授权成功 Approved');
+          if (ok) markApproved();
+        });
+        listBtn.addEventListener('click', async () => {
+          const id = idIn.value.trim(), price = priceIn.value.trim();
+          if (!/^\d+$/.test(id)) { toast('请输入喵喵编号 Enter a token ID'); idIn.focus(); return; }
+          if (!PRICE_RE.test(price) || Number(price) <= 0) { toast('请输入有效价格 Enter a valid price'); priceIn.focus(); return; }
+          if (!account && !(await connect())) return;
+          if (!approved && !(await checkApproval())) { toast('请先完成第 1 步授权 Approve first (step 1)'); return; }
+          const ok = await send(listBtn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).listItem(id, ethers.parseEther(price)), '上架成功 Listed');
+          if (ok) { idIn.value = ''; priceIn.value = ''; updateReceive(); loadListings(); }
+        });
+
+        // ----- Load my cats (ERC721Enumerable) -----
+        const myCats = $('mk-mycats');
+        loadBtn.addEventListener('click', async () => {
+          if (!account && !(await connect())) return;
+          loadBtn.disabled = true;
+          try {
+            const n = Math.min(Number(await nft.balanceOf(account)), 50);
+            if (!n) { toast('钱包里没有飞升喵 No cats in this wallet'); myCats.hidden = true; return; }
+            const ids = await Promise.all(Array.from({ length: n }, (_, i) => nft.tokenOfOwnerByIndex(account, i)));
+            myCats.replaceChildren(
+              ...ids.map((t) => {
+                const b = el('button', 'x-ghost', '#' + t.toString());
+                b.type = 'button';
+                b.addEventListener('click', () => { idIn.value = t.toString(); priceIn.focus(); });
+                return b;
+              })
+            );
+            myCats.hidden = false;
+            checkApproval();
+          } catch (e) {
+            toast('无法读取，请手动输入编号 Could not load, enter the token ID by hand');
+          } finally {
+            loadBtn.disabled = false;
+          }
+        });
+
+        if (window.ethereum && window.ethereum.on) {
+          window.ethereum.on('accountsChanged', (a) => {
+            account = a[0] || null;
+            approved = false;
+            approveBtn.classList.remove('is-done');
+            approveBtn.textContent = '① 授权 Approve';
+            approveBtn.disabled = false;
+            myCats.hidden = true;
+            renderGrid();
+            renderMine();
+          });
+        }
+
+        none.textContent = '加载中… Loading…';
+        none.hidden = false;
+        grid.replaceChildren();
+        renderMine();
+        loadListings();
+      })();
+    </script>
+    <script>
       // Rarity showcase: sparkle bursts and paw hearts (decorative only)
       (function () {
         const still = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -1032,6 +1673,6 @@
         if (/ServiceWorker|sw\.js/i.test(m)) e.preventDefault();
       });
     </script>
-  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js")}</script>
+  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}</script>
 </body>
 </html>
