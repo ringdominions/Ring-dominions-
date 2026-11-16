@@ -1,5 +1,5 @@
 <!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Deploy · Ascension Catty</title><meta name="robots" content="noindex">
+<title>Deploy · New NFT</title><meta name="robots" content="noindex">
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
 <style>
 body{margin:0;font-family:system-ui,sans-serif;background:#0d0b1f;color:#eee8ff;padding:18px}
@@ -10,11 +10,11 @@ button{width:100%;padding:13px;border:0;border-radius:10px;font-weight:700;font-
 button:disabled{opacity:.4}.ok{color:#7ef0b0;word-break:break-all;font-size:13px;margin-top:8px}.err{color:#ff8a8a;font-size:13px;margin-top:8px;word-break:break-word}
 .warn{background:#3a1d1d;border-color:#7a3a3a;font-size:13px;line-height:1.5}a{color:#f5c76b}code{font-size:12px}
 </style></head><body><div class="w">
-<h1>🐱 Deploy Ascension Catty</h1><p class="s">BNB Smart Chain Mainnet (chainId 56) · kamu yang sign di wallet sendiri</p>
-<div class="c warn">⚠️ Ini mainnet: deploy pakai BNB asli untuk gas (kira-kira 0.01–0.03 BNB total). Kontrak belum diaudit. Wallet yang deploy menjadi <b>owner</b> dan penerima dana mint + fee market 2%. Jangan pernah bagikan seed phrase/private key ke siapa pun.</div>
+<h1>Deploy NFT baru</h1><p class="s">BNB Smart Chain Mainnet (chainId 56) · kamu yang sign di wallet sendiri</p>
+<div class="c warn">⚠️ Ini mainnet: deploy pakai BNB asli untuk gas (kira-kira 0.01–0.03 BNB total). Kontrak baru belum diaudit. Wallet yang deploy menjadi <b>owner</b> dan penerima dana mint. Marketplace bisa ditambahkan nanti. Jangan pernah bagikan seed phrase/private key ke siapa pun.</div>
 <div class="c"><h2>1 · Connect wallet</h2><button id="bc">Connect MetaMask / Trust / OKX</button><div id="oc"></div></div>
-<div class="c"><h2>2 · Deploy NFT (AscensionCatty)</h2><label>Base URI metadata</label><input id="uri" value="https://ascensionrealm.fun/nft/metadata/"><button id="bn" disabled>Deploy NFT & Sign</button><div id="on"></div></div>
-<div class="c"><h2>3 · Deploy Market (CattyMarket)</h2><label>Alamat NFT</label><input id="na" placeholder="otomatis setelah langkah 2"><label>Fee market (basis point, 200 = 2%)</label><input id="fee" value="200"><button id="bm" disabled>Deploy Market & Sign</button><div id="om"></div></div>
+<div class="c"><h2>2 · Deploy NFT (supply 1.111)</h2><label>Base URI metadata</label><input id="uri" value="https://ascensionrealm.fun/nft/metadata/"><button id="bn" disabled>Deploy NFT & Sign</button><div id="on"></div></div>
+<div class="c"><h2>3 · Deploy Market (opsional)</h2><label>Alamat NFT</label><input id="na" placeholder="otomatis setelah langkah 2"><label>Fee market (basis point, 200 = 2%)</label><input id="fee" value="200"><button id="bm" disabled>Deploy Market & Sign</button><div id="om"></div></div>
 <div class="c"><h2>4 · Buka mint (opsional, bisa nanti)</h2><button id="bo" disabled>setMintOpen(true) & Sign</button><div id="oo"></div></div>
 <div class="c"><h2>✅ Kirim ke Hark</h2><p class="s" style="margin:0">Salin dua alamat ini dan kirim ke chat Hark, nanti saya pasang di website.</p><div id="sum" class="ok">—</div><button id="cp" style="margin-top:10px">Salin alamat</button></div>
 </div><script>

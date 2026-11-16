@@ -13,7 +13,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract AscensionCattyAgent is ERC721Enumerable, Ownable, ReentrancyGuard {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 2222;
+    uint256 public constant MAX_SUPPLY = 1111;
 
     /// SPACE ID Agent ID (claimed in Binance Agentic Wallet) on BNB Chain
     IERC721 public agentId;

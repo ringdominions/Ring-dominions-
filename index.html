@@ -546,7 +546,7 @@
       @keyframes xlivepulse { 50% { opacity: .4; } }
       @media (prefers-reduced-motion: reduce) { .x-live__dot.is-on { animation: none; } .x-live__bar span { transition: none; } }
 
-    #tiers .cards > div:nth-child(2), [data-agent-tier="summon"]{display:none !important}</style>
+    #mint .cards > div{position:relative}</style>
   </head>
   <body>
     <div class="page" id="top">
@@ -556,10 +556,10 @@
           <img class="hero__img" src="hero.png" alt="像素风紫金色天界裂隙，漂浮的岛屿间圆滚滚的小猫飞升而出 · A pixel-art violet and gold celestial portal with floating islands and chubby kittens ascending" />
           <div class="hero__copy">
             <img class="x-logo" src="logo.png" alt="飞升喵境徽标：紫色菱形传送门里带光环和翅膀的小猫 · Ascension Catty logo: a haloed, winged kitten in a violet diamond portal" />
-            <p class="hero__eyebrow">像素喵 NFT · Pixel cat NFT · BNB Smart Chain</p>
+            <p class="hero__eyebrow">NFT koleksi digital · BNB Smart Chain</p>
             <h1>飞升喵境 <span class="x-sub">Ascension Catty</span></h1>
-            <p class="hero__sub">天界裂隙打开，一群圆滚滚的小猫咪飞升而出，等待一位守护者把它们带回家。The celestial rift opens and a bunch of round little kittens ascend, waiting for a guardian to take them home.</p>
-            <p class="hero__meta">合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" target="_blank" rel="noopener">0xD7C6…f596</a>. NFTs are digital collectibles with no promise of returns.</p>
+            <p class="hero__sub">Koleksi kecil dengan desain pixel. Pilih jumlah, hubungkan wallet, lalu mint.</p>
+            <p class="hero__meta">Supply terbatas 1.111 NFT. Kontrak baru akan diumumkan setelah siap. NFT ini hanya koleksi digital.</p>
           </div>
           <div class="x-hfloats" aria-hidden="true">
             <div class="x-hcat x-hcat--king">
@@ -582,104 +582,57 @@
         </section>
 
         <section class="stats">
-          <div class="stat"><span class="stat__fig" id="live-minted">… / 2,222</span><span class="stat__label">已飞升 Minted</span></div>
-          <div class="stat"><span class="stat__fig" id="live-left">…</span><span class="stat__label">剩余供应 Supply left · 仅限币安 Agent，每个 Agent 最多 10 只 Agent-only · Max 10 per Agent</span></div>
+          <div class="stat"><span class="stat__fig" id="live-minted">… / 1,111</span><span class="stat__label">Sudah di-mint</span></div>
+          <div class="stat"><span class="stat__fig" id="live-left">1,111</span><span class="stat__label">Sisa supply</span></div>
         </section>
         <div class="x-live" aria-live="polite">
           <div class="x-live__bar"><span id="live-bar" style="width:0%"></span></div>
-          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status">链上实时连接中… Connecting to BNB Chain…</span></p>
+          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status">Menunggu kontrak baru</span></p>
         </div>
-        <p><span class="chip chip--solid" id="status-chip">铸造开放 Mint live</span></p>
+        <p><span class="chip chip--solid" id="status-chip">Mint segera dibuka</span></p>
 
-        <section class="section" id="tiers" data-nav="迎接 Tiers">
+        <section class="section" id="mint" data-nav="Mint">
           <div class="head">
-            <p class="head__eyebrow">铸造 Mint</p>
-            <h2>两种方式迎接守护喵，总量 2,222 只。<span class="x-sub">Two ways to welcome a guardian cat, 2,222 total.</span></h2>
-            <p class="head__sub">合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" target="_blank" rel="noopener">0xD7C6…f596</a>. NFTs are digital collectibles with no promise of returns.</p>
+            <p class="head__eyebrow">Mint</p>
+            <h2>Satu cara. 1.111 NFT.<span class="x-sub">Simple mint.</span></h2>
+            <p class="head__sub">Hubungkan wallet, pilih jumlah, lalu konfirmasi transaksi di BNB Smart Chain.</p>
           </div>
           <div class="cards">
             <div>
               <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
-              <h3>免费铸造 Free Mint</h3>
-              <p class="quote">0.0005 BNB</p>
+              <h3>Mint NFT</h3>
+              <p class="quote">0.0005 BNB per NFT</p>
               <ul>
-                <li>仅限币安 Agent，每个 Agent 最多 10 只 Agent-only · Max 10 per Agent</li>
-                <li>$PURR 代币仍为概念，不随铸造发放 $PURR is still a concept and isn't included with the mint</li>
+                <li>Maksimal 10 NFT per wallet</li>
+                <li>Gas fee dibayar terpisah</li>
+                <li>Pastikan detail transaksi benar sebelum sign</li>
               </ul>
               <div class="x-mint">
                 <div class="x-mint__row">
-                  <div class="x-stepper" role="group" aria-label="数量 Quantity">
-                    <button type="button" data-tier="free" data-step="-1" aria-label="减少 Decrease">−</button>
+                  <div class="x-stepper" role="group" aria-label="Jumlah mint">
+                    <button type="button" data-tier="free" data-step="-1" aria-label="Kurangi">−</button>
                     <output class="x-qty" data-qty="free" aria-live="polite">1</output>
-                    <button type="button" data-tier="free" data-step="1" aria-label="增加 Increase">+</button>
+                    <button type="button" data-tier="free" data-step="1" aria-label="Tambah">+</button>
                   </div>
-                  <p class="x-total">合计 Total <b data-total="free">0.0005 BNB</b></p>
+                  <p class="x-total">Total <b data-total="free">0.0005 BNB</b></p>
                 </div>
-                <button type="button" class="x-pixel" data-mint="free" data-label="铸造 Mint">铸造 Mint</button>
-              </div>
-            </div>
-            <div>
-              <h3>召唤铸造 Summon Mint</h3>
-              <p class="quote">0.005 BNB</p>
-              <ul>
-                <li>仅限币安 Agent，每个 Agent 最多 10 只 Agent-only · Max 10 per Agent</li>
-                <li>✨ 更高稀有度概率 Higher rarity odds</li>
-                <li>$PURR 代币仍为概念，不随铸造发放 $PURR is still a concept and isn't included with the mint</li>
-              </ul>
-              <div class="x-mint">
-                <div class="x-mint__row">
-                  <div class="x-stepper" role="group" aria-label="数量 Quantity">
-                    <button type="button" data-tier="summon" data-step="-1" aria-label="减少 Decrease">−</button>
-                    <output class="x-qty" data-qty="summon" aria-live="polite">1</output>
-                    <button type="button" data-tier="summon" data-step="1" aria-label="增加 Increase">+</button>
-                  </div>
-                  <p class="x-total">合计 Total <b data-total="summon">0.005 BNB</b></p>
-                </div>
-                <button type="button" class="x-pixel" data-mint="summon" data-label="召唤 Summon">召唤 Summon</button>
+                <button type="button" class="x-pixel" data-mint="free" data-label="Mint NFT">Mint NFT</button>
               </div>
             </div>
           </div>
-          <p class="fineprint">仅持有 Agent ID 的币安 Agentic Wallet 可铸造，普通钱包会被合约拒绝。数量 1 到 10。Only Binance Agentic Wallets holding an Agent ID can mint; ordinary wallets are rejected on-chain. Quantity 1 to 10.</p>
+          <p class="fineprint">Kontrak baru belum diumumkan. Jangan kirim dana atau sign transaksi dari link lain.</p>
         </section>
 
-        <section class="section" id="agent" data-nav="Agent">
+        <section class="section" id="how" data-nav="Cara Mint">
           <div class="head">
-            <p class="head__eyebrow">币安 Agent Binance Agent</p>
-            <h2>用币安 Agent 铸造 <span class="x-sub">Mint with Binance Agent</span></h2>
+            <p class="head__eyebrow">Cara mint</p>
+            <h2>Tiga langkah sederhana<span class="x-sub">Three simple steps</span></h2>
           </div>
-          <ol class="x-asteps">
-            <li><span class="x-asteps__ic" aria-hidden="true">📋</span>① 复制 <span class="x-en">Copy</span></li>
-            <li aria-hidden="true" class="x-asteps__arrow">→</li>
-            <li><span class="x-asteps__ic" aria-hidden="true">🤖</span>② 粘贴给 Agent <span class="x-en">Paste to your Agent</span></li>
-            <li aria-hidden="true" class="x-asteps__arrow">→</li>
-            <li><span class="x-asteps__ic" aria-hidden="true">✅</span>③ 预览后确认 <span class="x-en">Preview &amp; confirm</span></li>
-          </ol>
-          <div class="x-agent">
-            <img class="x-peek x-peek--king" src="float_king.png" alt="" aria-hidden="true" />
-            <div class="x-toggle" role="group" aria-label="铸造方式 Mint type">
-              <button type="button" data-agent-tier="free" aria-pressed="true">免费 Free · 0.0005</button>
-              <button type="button" data-agent-tier="summon" aria-pressed="false">召唤 Summon · 0.005</button>
-            </div>
-            <div class="x-agent__row">
-              <div class="x-stepper" role="group" aria-label="数量 Quantity">
-                <button type="button" data-tier="agent" data-step="-1" aria-label="减少 Decrease">−</button>
-                <output class="x-qty" data-qty="agent" aria-live="polite">1</output>
-                <button type="button" data-tier="agent" data-step="1" aria-label="增加 Increase">+</button>
-              </div>
-              <p class="x-agent__total"><span>合计 Total</span><b data-total="agent" aria-live="polite">0.0005 BNB</b></p>
-            </div>
-            <p class="x-prompt" data-prompt="agent">用我的币安 Agentic Wallet 在 BNB Chain（chain id 56）调用合约 0xD7C69FCd1a506eCEe23d8D0557c52b467626f596 的 mint(10)，附 0.005 BNB。先预览，我确认后再签名。</p>
-            <button type="button" class="x-pixel x-agent__copy" data-copy="agent">一键复制 Copy Prompt</button>
-          <div class="x-wchk" style="margin-top:18px;padding:16px;border:2px dashed var(--stroke-primary);border-radius:8px;background:rgb(10 5 30 / 0.6)">
-            <p style="margin:0 0 8px;font-weight:700">粘贴你的 Agentic Wallet 地址 <span class="x-en">Paste your Agentic Wallet</span></p>
-            <input id="wc-in" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x…" style="width:100%;box-sizing:border-box;padding:12px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff;font-size:14px">
-            <button type="button" id="wc-go" class="x-pixel" style="width:100%;margin-top:10px">检查并生成 Check &amp; Build Prompt</button>
-            <p id="wc-st" class="fineprint" style="margin:10px 0 0" aria-live="polite"></p>
-            <pre id="wc-pr" hidden style="white-space:pre-wrap;word-break:break-all;margin:10px 0 0;font-size:13px"></pre>
-            <button type="button" id="wc-cp" class="x-pixel" hidden style="width:100%;margin-top:10px">一键复制 Copy Prompt</button>
+          <div class="steps">
+            <article class="step"><div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Langkah 1</p></div><div><h3>Hubungkan wallet</h3><p>Gunakan wallet yang mendukung BNB Smart Chain.</p></div></article>
+            <article class="step"><div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Langkah 2</p></div><div><h3>Pilih jumlah</h3><p>Gunakan tombol + atau −. Batasnya 10 NFT per wallet.</p></div></article>
+            <article class="step"><div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Langkah 3</p></div><div><h3>Konfirmasi</h3><p>Periksa jumlah BNB dan alamat kontrak sebelum sign.</p></div></article>
           </div>
-          </div>
-          <p class="fineprint x-safety">只认准本官网合约地址 · 永不泄露助记词 · 签名前核对金额 Only trust this site's contract · Never share your seed phrase · Check the amount before signing.</p>
         </section>
 
         <section class="section" id="cats" data-nav="守护喵 Cats">
@@ -1052,18 +1005,9 @@
           </div>
         </section>
 
-        <section class="section" id="purr" data-nav="$PURR">
-          <div class="head">
-            <p class="head__eyebrow">$PURR 代币（概念）$PURR token (concept)</p>
-            <h2>喵境宝石，仅为概念设定的虚构代币。<span class="x-sub">A fictional gem token, concept only.</span></h2>
-          </div>
-          <section class="stats">
-            <div class="stat"><span class="stat__fig">222.3M</span><span class="stat__label">硬顶 Hard cap</span></div>
-            <div class="stat"><span class="stat__fig">222.2M</span><span class="stat__label">归守护者 To guardians · 2,222 × 100,000</span></div>
-            <div class="stat"><span class="stat__fig">100,000</span><span class="stat__label">每只 Per cat</span></div>
-            <div class="stat"><span class="stat__fig">0.1M</span><span class="stat__label">团队 Team</span></div>
-          </section>
-          <p class="fineprint">BNB Smart Chain (56) · NFT: 0xD7C6…f596 · $PURR: TBA。$PURR 仍为概念占位。$PURR is still a concept placeholder.</p>
+        <section class="section" id="info" data-nav="Info">
+          <div class="head"><p class="head__eyebrow">Info</p><h2>Tidak ada token tambahan.<span class="x-sub">No extra token.</span></h2></div>
+          <p class="fineprint">Website ini hanya untuk koleksi NFT. Supply 1.111. Detail kontrak akan diumumkan setelah deploy.</p>
         </section>
 
         <section class="section" id="roadmap" data-nav="路线图 Roadmap">
@@ -1098,12 +1042,12 @@
           </div>
           <div class="cards">
             <div>
-              <h3>这是真实项目吗？Is this a real project?</h3>
-              <p>是的。NFT 与喵市合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Yes. The NFT and Catty Market contracts are live on BNB Smart Chain (unaudited). NFTs are digital collectibles with no promise of returns.</p>
+              <h3>Apakah ini proyek baru?</h3>
+              <p>Ini adalah website baru. Kontrak belum diumumkan dan NFT hanya koleksi digital.</p>
             </div>
             <div>
-              <h3>Free 档要付钱吗？Does the Free tier cost anything?</h3>
-              <p>每只 0.0005 BNB，另加 gas。仅限持有 Agent ID 的币安 Agentic Wallet，每个 Agent 最多 10 只。0.0005 BNB each plus gas. Only Binance Agentic Wallets with an Agent ID can mint, max 10 per Agent.</p>
+              <h3>Berapa biaya mint?</h3>
+              <p>Biaya mint 0.0005 BNB per NFT, di luar gas. Maksimal 10 NFT per wallet.</p>
             </div>
             <div>
               <h3>图片存在哪里？Where is the art stored?</h3>
@@ -1115,17 +1059,17 @@
             </div>
             <div>
               <h3>怎么确认合约是真的？How do I know the contract is real?</h3>
-              <p>只认本官网公布的地址：<a href="https://bscscan.com/address/0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" target="_blank" rel="noopener">0xD7C69FCd1a506eCEe23d8D0557c52b467626f596</a>，并在 BscScan 上核对。Only trust the address published on this site and check it on BscScan.</p>
+              <p>Kontrak baru akan ditampilkan di website setelah deploy. Selalu cek alamat di BscScan sebelum sign.</p>
             </div>
             <div>
-              <h3>能在哪里交易？Where can I trade?</h3>
-              <p>喵市 Catty Market 合约已部署于 BNB 主网（未经审计），手续费 2%。NFT 留在卖家钱包直到售出。The Catty Market contract is live on BNB Smart Chain (unaudited), 2% fee; your NFT stays in your wallet until it sells. <a href="https://bscscan.com/address/0x7c1959a63C9Fd7f3BDF7d4E9649DbBDa19E74E83" target="_blank" rel="noopener">0x5874…7d4A</a></p>
+              <h3>Apakah ada marketplace?</h3>
+              <p>Marketplace akan ditambahkan setelah mint utama siap.</p>
             </div>
           </div>
         </section>
       </main>
       <footer class="foot">
-        <p><strong>飞升喵境 Ascension Catty</strong> · 合约已部署于 BNB 智能链主网（未经审计）。NFT 仅为数字藏品，不承诺任何收益。Contract live on BNB Smart Chain (unaudited): <a href="https://bscscan.com/address/0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" target="_blank" rel="noopener">0xD7C6…f596</a>. NFTs are digital collectibles with no promise of returns. · © 2026</p>
+        <p><strong>飞升喵境 Ascension Catty</strong> · Koleksi NFT pixel di BNB Smart Chain. Supply 1.111. · © 2026</p>
         <nav aria-label="Back to sections" data-auto></nav>
         <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
           ><span class="hark-mark"></span><span>built by hark</span></a
@@ -1142,44 +1086,31 @@
     <script>
       /* =====================================================================
        * KONFIGURASI / CONFIG
-       * ID: Isi contractAddress dengan alamat kontrak NFT setelah deploy.
-       *     Selama contractAddress kosong (''), semua tombol mint, prompt Agent
-       *     dan tombol Connect Wallet tetap NONAKTIF dan tidak ada permintaan
-       *     ke dompet yang dikirim.
-       * EN: Set contractAddress to the NFT contract address after deploying.
-       *     While contractAddress is empty (''), every mint button, the Agent
-       *     prompts and Connect Wallet stay INACTIVE and no wallet request is sent.
+       * Situs baru dimulai tanpa alamat kontrak.
+       * Isi contractAddress setelah kontrak baru selesai di-deploy.
+       * Selama kosong, tombol mint dan wallet tetap nonaktif.
        * ===================================================================== */
       const CONFIG = {
         chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
         chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
-        contractAddress: '0xD7C69FCd1a506eCEe23d8D0557c52b467626f596',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
-        freeMintFn: 'mint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
-        summonMintFn: 'mint',     // ID: Nama fungsi Summon Mint · EN: Summon Mint function name
+        contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
+        freeMintFn: 'freeMint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
         freePriceBNB: '0.0005',         // ID: Harga per NFT Free (BNB) · EN: Free price per NFT (BNB)
-        summonPriceBNB: '0.0005',        // ID: Harga per NFT Summon (BNB) · EN: Summon price per NFT (BNB)
         maxPerWallet: 10,               // ID: Maksimal per dompet · EN: Max per wallet
-        marketAddress: '0x7c1959a63C9Fd7f3BDF7d4E9649DbBDa19E74E83',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
+        marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
         marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
       };
 
       // ID: Fragmen ABI · EN: ABI fragments
-      const ABI = [
-        `function ${CONFIG.freeMintFn}(uint256 quantity) payable`,
-        `function ${CONFIG.summonMintFn}(uint256 quantity) payable`
-      ];
+      const ABI = [`function ${CONFIG.freeMintFn}(uint256 quantity) payable`];
 
       (function () {
         const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
         const ADDR = CONFIG.contractAddress.trim();
         const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
-        const TIERS = {
-          free: { fn: CONFIG.freeMintFn, price: CONFIG.freePriceBNB },
-          summon: { fn: CONFIG.summonMintFn, price: CONFIG.summonPriceBNB }
-        };
-        const qty = { free: 1, summon: 1, agent: 1 };
-        let agentTier = 'free';
-        let account = null;
+        const TIERS = { free: { fn: CONFIG.freeMintFn, price: CONFIG.freePriceBNB } };
+        const qty = { free: 1 };
+                let account = null;
         const $$ = (s) => Array.from(document.querySelectorAll(s));
 
         // Exact decimal total: price × qty, without float drift
@@ -1190,7 +1121,6 @@
           return (s.slice(0, -4) + '.' + s.slice(-4)).replace(/0+$/, '').replace(/\.$/, '');
         }
         function total(tier) { return totalOf(TIERS[tier].price, qty[tier]); }
-        const agentTotal = () => totalOf(TIERS[agentTier].price, qty.agent);
 
         // Toast
         const toastEl = document.getElementById('toast');
@@ -1204,73 +1134,32 @@
         const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         const NOT_DEPLOYED = '合约尚未部署 Contract not deployed yet';
 
-        function promptText() {
-          const n = qty.agent;
-          return `用我的币安 Agentic Wallet 铸造 ${n} 只 Ascension Catty：调用 ${ADDR} 的 ${TIERS[agentTier].fn}(${n})，附 ${agentTotal()} BNB。先预览，我确认后再签名。`;
-        }
-
-        function renderAgent() {
-          $$('[data-qty="agent"]').forEach((el) => (el.textContent = qty.agent));
-          $$('[data-total="agent"]').forEach((el) => (el.textContent = agentTotal() + ' BNB'));
-          $$('[data-tier="agent"]').forEach((b) => {
-            b.disabled = +b.dataset.step < 0 ? qty.agent <= 1 : qty.agent >= CONFIG.maxPerWallet;
-          });
-          $$('[data-agent-tier]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.agentTier === agentTier)));
-          $$('[data-prompt="agent"]').forEach((el) => {
-            if (ACTIVE) { el.textContent = promptText(); el.classList.remove('is-empty'); }
-            else { el.textContent = '合约地址即将公布 Contract address coming soon'; el.classList.add('is-empty'); }
-          });
-        }
-
-        $$('[data-agent-tier]').forEach((b) =>
-          b.addEventListener('click', () => { agentTier = b.dataset.agentTier; renderAgent(); })
-        );
-
         function render(tier) {
           $$(`[data-qty="${tier}"]`).forEach((el) => (el.textContent = qty[tier]));
           $$(`[data-total="${tier}"]`).forEach((el) => (el.textContent = total(tier) + ' BNB'));
-          $$(`[data-tier="${tier}"]`).forEach((b) => {
-            const d = +b.dataset.step;
-            b.disabled = d < 0 ? qty[tier] <= 1 : qty[tier] >= CONFIG.maxPerWallet;
+          $$(`[data-tier="${tier}"]`).forEach((button) => {
+            const step = +button.dataset.step;
+            button.disabled = step < 0 ? qty[tier] <= 1 : qty[tier] >= CONFIG.maxPerWallet;
           });
         }
 
-        // Steppers (1 to maxPerWallet)
-        $$('[data-step]').forEach((b) =>
-          b.addEventListener('click', () => {
-            const t = b.dataset.tier;
-            qty[t] = Math.min(CONFIG.maxPerWallet, Math.max(1, qty[t] + +b.dataset.step));
-            t === 'agent' ? renderAgent() : render(t);
+        $$('[data-step]').forEach((button) =>
+          button.addEventListener('click', () => {
+            const tier = button.dataset.tier;
+            qty[tier] = Math.min(CONFIG.maxPerWallet, Math.max(1, qty[tier] + +button.dataset.step));
+            render(tier);
           })
         );
 
-        // Mint buttons
-        $$('[data-mint]').forEach((b) => {
-          if (ACTIVE) { b.disabled = false; b.textContent = b.dataset.label; }
-          else { b.disabled = true; b.textContent = '即将开放 Coming soon'; }
-          b.addEventListener('click', () => { if (ACTIVE && !b.disabled) mint(b.dataset.mint, b); });
-        });
-
-        // Copy buttons
-        const COPY_LABEL = '一键复制 Copy Prompt';
-        $$('[data-copy]').forEach((b) => {
-          let copyTimer;
-          b.disabled = !ACTIVE;
-          b.textContent = ACTIVE ? COPY_LABEL : '即将开放 Coming soon';
-          b.addEventListener('click', async () => {
-            if (!ACTIVE) return;
-            try {
-              await navigator.clipboard.writeText(promptText());
-              b.textContent = '已复制 ✓ Copied';
-              clearTimeout(copyTimer);
-              copyTimer = setTimeout(() => (b.textContent = COPY_LABEL), 2000);
-            } catch (e) { toast('复制失败，请手动选择文字 Copy failed, select the text manually'); }
-          });
+        $$('[data-mint]').forEach((button) => {
+          if (ACTIVE) { button.disabled = false; button.textContent = button.dataset.label; }
+          else { button.disabled = true; button.textContent = 'Segera dibuka'; }
+          button.addEventListener('click', () => { if (ACTIVE && !button.disabled) mint(button.dataset.mint, button); });
         });
 
         if (ACTIVE) {
           const chip = document.getElementById('status-chip');
-          if (chip) { chip.textContent = '铸造开放 Mint live'; chip.classList.add('chip--solid'); }
+          if (chip) { chip.textContent = 'Mint terbuka'; chip.classList.add('chip--solid'); }
         }
 
         async function ensureChain() {
@@ -1278,41 +1167,37 @@
             await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_HEX }] });
           } catch (e) {
             if (e && (e.code === 4902 || (e.data && e.data.originalError && e.data.originalError.code === 4902))) {
-              await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                  chainId: CHAIN_HEX, chainName: CONFIG.chainName,
-                  nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
-                  rpcUrls: ['https://bsc-dataseed.bnbchain.org'],
-                  blockExplorerUrls: ['https://bscscan.com']
-                }]
-              });
+              await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [{
+                chainId: CHAIN_HEX, chainName: CONFIG.chainName,
+                nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+                rpcUrls: ['https://bsc-dataseed.bnbchain.org'], blockExplorerUrls: ['https://bscscan.com']
+              }] });
             } else throw e;
           }
         }
 
         async function connect() {
           if (!ACTIVE) { toast(NOT_DEPLOYED); return null; }
-          if (!window.ethereum) { toast('未检测到钱包 No wallet found'); return null; }
+          if (!window.ethereum) { toast('Wallet tidak ditemukan'); return null; }
           try {
             const accts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             await ensureChain();
             account = accts[0];
             walletBtn.textContent = account.slice(0, 6) + '…' + account.slice(-4);
-            toast('钱包已连接 Wallet connected');
+            toast('Wallet terhubung');
             return account;
           } catch (e) {
-            toast('连接失败 Connection failed: ' + esc(e.shortMessage || e.message || e));
+            toast('Gagal terhubung: ' + esc(e.shortMessage || e.message || e));
             return null;
           }
         }
 
-        async function mint(tier, btn) {
+        async function mint(tier, button) {
           const n = qty[tier];
-          if (n < 1 || n > CONFIG.maxPerWallet) { toast(`数量需为 1 到 ${CONFIG.maxPerWallet} Quantity must be 1 to ${CONFIG.maxPerWallet}`); return; }
-          if (typeof ethers === 'undefined') { toast('钱包库加载失败 Wallet library failed to load'); return; }
+          if (n < 1 || n > CONFIG.maxPerWallet) { toast(`Jumlah 1 sampai ${CONFIG.maxPerWallet}`); return; }
+          if (typeof ethers === 'undefined') { toast('Wallet library gagal dimuat'); return; }
           if (!account && !(await connect())) return;
-          btn.disabled = true;
+          button.disabled = true;
           try {
             await ensureChain();
             const provider = new ethers.BrowserProvider(window.ethereum);
@@ -1321,16 +1206,13 @@
             const value = ethers.parseEther(TIERS[tier].price) * BigInt(n);
             const tx = await contract[TIERS[tier].fn](n, { value });
             const link = `<a href="https://bscscan.com/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
-            toast('交易处理中 Transaction pending: ' + link, 0);
+            toast('Transaksi diproses: ' + link, 0);
             const receipt = await tx.wait();
             if (window.cattyRefreshSupply) window.cattyRefreshSupply();
-            if (receipt && receipt.status === 1) toast('铸造成功 Mint successful: ' + link, 8000);
-            else toast('交易失败 Transaction failed: ' + link, 8000);
+            toast(receipt && receipt.status === 1 ? 'Mint berhasil: ' + link : 'Transaksi gagal: ' + link, 8000);
           } catch (e) {
-            toast('交易失败 Transaction failed: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
-          } finally {
-            btn.disabled = false;
-          }
+            toast('Transaksi gagal: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
+          } finally { button.disabled = false; }
         }
 
         // Connect Wallet button in the nav (the nav is filled by hark.js first)
@@ -1356,8 +1238,6 @@
         }
 
         render('free');
-        render('summon');
-        renderAgent();
       })();
     </script>
     <script>
@@ -1899,7 +1779,7 @@
 <script>
 /* Live supply: reads totalMinted() from the NFT contract on BNB Chain every 15s. */
 (function () {
-  var ADDR = '0xD7C69FCd1a506eCEe23d8D0557c52b467626f596', MAX = 2222, SEL = '0xa2309ff8';
+  var ADDR = '', MAX = 1111, SEL = '0xa2309ff8';
   var RPCS = ['https://bsc-dataseed.bnbchain.org', 'https://bsc-dataseed1.defibit.io', 'https://bsc-rpc.publicnode.com', 'https://bsc-dataseed2.ninicoin.io'];
   var ri = 0, timer = null, last = null;
   var $ = function (id) { return document.getElementById(id); };
@@ -1929,35 +1809,12 @@
     $('live-dot').className = 'x-live__dot is-off';
     $('live-status').textContent = '重新连接中… Reconnecting…' + (last === null ? '' : ' (显示上次数据 showing last value)');
   }
-  function start() { clearInterval(timer); refresh(); timer = setInterval(refresh, 15000); }
+  function start() { clearInterval(timer); if (!ADDR) { $('live-status').textContent = 'Menunggu kontrak baru'; $('live-left').textContent = fmt(MAX); return; } refresh(); timer = setInterval(refresh, 15000); }
   window.cattyRefreshSupply = refresh;
   document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
   window.addEventListener('online', start);
   start();
 })();
 </script>
-<script>
-(function(){
-var NFT='0xD7C69FCd1a506eCEe23d8D0557c52b467626f596',P=0.0005;
-var RS=['https://bsc-dataseed.bnbchain.org','https://bsc-dataseed1.defibit.io','https://bsc-rpc.publicnode.com','https://bsc-dataseed2.ninicoin.io'];
-var $=function(i){return document.getElementById(i)};
-async function call(data){for(var i=0;i<RS.length;i++){try{var r=await fetch(RS[i],{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'eth_call',params:[{to:NFT,data:data},'latest']})});var j=await r.json();if(j.result)return j.result}catch(e){}}throw new Error('rpc')}
-$('wc-go').onclick=async function(){
- var w=$('wc-in').value.trim();var st=$('wc-st');$('wc-pr').hidden=true;$('wc-cp').hidden=true;
- if(!/^0x[0-9a-fA-F]{40}$/.test(w)){st.textContent='地址格式不对 Invalid address';return}
- st.textContent='读取合约中… Reading contract…';
- var pad=w.slice(2).toLowerCase().padStart(64,'0');
- try{
-  var ag=parseInt(await call('0x1ffbb064'+pad),16)===1;var left=parseInt(await call('0x24c0c499'+pad),16);
-  if(!ag){st.textContent='❌ 此钱包没有 Agent ID，合约会拒绝。请先在币安钱包 Agentic Wallet 领取 Agent ID。This wallet has no Agent ID; claim one in your Binance Agentic Wallet first.';return}
-  if(!left){st.textContent='✅ 此 Agent 已铸满 10 只。This Agent already minted its 10.';return}
-  var v=(P*left).toFixed(4).replace(/0+$/,'').replace(/\.$/,'');
-  st.textContent='✅ 可铸造 Eligible · 剩余 '+left+' 只 left';
-  $('wc-pr').textContent='用我的币安 Agentic Wallet '+w+' 在 BNB Chain（chain id 56）调用合约 '+NFT+' 的 mint('+left+')，附 '+v+' BNB。先预览，我确认后再签名。\n\nUse my Binance Agentic Wallet '+w+' on BNB Chain (chain id 56) to call mint('+left+') on contract '+NFT+' with '+v+' BNB. Preview first; sign after I confirm.';
-  $('wc-pr').hidden=false;$('wc-cp').hidden=false;
- }catch(e){st.textContent='网络繁忙，请重试 Network busy, try again'}
-};
-$('wc-cp').onclick=function(){navigator.clipboard.writeText($('wc-pr').textContent);var b=$('wc-cp');b.textContent='已复制 Copied';setTimeout(function(){b.textContent='一键复制 Copy Prompt'},2000)};
-})();
-</script></body>
+</body>
 </html>

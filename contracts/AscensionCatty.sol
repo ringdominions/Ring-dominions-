@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract AscensionCatty is ERC721Enumerable, Ownable, ReentrancyGuard {
     using Strings for uint256;
 
-    uint256 public constant MAX_SUPPLY = 2222;
+    uint256 public constant MAX_SUPPLY = 1111;
     uint256 public constant MAX_PER_WALLET = 20;
     uint256 public constant FREE_PRICE = 0.0005 ether;
     uint256 public constant SUMMON_PRICE = 0.005 ether;

@@ -10,15 +10,15 @@ input{width:100%;padding:10px;font-size:14px;box-sizing:border-box}
 </style></head><body>
 <h1>Ascension Catty — Withdraw</h1>
 <p>BNB Smart Chain (chainId 56). Buka halaman ini di browser dApp wallet kamu (Binance Wallet, MetaMask, OKX, Trust), lalu tanda tangani tiap transaksi.</p>
-<p>Kontrak live: Ascension Catty / ACAT, supply 2.222, totalMinted 10 saat dicek 29 Okt 2026 12:34 WIB, mintOpen true. Dana hasil mint ditahan di kontrak, jadi Withdraw di sini adalah cara owner mengambilnya — dana dikirim langsung ke wallet owner.</p>
-<p><b>Saldo kontrak live saat dicek: 0,005 BNB</b> (10 mint × 0,0005 BNB — cocok dengan harga freeMint). Kontrak lama 0x54a5…3e504 saldonya 0 BNB dan mint-nya sudah tertutup, jadi tidak ada yang bisa ditarik dari sana. Market 0x7c19… tidak punya fungsi withdraw — fee market langsung masuk ke feeRecipient saat penjualan, bukan ditahan di market.</p>
+<p>Halaman ini untuk kontrak baru setelah deploy. Isi alamat kontrak yang benar sebelum mengecek saldo atau menarik dana.</p>
+<p>Gunakan alamat kontrak baru yang sudah diverifikasi. Jangan gunakan alamat lama.</p>
 
 <h2>1 · CONNECT</h2>
 <button id="connectBtn">Connect wallet</button>
 <p class="small" id="walletLine">Belum terhubung.</p>
 
 <h2>2 · CEK SALDO</h2>
-<p>Alamat kontrak (sudah terisi kontrak live; ganti kalau mau cek kontrak lain): <input id="contractInput" value="0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" /></p>
+<p>Alamat kontrak baru: <input id="contractInput" value="" /></p>
 <button id="checkBalBtn">Cek saldo</button>
 <p class="small" id="balOut">—</p>
 
@@ -26,7 +26,7 @@ input{width:100%;padding:10px;font-size:14px;box-sizing:border-box}
 <p class="small">Hanya owner yang bisa tarik dana. Kalau wallet yang terhubung bukan owner, tombol tarik akan dinonaktifkan setelah cek saldo — supaya tidak buang gas untuk transaksi yang pasti gagal di kontrak.</p>
 <button id="withdrawBtn">Tarik dana (withdraw)</button>
 <p class="small" id="withdrawOut">—</p>
-<p class="small">Kontrak live: <a href="https://bscscan.com/address/0xD7C69FCd1a506eCEe23d8D0557c52b467626f596" target="_blank" rel="noopener">BscScan ↗</a> · Halaman utama: <a href="https://ascensionrealm.fun/" target="_blank" rel="noopener">ascensionrealm.fun</a> · Deploy: <a href="https://ascensionrealm.fun/deploy-v2.html" target="_blank" rel="noopener">deploy-v2.html</a></p>
+<p class="small">BscScan hanya bisa dipakai setelah alamat kontrak baru tersedia · Halaman utama: <a href="https://ascensionrealm.fun/" target="_blank" rel="noopener">ascensionrealm.fun</a> · Deploy: <a href="https://ascensionrealm.fun/deploy-v2.html" target="_blank" rel="noopener">deploy-v2.html</a></p>
 
 <script>
 function provider(){ if(window.okxwallet) return window.okxwallet; if(window.ethereum) return window.ethereum; return null; }
