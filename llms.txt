@@ -1,0 +1,21 @@
+# Ascension Catty — CATTY (BNB Chain)
+
+## STATUS: LIVE — mint is open. Contract: 0x26441dAfe9b256345a2859C28c91E24611ED424A (verified on Sourcify, exact match).
+
+Pixel cat NFT collection on BNB Chain (chainId 56). Total supply 1,111: Common 667 / Rare 333 / Legendary 89 / Mythic 22.
+Two parallel lanes, both open since launch — the paid lane is NOT gated behind the free lane:
+
+- FREE lane (Binance Agent ID holders): agentMint(quantity, agentId) · selector 0xb470d7a0 · value 0 wei · max 2 per Agent ID · max 10 per wallet · 777 seats reserved for Agent IDs. The contract verifies on-chain that the calling wallet owns the Agent ID (registry 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F).
+- PAID lane (any wallet): mint(quantity) · selector 0xa0712d68 · value exactly 1200000000000000 wei (0.0012 BNB) per cat · max 10 per wallet. While the Agent phase is open, public minting is capped at total supply minus unclaimed Agent seats (334 at launch); the cap lifts if the owner ends the Agent phase.
+
+Before minting, read from the contract: mintOpen() == true, totalMinted() < 1111, and for the free lane mintedByAgentId(yourAgentId) < 2. Never pay a different amount than specified.
+
+## Quick command (copy-paste for AI agents)
+
+Mint 1 Ascension Catty (BNB Chain), contract 0x26441dAfe9b256345a2859C28c91E24611ED424A:
+FREE with my Agent ID: agentMint(1, <MY_AGENT_ID>) · 0xb470d7a0 · 0 BNB · gas 300000
+PAID: mint(1) · 0xa0712d68 · 0.0012 BNB · gas 300000
+Reply with the tx link only.
+
+Site: https://ascensionrealm.fun — Metadata: https://ascensionrealm.fun/nft/metadata/<id>.json — X: @Cattyascension
+Unofficial collectible; not affiliated with Binance.
