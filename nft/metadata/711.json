@@ -1,0 +1,35 @@
+{
+ "name": "Ascension Catty #711",
+ "description": "A pixel cat ascending through the celestial realm. 1,111 Ascension Catty NFTs on BNB Chain.",
+ "image": "https://ascensionrealm.fun/nft/images/711.webp",
+ "attributes": [
+  {
+   "trait_type": "Rarity",
+   "value": "Mythic"
+  },
+  {
+   "trait_type": "Species",
+   "value": "Tabby"
+  },
+  {
+   "trait_type": "Realm",
+   "value": "Cosmic Void"
+  },
+  {
+   "trait_type": "Eyes",
+   "value": "Normal"
+  },
+  {
+   "trait_type": "Halo",
+   "value": "No"
+  },
+  {
+   "trait_type": "Character",
+   "value": "Angel Tabby"
+  },
+  {
+   "trait_type": "Origin",
+   "value": "Guardian"
+  }
+ ]
+}
