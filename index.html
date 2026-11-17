@@ -610,13 +610,13 @@
               <div class="x-mint">
                 <div class="x-mint__row">
                   <div class="x-stepper" role="group" aria-label="Jumlah mint">
-                    <button type="button" data-tier="free" data-step="-1" aria-label="Kurangi">−</button>
-                    <output class="x-qty" data-qty="free" aria-live="polite">1</output>
-                    <button type="button" data-tier="free" data-step="1" aria-label="Tambah">+</button>
+                    <button type="button" data-tier="mint" data-step="-1" aria-label="Kurangi">−</button>
+                    <output class="x-qty" data-qty="mint" aria-live="polite">1</output>
+                    <button type="button" data-tier="mint" data-step="1" aria-label="Tambah">+</button>
                   </div>
-                  <p class="x-total">Total <b data-total="free">0.0005 BNB</b></p>
+                  <p class="x-total">Total <b data-total="mint">0.0005 BNB</b></p>
                 </div>
-                <button type="button" class="x-pixel" data-mint="free" data-label="Mint NFT">Mint NFT</button>
+                <button type="button" class="x-pixel" data-mint="mint" data-label="Mint NFT">Mint NFT</button>
               </div>
             </div>
           </div>
@@ -1094,22 +1094,22 @@
         chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
         chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
         contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
-        freeMintFn: 'freeMint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
-        freePriceBNB: '0.0005',         // ID: Harga per NFT Free (BNB) · EN: Free price per NFT (BNB)
+        mintFn: 'mint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
+        mintPriceBNB: '0.0005',         // ID: Harga per NFT Mint (BNB) · EN: Mint price per NFT (BNB)
         maxPerWallet: 10,               // ID: Maksimal per dompet · EN: Max per wallet
         marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
         marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
       };
 
       // ID: Fragmen ABI · EN: ABI fragments
-      const ABI = [`function ${CONFIG.freeMintFn}(uint256 quantity) payable`];
+      const ABI = [`function ${CONFIG.mintFn}(uint256 quantity) payable`];
 
       (function () {
         const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
         const ADDR = CONFIG.contractAddress.trim();
         const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
-        const TIERS = { free: { fn: CONFIG.freeMintFn, price: CONFIG.freePriceBNB } };
-        const qty = { free: 1 };
+        const TIERS = { mint: { fn: CONFIG.mintFn, price: CONFIG.mintPriceBNB } };
+        const qty = { mint: 1 };
                 let account = null;
         const $$ = (s) => Array.from(document.querySelectorAll(s));
 
@@ -1237,7 +1237,7 @@
           });
         }
 
-        render('free');
+        render('mint');
       })();
     </script>
     <script>
