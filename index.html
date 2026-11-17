@@ -594,8 +594,8 @@
         <section class="section" id="mint" data-nav="Mint">
           <div class="head">
             <p class="head__eyebrow">Mint</p>
-            <h2>Agent dulu, public berikutnya.<span class="x-sub">Two mint phases.</span></h2>
-            <p class="head__sub">Agent ID Binance mendapat akses gratis selama Agent phase. Public mint dibuka setelah fase Agent berakhir.</p>
+            <h2>Dua jalur, jalan bareng.<span class="x-sub">Two lanes, open in parallel.</span></h2>
+            <p class="head__sub">Agent ID Binance mint gratis — 777 kursi dicadangkan khusus. Public mint 0.0012 BNB terbuka sejak awal, tidak menunggu fase Agent selesai.</p>
           </div>
           <div class="cards">
             <div>
@@ -605,7 +605,7 @@
               <ul>
                 <li>Wajib memiliki Binance Agent ID</li>
                 <li>Maksimal 2 NFT per Agent ID</li>
-                <li>Agent phase berakhir setelah 777 NFT</li>
+                <li>777 kursi dicadangkan khusus Agent ID</li>
               </ul>
               <label for="agent-id" class="fineprint">Agent ID token</label>
               <input id="agent-id" inputmode="numeric" placeholder="Contoh: 1234" style="width:100%;box-sizing:border-box;padding:10px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff" />
@@ -626,7 +626,7 @@
               <h3>Public Mint</h3>
               <p class="quote">0.0012 BNB per NFT · 334 NFT</p>
               <ul>
-                <li>Terbuka setelah Agent phase selesai</li>
+                <li>Terbuka sejak awal, bareng jalur Agent</li>
                 <li>Maksimal 10 NFT per wallet</li>
                 <li>Gas fee dibayar terpisah</li>
               </ul>
@@ -642,6 +642,13 @@
                 <button type="button" class="x-pixel" data-mint="mint" data-label="Public Mint">Public Mint</button>
               </div>
             </div>
+          </div>
+          <div class="x-agent">
+            <div class="x-agent__row">
+              <h3>Mint lewat Agent — salin prompt ini <span class="x-sub">Agent prompt — copy &amp; paste</span></h3>
+              <button type="button" class="x-pixel x-agent__copy" id="agent-prompt-copy">Salin prompt</button>
+            </div>
+            <pre class="x-prompt" id="agent-prompt">Prompt aktif setelah kontrak di-deploy — alamat kontrak terisi otomatis di sini.</pre>
           </div>
           <p class="fineprint">Registry Agent ID: 0x60B9…022F. Jangan kirim dana atau sign transaksi dari link lain.</p>
         </section>
@@ -1015,7 +1022,7 @@
             </div>
             <div>
               <h3>Berapa biaya mint?</h3>
-              <p>Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis selama fase Agent.</p>
+              <p>Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis — kedua jalur berjalan paralel.</p>
             </div>
             <div>
               <h3>图片存在哪里？Where is the art stored?</h3>
@@ -1214,6 +1221,22 @@
             walletBtn.innerHTML = account ? account.slice(0, 6) + '…' + account.slice(-4) : '连接钱包<span class="x-en"> Connect Wallet</span>';
           });
         }
+
+        // Simple agent prompt — one block, ready to execute; address fills in at launch
+        const promptEl = document.getElementById('agent-prompt');
+        if (promptEl && ACTIVE) {
+          promptEl.textContent =
+            'Mint Ascension Catty for me on BNB Chain \u2014 contract ' + ADDR + '\n' +
+            'FREE (Binance Agent ID holders): call agentMint(1, <MY_AGENT_ID>) \u00B7 selector 0xb470d7a0 \u00B7 0 BNB \u00B7 gasLimit 300000. First check my wallet owns that Agent ID.\n' +
+            'PAID (any wallet): call mint(1) \u00B7 selector 0xa0712d68 \u00B7 exactly 0.0012 BNB (1200000000000000 wei) \u00B7 gasLimit 300000.\n' +
+            'Reply with the tx link only.';
+        }
+        const promptCopyBtn = document.getElementById('agent-prompt-copy');
+        if (promptCopyBtn) promptCopyBtn.addEventListener('click', async () => {
+          if (!ACTIVE) { toast(NOT_DEPLOYED); return; }
+          try { await navigator.clipboard.writeText(promptEl.textContent); toast('Prompt tersalin'); }
+          catch (e) { toast('Gagal menyalin prompt'); }
+        });
 
         render('agent');
         render('mint');

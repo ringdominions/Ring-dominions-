@@ -1,4 +1,11 @@
 // SPDX-License-Identifier: MIT
+// FINAL — Ascension Catty (prepared 2026-11-17, NOT yet deployed)
+// Changes vs the repo draft (contracts/AscensionCatty.sol):
+//   - name "New NFT" -> "Ascension Catty", symbol "NNFT" -> "CATTY"
+//   - PARALLEL LANES (user decision 2026-11-17): public mint is NO LONGER gated
+//     behind the Agent phase. Both lanes run from the moment mint opens.
+//     The 777 Agent seats stay reserved while the Agent phase is open
+//     (tracked via agentMinted); endAgentPhase() releases the reservation.
 pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -11,8 +18,9 @@ interface IBinanceAgentRegistry {
     function ownerOf(uint256 tokenId) external view returns (address);
 }
 
-/// @title New NFT Collection
-/// @notice 1,111-token ERC-721 with an Agent ID phase followed by public mint.
+/// @title Ascension Catty
+/// @notice 1,111-token ERC-721. Two parallel lanes from launch: a free Agent ID
+/// lane (777 seats reserved) and a public paid lane at 0.0012 BNB.
 contract AscensionCatty is ERC721, Ownable, ReentrancyGuard {
     using Strings for uint256;
 
@@ -24,6 +32,7 @@ contract AscensionCatty is ERC721, Ownable, ReentrancyGuard {
     address public constant AGENT_REGISTRY = 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F;
 
     uint256 public totalMinted;
+    uint256 public agentMinted;
     bool public mintOpen;
     bool public agentPhaseOpen = true;
     string private baseTokenURI;
@@ -37,7 +46,7 @@ contract AscensionCatty is ERC721, Ownable, ReentrancyGuard {
     event BaseURIChanged(string newBaseURI);
 
     constructor(string memory initialBaseURI)
-        ERC721("New NFT", "NNFT")
+        ERC721("Ascension Catty", "CATTY")
         Ownable(msg.sender)
     {
         baseTokenURI = initialBaseURI;
@@ -46,24 +55,27 @@ contract AscensionCatty is ERC721, Ownable, ReentrancyGuard {
     /// @notice Free mint for a wallet that owns a Binance Agent ID NFT.
     function agentMint(uint256 quantity, uint256 agentId) external nonReentrant {
         require(mintOpen, "Mint is closed");
-        require(agentPhaseOpen && totalMinted < AGENT_SUPPLY, "Agent phase ended");
+        require(agentPhaseOpen, "Agent phase ended");
         require(IBinanceAgentRegistry(AGENT_REGISTRY).ownerOf(agentId) == msg.sender, "Agent ID not owned");
         require(quantity > 0, "Quantity is zero");
         require(mintedByAgentId[agentId] + quantity <= MAX_PER_AGENT_ID, "Agent ID limit exceeded");
         require(mintedBy[msg.sender] + quantity <= MAX_PER_WALLET, "Wallet limit exceeded");
-        require(totalMinted + quantity <= AGENT_SUPPLY, "Agent supply exhausted");
+        require(agentMinted + quantity <= AGENT_SUPPLY, "Agent supply exhausted");
+        require(totalMinted + quantity <= MAX_SUPPLY, "Sold out");
 
         uint256 firstTokenId = _mintTokens(msg.sender, quantity);
         mintedByAgentId[agentId] += quantity;
+        agentMinted += quantity;
         emit AgentMinted(msg.sender, agentId, quantity, firstTokenId);
     }
 
-    /// @notice Public mint after the Agent phase, priced at 0.0012 BNB per NFT.
+    /// @notice Public mint, priced at 0.0012 BNB per NFT. Runs in parallel with
+    /// the Agent lane; unclaimed Agent seats stay reserved while that phase is open.
     function mint(uint256 quantity) external payable nonReentrant {
         require(mintOpen, "Mint is closed");
-        require(!agentPhaseOpen || totalMinted >= AGENT_SUPPLY, "Public mint not open");
         require(quantity > 0, "Quantity is zero");
-        require(totalMinted + quantity <= MAX_SUPPLY, "Sold out");
+        uint256 reserved = agentPhaseOpen ? AGENT_SUPPLY - agentMinted : 0;
+        require(totalMinted + quantity <= MAX_SUPPLY - reserved, "Sold out");
         require(mintedBy[msg.sender] + quantity <= MAX_PER_WALLET, "Wallet limit exceeded");
         require(msg.value == PUBLIC_PRICE * quantity, "Incorrect payment");
 
@@ -85,7 +97,7 @@ contract AscensionCatty is ERC721, Ownable, ReentrancyGuard {
         emit MintStatusChanged(open);
     }
 
-    /// @notice Irreversibly ends the Agent phase and enables public mint.
+    /// @notice Irreversibly ends the Agent phase and releases its seat reservation.
     function endAgentPhase() external onlyOwner {
         require(agentPhaseOpen, "Agent phase already ended");
         agentPhaseOpen = false;
