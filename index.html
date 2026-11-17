@@ -547,6 +547,11 @@
       @media (prefers-reduced-motion: reduce) { .x-live__dot.is-on { animation: none; } .x-live__bar span { transition: none; } }
 
     #mint .cards > div{position:relative}</style>
+<style>
+      .x-lang { display: inline-flex; gap: 4px; align-items: center; }
+      .x-lang button { font: inherit; font-size: 12px; line-height: 1; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--stroke-primary, #6b5ce7); background: transparent; color: inherit; cursor: pointer; }
+      .x-lang button.is-on { background: #f5c76b; color: #1b1035; border-color: #f5c76b; font-weight: 700; }
+    </style>
   </head>
   <body>
     <div class="page" id="top">
@@ -556,10 +561,10 @@
           <img class="hero__img" src="hero.png" alt="像素风紫金色天界裂隙，漂浮的岛屿间圆滚滚的小猫飞升而出 · A pixel-art violet and gold celestial portal with floating islands and chubby kittens ascending" />
           <div class="hero__copy">
             <img class="x-logo" src="logo.png" alt="飞升喵境徽标：紫色菱形传送门里带光环和翅膀的小猫 · Ascension Catty logo: a haloed, winged kitten in a violet diamond portal" />
-            <p class="hero__eyebrow">NFT koleksi digital · BNB Smart Chain</p>
+            <p class="hero__eyebrow" data-i18n="hero_eyebrow">NFT koleksi digital · BNB Smart Chain</p>
             <h1>飞升喵境 <span class="x-sub">Ascension Catty</span></h1>
-            <p class="hero__sub">Koleksi kecil dengan desain pixel. Pilih jumlah, hubungkan wallet, lalu mint.</p>
-            <p class="hero__meta">Supply terbatas 1.111 NFT. Kontrak baru akan diumumkan setelah siap. NFT ini hanya koleksi digital.</p>
+            <p class="hero__sub" data-i18n="hero_sub">Koleksi kecil dengan desain pixel. Pilih jumlah, hubungkan wallet, lalu mint.</p>
+            <p class="hero__meta" data-i18n="hero_meta">Supply terbatas 1.111 NFT. Kontrak baru akan diumumkan setelah siap. NFT ini hanya koleksi digital.</p>
           </div>
           <div class="x-hfloats" aria-hidden="true">
             <div class="x-hcat x-hcat--king">
@@ -582,32 +587,32 @@
         </section>
 
         <section class="stats">
-          <div class="stat"><span class="stat__fig" id="live-minted">… / 1,111</span><span class="stat__label">Sudah di-mint</span></div>
-          <div class="stat"><span class="stat__fig" id="live-left">1,111</span><span class="stat__label">Sisa supply</span></div>
+          <div class="stat"><span class="stat__fig" id="live-minted">… / 1,111</span><span class="stat__label" data-i18n="stat_minted">Sudah di-mint</span></div>
+          <div class="stat"><span class="stat__fig" id="live-left">1,111</span><span class="stat__label" data-i18n="stat_left">Sisa supply</span></div>
         </section>
         <div class="x-live" aria-live="polite">
           <div class="x-live__bar"><span id="live-bar" style="width:0%"></span></div>
-          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status">Menunggu kontrak baru</span></p>
+          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status" data-i18n="live_waiting">Menunggu kontrak baru</span></p>
         </div>
-        <p><span class="chip chip--solid" id="status-chip">Mint segera dibuka</span></p>
+        <p><span class="chip chip--solid" id="status-chip" data-i18n="chip_soon">Mint segera dibuka</span></p>
 
         <section class="section" id="mint" data-nav="Mint">
           <div class="head">
             <p class="head__eyebrow">Mint</p>
-            <h2>Dua jalur, jalan bareng.<span class="x-sub">Two lanes, open in parallel.</span></h2>
-            <p class="head__sub">Agent ID Binance mint gratis — 777 kursi dicadangkan khusus. Public mint 0.0012 BNB terbuka sejak awal, tidak menunggu fase Agent selesai.</p>
+            <h2 data-i18n="mint_h2">Dua jalur, jalan bareng.</h2>
+            <p class="head__sub" data-i18n="mint_sub">Agent ID Binance mint gratis — 777 kursi dicadangkan khusus. Public mint 0.0012 BNB terbuka sejak awal, tidak menunggu fase Agent selesai.</p>
           </div>
           <div class="cards">
             <div>
               <img class="x-peek x-peek--king" src="float_king.png" alt="" aria-hidden="true" />
               <h3>Agent Mint</h3>
-              <p class="quote">Gratis · 777 NFT pertama</p>
+              <p class="quote" data-i18n="agent_quote">Gratis · 777 NFT pertama</p>
               <ul>
-                <li>Wajib memiliki Binance Agent ID</li>
-                <li>Maksimal 2 NFT per Agent ID</li>
-                <li>777 kursi dicadangkan khusus Agent ID</li>
+                <li data-i18n="agent_b1">Wajib memiliki Binance Agent ID</li>
+                <li data-i18n="agent_b2">Maksimal 2 NFT per Agent ID</li>
+                <li data-i18n="agent_b3">777 kursi dicadangkan khusus Agent ID</li>
               </ul>
-              <label for="agent-id" class="fineprint">Agent ID token</label>
+              <label for="agent-id" class="fineprint" data-i18n="agent_label">Agent ID token</label>
               <input id="agent-id" inputmode="numeric" placeholder="Contoh: 1234" style="width:100%;box-sizing:border-box;padding:10px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff" />
               <div class="x-mint">
                 <div class="x-mint__row">
@@ -624,11 +629,11 @@
             <div>
               <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
               <h3>Public Mint</h3>
-              <p class="quote">0.0012 BNB per NFT · 334 NFT</p>
+              <p class="quote" data-i18n="public_quote">0.0012 BNB per NFT · 334 NFT</p>
               <ul>
-                <li>Terbuka sejak awal, bareng jalur Agent</li>
-                <li>Maksimal 10 NFT per wallet</li>
-                <li>Gas fee dibayar terpisah</li>
+                <li data-i18n="public_b1">Terbuka sejak awal, bareng jalur Agent</li>
+                <li data-i18n="public_b2">Maksimal 10 NFT per wallet</li>
+                <li data-i18n="public_b3">Gas fee dibayar terpisah</li>
               </ul>
               <div class="x-mint">
                 <div class="x-mint__row">
@@ -645,23 +650,23 @@
           </div>
           <div class="x-agent">
             <div class="x-agent__row">
-              <h3>Mint lewat Agent — salin prompt ini <span class="x-sub">Agent prompt — copy &amp; paste</span></h3>
-              <button type="button" class="x-pixel x-agent__copy" id="agent-prompt-copy">Salin prompt</button>
+              <h3 data-i18n="prompt_h3">Mint lewat Agent — salin prompt ini</h3>
+              <button type="button" class="x-pixel x-agent__copy" id="agent-prompt-copy" data-i18n="prompt_copy">Salin prompt</button>
             </div>
-            <pre class="x-prompt" id="agent-prompt">Prompt aktif setelah kontrak di-deploy — alamat kontrak terisi otomatis di sini.</pre>
+            <pre class="x-prompt" id="agent-prompt" data-i18n="prompt_wait">Prompt aktif setelah kontrak di-deploy — alamat kontrak terisi otomatis di sini.</pre>
           </div>
-          <p class="fineprint">Registry Agent ID: 0x60B9…022F. Jangan kirim dana atau sign transaksi dari link lain.</p>
+          <p class="fineprint" data-i18n="mint_fineprint">Registry Agent ID: 0x60B9…022F. Jangan kirim dana atau sign transaksi dari link lain.</p>
         </section>
 
         <section class="section" id="how" data-nav="Cara Mint">
           <div class="head">
-            <p class="head__eyebrow">Cara mint</p>
-            <h2>Tiga langkah sederhana<span class="x-sub">Three simple steps</span></h2>
+            <p class="head__eyebrow" data-i18n="how_eyebrow">Cara mint</p>
+            <h2 data-i18n="how_h2">Tiga langkah sederhana</h2>
           </div>
           <div class="steps">
-            <article class="step"><div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Langkah 1</p></div><div><h3>Hubungkan wallet</h3><p>Gunakan wallet yang mendukung BNB Smart Chain.</p></div></article>
-            <article class="step"><div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Langkah 2</p></div><div><h3>Pilih jumlah</h3><p>Gunakan tombol + atau −. Batasnya 10 NFT per wallet.</p></div></article>
-            <article class="step"><div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Langkah 3</p></div><div><h3>Konfirmasi</h3><p>Periksa jumlah BNB dan alamat kontrak sebelum sign.</p></div></article>
+            <article class="step"><div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow" data-i18n="step1_w">Langkah 1</p></div><div><h3 data-i18n="step1_h">Hubungkan wallet</h3><p data-i18n="step1_p">Gunakan wallet yang mendukung BNB Smart Chain.</p></div></article>
+            <article class="step"><div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow" data-i18n="step2_w">Langkah 2</p></div><div><h3 data-i18n="step2_h">Pilih jumlah</h3><p data-i18n="step2_p">Gunakan tombol + atau −. Batasnya 10 NFT per wallet.</p></div></article>
+            <article class="step"><div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow" data-i18n="step3_w">Langkah 3</p></div><div><h3 data-i18n="step3_h">Konfirmasi</h3><p data-i18n="step3_p">Periksa jumlah BNB dan alamat kontrak sebelum sign.</p></div></article>
           </div>
         </section>
 
@@ -981,8 +986,8 @@
         </section>
 
         <section class="section" id="info" data-nav="Info">
-          <div class="head"><p class="head__eyebrow">Info</p><h2>Tidak ada token tambahan.<span class="x-sub">No extra token.</span></h2></div>
-          <p class="fineprint">Website ini hanya untuk koleksi NFT. Supply 1.111. Detail kontrak akan diumumkan setelah deploy.</p>
+          <div class="head"><p class="head__eyebrow">Info</p><h2 data-i18n="info_h2">Tidak ada token tambahan.</h2></div>
+          <p class="fineprint" data-i18n="info_p">Website ini hanya untuk koleksi NFT. Supply 1.111. Detail kontrak akan diumumkan setelah deploy.</p>
         </section>
 
         <section class="section" id="roadmap" data-nav="路线图 Roadmap">
@@ -1017,34 +1022,34 @@
           </div>
           <div class="cards">
             <div>
-              <h3>Apakah ini proyek baru?</h3>
-              <p>Ini adalah website baru. Kontrak belum diumumkan dan NFT hanya koleksi digital.</p>
+              <h3 data-i18n="faq1_q">Apakah ini proyek baru?</h3>
+              <p data-i18n="faq1_a">Ini adalah website baru. Kontrak belum diumumkan dan NFT hanya koleksi digital.</p>
             </div>
             <div>
-              <h3>Berapa biaya mint?</h3>
-              <p>Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis — kedua jalur berjalan paralel.</p>
+              <h3 data-i18n="faq2_q">Berapa biaya mint?</h3>
+              <p data-i18n="faq2_a">Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis — kedua jalur berjalan paralel.</p>
             </div>
             <div>
-              <h3>图片存在哪里？Where is the art stored?</h3>
-              <p>图片与元数据托管在 ascensionrealm.fun/nft/，合约的 tokenURI 指向这里。Art and metadata are hosted at ascensionrealm.fun/nft/, and the contract's tokenURI points there.</p>
+              <h3 data-i18n="faq3_q">图片存在哪里？Where is the art stored?</h3>
+              <p data-i18n="faq3_a">图片与元数据托管在 ascensionrealm.fun/nft/，合约的 tokenURI 指向这里。Art and metadata are hosted at ascensionrealm.fun/nft/, and the contract's tokenURI points there.</p>
             </div>
             <div>
-              <h3>怎样避免诈骗？How do I stay safe?</h3>
-              <p>永远不要泄露助记词或私钥，警惕冒充的铸造链接。Never share your seed phrase or private key, and beware of fake mint links.</p>
+              <h3 data-i18n="faq4_q">怎样避免诈骗？How do I stay safe?</h3>
+              <p data-i18n="faq4_a">永远不要泄露助记词或私钥，警惕冒充的铸造链接。Never share your seed phrase or private key, and beware of fake mint links.</p>
             </div>
             <div>
-              <h3>怎么确认合约是真的？How do I know the contract is real?</h3>
-              <p>Kontrak baru akan ditampilkan di website setelah deploy. Selalu cek alamat di BscScan sebelum sign.</p>
+              <h3 data-i18n="faq5_q">怎么确认合约是真的？How do I know the contract is real?</h3>
+              <p data-i18n="faq5_a">Kontrak baru akan ditampilkan di website setelah deploy. Selalu cek alamat di BscScan sebelum sign.</p>
             </div>
             <div>
-              <h3>Apakah ada marketplace?</h3>
-              <p>Marketplace akan ditambahkan setelah mint utama siap.</p>
+              <h3 data-i18n="faq6_q">Apakah ada marketplace?</h3>
+              <p data-i18n="faq6_a">Marketplace akan ditambahkan setelah mint utama siap.</p>
             </div>
           </div>
         </section>
       </main>
       <footer class="foot">
-        <p><strong>飞升喵境 Ascension Catty</strong> · Koleksi NFT pixel di BNB Smart Chain. Supply 1.111. · © 2026</p>
+        <p data-i18n="footer_line"><strong>飞升喵境 Ascension Catty</strong> · Koleksi NFT pixel di BNB Smart Chain. Supply 1.111. · © 2026</p>
         <p><a class="link" href="https://x.com/Cattyascension" target="_blank" rel="noopener">𝕏 Official X — @Cattyascension</a></p>
         <nav aria-label="Back to sections" data-auto></nav>
         <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
@@ -1084,6 +1089,7 @@
 
       (function () {
         const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
+        window.__cattyActive = ACTIVE;
         const ADDR = CONFIG.contractAddress.trim();
         const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
         const TIERS = { mint: { fn: CONFIG.mintFn, price: CONFIG.mintPriceBNB }, agent: { fn: CONFIG.agentMintFn, price: CONFIG.agentPriceBNB } };
@@ -1818,5 +1824,125 @@
   start();
 })();
 </script>
-</body>
+
+    <script>
+      /* Language switch: English / 中文 (choice is remembered) */
+      (function () {
+        var DICT = {
+          en: {
+            hero_eyebrow: 'Digital NFT collection · BNB Smart Chain',
+            hero_sub: 'A small collection with pixel design. Pick a quantity, connect your wallet, then mint.',
+            hero_meta: 'Limited supply of 1,111 NFTs. The new contract will be announced once ready. This NFT is a digital collectible only.',
+            stat_minted: 'Minted', stat_left: 'Supply left',
+            live_waiting: 'Waiting for the new contract',
+            chip_soon: 'Mint opening soon',
+            mint_h2: 'Two lanes, open in parallel.',
+            mint_sub: 'Binance Agent ID holders mint free — 777 seats reserved. Public mint at 0.0012 BNB is open from the start, no waiting for the Agent phase to end.',
+            agent_quote: 'Free · First 777 NFTs',
+            agent_b1: 'Must own a Binance Agent ID', agent_b2: 'Max 2 NFTs per Agent ID', agent_b3: '777 seats reserved for Agent ID holders',
+            agent_label: 'Agent ID token',
+            public_quote: '0.0012 BNB per NFT · 334 NFTs',
+            public_b1: 'Open from the start, alongside the Agent lane', public_b2: 'Max 10 NFTs per wallet', public_b3: 'Gas fee paid separately',
+            prompt_h3: 'Mint via Agent — copy this prompt', prompt_copy: 'Copy prompt',
+            prompt_wait: 'The prompt activates after the contract is deployed — the contract address fills in here automatically.',
+            mint_fineprint: 'Agent ID registry: 0x60B9…022F. Never send funds or sign transactions from any other link.',
+            how_eyebrow: 'How to mint', how_h2: 'Three simple steps',
+            step1_w: 'Step 1', step2_w: 'Step 2', step3_w: 'Step 3',
+            step1_h: 'Connect your wallet', step1_p: 'Use a wallet that supports BNB Smart Chain.',
+            step2_h: 'Pick a quantity', step2_p: 'Use the + or − buttons. The limit is 10 NFTs per wallet.',
+            step3_h: 'Confirm', step3_p: 'Check the BNB amount and contract address before signing.',
+            info_h2: 'No extra token.',
+            info_p: 'This website is only for the NFT collection. Supply 1,111. Contract details will be announced after deployment.',
+            faq1_q: 'Is this a new project?', faq1_a: 'This is a new website. The contract has not been announced yet and the NFT is a digital collectible only.',
+            faq2_q: 'How much does minting cost?', faq2_a: 'Public mint is 0.0012 BNB per NFT, plus gas. Agent mint is free — both lanes run in parallel.',
+            faq3_q: 'Where is the art stored?', faq3_a: 'Art and metadata are hosted at ascensionrealm.fun/nft/, and the contract\'s tokenURI points there.',
+            faq4_q: 'How do I stay safe?', faq4_a: 'Never share your seed phrase or private key, and beware of fake mint links.',
+            faq5_q: 'How do I know the contract is real?', faq5_a: 'The new contract will be shown on this website after deployment. Always check the address on BscScan before signing.',
+            faq6_q: 'Is there a marketplace?', faq6_a: 'The marketplace will be added once the main mint is ready.',
+            footer_line: '<strong>飞升喵境 Ascension Catty</strong> · Pixel NFT collection on BNB Smart Chain. Supply 1,111. · © 2026',
+            btn_agent: 'Mint with Agent ID', btn_public: 'Public Mint', btn_soon: 'Opening soon',
+            nav: { mint: 'Mint', how: 'How to mint', cats: 'Guardian Cats', rarity: 'Rarity', gallery: 'Gallery', market: 'Market', realms: 'Realms', lore: 'Lore', traits: 'Traits', info: 'Info', roadmap: 'Roadmap', faq: 'FAQ' }
+          },
+          zh: {
+            hero_eyebrow: '数字 NFT 收藏 · BNB 智能链',
+            hero_sub: '小而精的像素风收藏。选择数量，连接钱包，即可铸造。',
+            hero_meta: '限量供应 1,111 枚 NFT。新合约准备就绪后公布。本 NFT 仅为数字收藏品。',
+            stat_minted: '已铸造', stat_left: '剩余供应',
+            live_waiting: '等待新合约',
+            chip_soon: '铸造即将开启',
+            mint_h2: '双通道，同步开启。',
+            mint_sub: '持有 Binance Agent ID 可免费铸造——专属保留 777 个名额。公开铸造 0.0012 BNB 从一开始就开放，无需等待 Agent 阶段结束。',
+            agent_quote: '免费 · 前 777 枚 NFT',
+            agent_b1: '必须持有 Binance Agent ID', agent_b2: '每个 Agent ID 最多 2 枚', agent_b3: '777 个名额专为 Agent ID 持有者保留',
+            agent_label: 'Agent ID 令牌',
+            public_quote: '每枚 0.0012 BNB · 334 枚',
+            public_b1: '从一开始就开放，与 Agent 通道同步', public_b2: '每个钱包最多 10 枚', public_b3: 'Gas 费另付',
+            prompt_h3: '通过 Agent 铸造——复制此提示词', prompt_copy: '复制提示词',
+            prompt_wait: '合约部署后提示词自动激活——合约地址会自动填入此处。',
+            mint_fineprint: 'Agent ID 注册表：0x60B9…022F。切勿通过其他链接发送资金或签署交易。',
+            how_eyebrow: '如何铸造', how_h2: '三个简单步骤',
+            step1_w: '步骤 1', step2_w: '步骤 2', step3_w: '步骤 3',
+            step1_h: '连接钱包', step1_p: '使用支持 BNB 智能链的钱包。',
+            step2_h: '选择数量', step2_p: '使用 + 或 − 按钮。每个钱包上限 10 枚。',
+            step3_h: '确认', step3_p: '签署前请核对 BNB 金额和合约地址。',
+            info_h2: '没有额外代币。',
+            info_p: '本网站仅用于 NFT 收藏。供应量 1,111。合约详情将在部署后公布。',
+            faq1_q: '这是新项目吗？', faq1_a: '这是一个新网站。合约尚未公布，NFT 仅为数字收藏品。',
+            faq2_q: '铸造费用是多少？', faq2_a: '公开铸造每枚 0.0012 BNB，另加 Gas。Agent 铸造免费——双通道并行运行。',
+            faq3_q: '图片存放在哪里？', faq3_a: '图片与元数据托管在 ascensionrealm.fun/nft/，合约的 tokenURI 指向此处。',
+            faq4_q: '怎样避免诈骗？', faq4_a: '永远不要泄露助记词或私钥，警惕冒充的铸造链接。',
+            faq5_q: '怎么确认合约是真的？', faq5_a: '新合约部署后会显示在本网站。签署前请务必在 BscScan 核对地址。',
+            faq6_q: '有交易市场吗？', faq6_a: '主铸造准备就绪后将添加交易市场。',
+            footer_line: '<strong>飞升喵境 Ascension Catty</strong> · BNB 智能链上的像素 NFT 收藏。供应量 1,111。· © 2026',
+            btn_agent: '用 Agent ID 铸造', btn_public: '公开铸造', btn_soon: '即将开启',
+            nav: { mint: '铸造', how: '如何铸造', cats: '守护喵', rarity: '稀有度', gallery: '图鉴', market: '喵市', realms: '喵境', lore: '传说', traits: '特征', info: '信息', roadmap: '路线图', faq: '常见问题' }
+          }
+        };
+        var WAITING = ['Menunggu kontrak baru', DICT.en.live_waiting, DICT.zh.live_waiting];
+        var PROMPT_WAIT = ['Prompt aktif setelah kontrak di-deploy — alamat kontrak terisi otomatis di sini.', DICT.en.prompt_wait, DICT.zh.prompt_wait];
+        function apply(lang) {
+          var d = DICT[lang]; if (!d) return;
+          document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+          document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            var k = el.getAttribute('data-i18n');
+            if (k === 'live_waiting') { if (WAITING.indexOf(el.textContent.trim()) !== -1) el.textContent = d.live_waiting; return; }
+            if (k === 'prompt_wait') { if (PROMPT_WAIT.indexOf(el.textContent.trim()) !== -1) el.textContent = d.prompt_wait; return; }
+            if (k === 'chip_soon' && window.__cattyActive) return;
+            if (d[k] != null) el.innerHTML = d[k];
+          });
+          document.querySelectorAll('header.nav nav a[href^="#"], footer nav a[href^="#"]').forEach(function (a) {
+            var id = a.getAttribute('href').slice(1);
+            if (d.nav[id]) a.textContent = d.nav[id];
+          });
+          document.querySelectorAll('[data-mint]').forEach(function (b) {
+            var label = b.getAttribute('data-mint') === 'agent' ? d.btn_agent : d.btn_public;
+            b.setAttribute('data-label', label);
+            b.textContent = window.__cattyActive ? label : d.btn_soon;
+          });
+          document.querySelectorAll('.x-lang button').forEach(function (b) {
+            b.classList.toggle('is-on', b.getAttribute('data-lang') === lang);
+          });
+          try { localStorage.setItem('catty-lang', lang); } catch (e) {}
+        }
+        function mount() {
+          var nav = document.querySelector('header.nav');
+          if (!nav || nav.querySelector('.x-lang')) return;
+          var wrap = document.createElement('div');
+          wrap.className = 'x-lang';
+          wrap.innerHTML = '<button type="button" data-lang="en">EN</button><button type="button" data-lang="zh">中文</button>';
+          wrap.addEventListener('click', function (e) {
+            var b = e.target.closest('button[data-lang]');
+            if (b) apply(b.getAttribute('data-lang'));
+          });
+          var theme = nav.querySelector('.theme-btn');
+          theme ? nav.insertBefore(wrap, theme) : nav.appendChild(wrap);
+        }
+        var saved = 'zh';
+        try { saved = localStorage.getItem('catty-lang') || 'zh'; } catch (e) {}
+        function init() { mount(); apply(saved); }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+      })();
+    </script>
+  </body>
 </html>
