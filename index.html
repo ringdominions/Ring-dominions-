@@ -1226,9 +1226,9 @@
         const promptEl = document.getElementById('agent-prompt');
         if (promptEl && ACTIVE) {
           promptEl.textContent =
-            'Mint Ascension Catty for me on BNB Chain \u2014 contract ' + ADDR + '\n' +
-            'FREE (Binance Agent ID holders): call agentMint(1, <MY_AGENT_ID>) \u00B7 selector 0xb470d7a0 \u00B7 0 BNB \u00B7 gasLimit 300000. First check my wallet owns that Agent ID.\n' +
-            'PAID (any wallet): call mint(1) \u00B7 selector 0xa0712d68 \u00B7 exactly 0.0012 BNB (1200000000000000 wei) \u00B7 gasLimit 300000.\n' +
+            'Mint 1 Ascension Catty (BNB Chain), contract ' + ADDR + ':\n' +
+            'FREE with my Agent ID: agentMint(1, <MY_AGENT_ID>) \u00B7 0xb470d7a0 \u00B7 0 BNB \u00B7 gas 300000\n' +
+            'PAID: mint(1) \u00B7 0xa0712d68 \u00B7 0.0012 BNB \u00B7 gas 300000\n' +
             'Reply with the tx link only.';
         }
         const promptCopyBtn = document.getElementById('agent-prompt-copy');
