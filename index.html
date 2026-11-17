@@ -1800,41 +1800,55 @@
     </script>
   <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}</script>
 <script>
-/* Live supply: reads totalMinted() from the NFT contract on BNB Chain every 15s. */
+/* Live supply: reads totalMinted() + agentMinted() from the NFT contract on BNB Chain.
+   4 RPCs raced in parallel, highest value wins (never shows a stale low count).
+   Refreshes every 10s and whenever the tab becomes visible again — on-chain 24/7. */
 (function () {
-  var ADDR = '', MAX = 1111, SEL = '0xa2309ff8';
-  var RPCS = ['https://bsc-dataseed.bnbchain.org', 'https://bsc-dataseed1.defibit.io', 'https://bsc-rpc.publicnode.com', 'https://bsc-dataseed2.ninicoin.io'];
-  var ri = 0, timer = null, last = null;
+  var ADDR = '0x26441dAfe9b256345a2859C28c91E24611ED424A', MAX = 1111;
+  var SEL_TOTAL = '0xa2309ff8', SEL_AGENT = '0x321e2c10';
+  var RPCS = ['https://bsc-dataseed.binance.org', 'https://bsc-dataseed1.defibit.io', 'https://bsc-dataseed1.ninicoin.io', 'https://bsc-rpc.publicnode.com'];
+  var timer = null, lastTotal = null, lastAgent = null;
   var $ = function (id) { return document.getElementById(id); };
   function fmt(n) { return n.toLocaleString('en-US'); }
-  function show(n) {
-    last = n;
-    $('live-minted').textContent = fmt(n) + ' / ' + fmt(MAX);
-    $('live-left').textContent = fmt(Math.max(0, MAX - n));
-    $('live-bar').style.width = Math.min(100, n / MAX * 100).toFixed(2) + '%';
-    var t = new Date().toLocaleTimeString('en-GB');
+  function utcNow() { return new Date().toLocaleTimeString('en-GB', { timeZone: 'UTC' }) + ' UTC'; }
+  function paint() {
+    if (lastTotal === null) return;
+    $('live-minted').textContent = fmt(lastTotal) + ' / ' + fmt(MAX);
+    $('live-left').textContent = fmt(Math.max(0, MAX - lastTotal));
+    $('live-bar').style.width = Math.min(100, lastTotal / MAX * 100).toFixed(2) + '%';
     $('live-dot').className = 'x-live__dot is-on';
-    $('live-status').textContent = (n >= MAX ? '已售罄 Sold out · ' : '') + '链上实时 Live on-chain · 更新于 Updated ' + t;
+    $('live-status').textContent = (lastTotal >= MAX ? '已售罄 Sold out · ' : '') + '链上实时 Live on-chain · 更新于 Updated ' + utcNow();
   }
-  async function call(url) {
+  async function callOne(url, sel) {
     var ctl = new AbortController(); var to = setTimeout(function () { ctl.abort(); }, 8000);
     try {
       var r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
-        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: ADDR, data: SEL }, 'latest'] }) });
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: ADDR, data: sel }, 'latest'] }) });
       var j = await r.json(); if (!j.result || j.result === '0x') throw new Error('bad');
       return parseInt(j.result, 16);
     } finally { clearTimeout(to); }
   }
-  async function refresh() {
-    for (var k = 0; k < RPCS.length; k++) {
-      try { show(await call(RPCS[(ri + k) % RPCS.length])); ri = (ri + k) % RPCS.length; return; } catch (e) {}
-    }
-    $('live-dot').className = 'x-live__dot is-off';
-    $('live-status').textContent = '重新连接中… Reconnecting…' + (last === null ? '' : ' (显示上次数据 showing last value)');
+  async function readMax(sel) {
+    var vals = await Promise.all(RPCS.map(function (u) { return callOne(u, sel).catch(function () { return null; }); }));
+    var ok = vals.filter(function (v) { return v !== null; });
+    return ok.length ? Math.max.apply(null, ok) : null;
   }
-  function start() { clearInterval(timer); if (!ADDR) { $('live-status').textContent = 'Menunggu kontrak baru'; $('live-left').textContent = fmt(MAX); return; } refresh(); timer = setInterval(refresh, 15000); }
+  async function refresh() {
+    var t = await readMax(SEL_TOTAL);
+    if (t !== null) { lastTotal = t; paint(); }
+    else if (lastTotal === null) {
+      $('live-dot').className = 'x-live__dot is-off';
+      $('live-status').textContent = '重新连接中… Reconnecting…';
+    } else {
+      $('live-dot').className = 'x-live__dot is-off';
+      $('live-status').textContent = '重新连接中… Reconnecting… (显示上次数据 showing last value)';
+    }
+    var a = await readMax(SEL_AGENT);
+    if (a !== null) lastAgent = a;
+  }
+  function start() { clearInterval(timer); refresh(); timer = setInterval(function () { if (!document.hidden) refresh(); }, 10000); }
   window.cattyRefreshSupply = refresh;
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
   window.addEventListener('online', start);
   start();
 })();
