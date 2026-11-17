@@ -1,1853 +1,308 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" type="image/png" href="favicon.png?v=2" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2" />
-    <meta name="theme-color" content="#2a1660" />
-    <title>飞升喵境 Ascension Catty · 像素喵 NFT Pixel cat NFT</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Pixelify+Sans:wght@500;700&display=swap"
-    />
-    <link rel="stylesheet" href="hark.css" />
-    <link rel="stylesheet" href="hark-hero.css" />
-    <style>
-      .x-logo {
-        display: block;
-        width: 64px;
-        height: 64px;
-        object-fit: contain;
-        image-rendering: pixelated;
-        border-radius: var(--r-s);
-        margin-bottom: 12px;
-      }
-      /* Mint controls on the tier cards */
-      .x-mint { display: grid; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--stroke-secondary); }
-      .x-mint__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-      .x-stepper { display: inline-flex; align-items: center; border: 1px solid var(--stroke-primary); border-radius: var(--r-s); background: var(--fill-primary-on); }
-      .x-stepper button {
-        width: var(--tap); height: var(--tap); border: 0; background: none; color: var(--text-primary);
-        font: var(--type-heading); cursor: pointer; border-radius: var(--r-s);
-      }
-      .x-stepper button:hover:not(:disabled) { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      .x-stepper button:disabled { color: var(--text-secondary); cursor: not-allowed; }
-      .x-qty { min-width: 3ch; text-align: center; font: var(--type-body-strong); font-variant-numeric: tabular-nums; }
-      .x-total { font: var(--type-small); color: var(--text-secondary); }
-      .x-total b { font: var(--type-heading); color: var(--text-primary); font-variant-numeric: tabular-nums; }
-      .x-pixel {
-        width: 100%; min-height: 56px; padding: 10px 16px; border: 0; border-radius: 0;
-        background: var(--fill-primary); color: var(--text-primary-on);
-        font: var(--weight-regular) var(--size-heading)/1.2 "Geist Mono", ui-monospace, monospace; letter-spacing: 0.06em;
-        clip-path: polygon(0 6px, 6px 6px, 6px 0, calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px));
-        box-shadow: inset 0 -6px 0 color-mix(in srgb, var(--text-primary-on) 22%, transparent), inset 0 6px 0 color-mix(in srgb, var(--text-primary-on) 10%, transparent);
-        cursor: pointer; transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-pixel:hover:not(:disabled) { filter: brightness(1.15); }
-      .x-pixel:active:not(:disabled) { transform: translateY(2px); }
-      .x-pixel:disabled { cursor: not-allowed; }
-      .x-pixel:disabled::after { content: " 🔒"; }
-      /* Connect Wallet in the nav */
-      .x-wallet {
-        flex: none; min-height: 36px; padding: 0 14px; border: 0; border-radius: var(--r-pill);
-        background: var(--fill-primary-on); font: var(--type-label);
-        white-space: nowrap; cursor: pointer;
-      }
-      header.nav .x-wallet, header.nav .x-wallet .x-en { color: var(--text-primary); }
-      .x-wallet:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      @media (max-width: 599px) { .x-wallet { min-height: var(--tap); } .x-wallet .x-en { display: none; } }
-      /* Agent prompt boxes */
-      .x-prompt {
-        margin: 12px 0; padding: 14px 16px; border-radius: var(--r-s); border: 1px solid var(--stroke-secondary);
-        background: var(--fill-primary-on); font: var(--weight-regular) var(--size-small)/1.6 "Geist Mono", ui-monospace, monospace;
-        overflow-wrap: anywhere; white-space: pre-wrap;
-      }
-      .x-prompt.is-empty { color: var(--text-secondary); }
-      .btn:disabled { color: var(--text-secondary); cursor: not-allowed; box-shadow: none; }
-      button.btn { cursor: pointer; }
-      /* Toast */
-      .x-toast {
-        position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); z-index: 30;
-        width: max-content; max-width: calc(100% - 2 * var(--gutter)); transform: translate(-50%, 12px);
-        padding: 12px 18px; border-radius: var(--r-m); background: var(--fill-primary); color: var(--text-primary-on);
-        font: var(--type-small); box-shadow: var(--hark-shadow); overflow-wrap: anywhere;
-        opacity: 0; pointer-events: none; transition: opacity var(--dur-quick) ease, transform var(--dur-quick) var(--ease-out);
-      }
-      .x-toast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-      .x-toast a { color: inherit; text-decoration: underline; }
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ring Dominions — 1,111 Realm NFTs on BNB Chain</title>
+<meta name="description" content="Ring Dominions is a 1,111-piece NFT collection on BNB Chain. Seven rings, four dominions, one realm. Contract deployment pending — mint is not live yet." />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/png" href="favicon.png?v=3" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3" />
+<meta name="theme-color" content="#0b0e1a" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Ring Dominions — 1,111 Realm NFTs on BNB Chain" />
+<meta property="og:description" content="Seven rings. Four dominions. One realm. Contract deployment pending." />
+<meta property="og:image" content="hero.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ring Dominions" />
+<meta name="twitter:description" content="1,111 realm NFTs on BNB Chain. Contract deployment pending — mint not live yet." />
+<meta name="twitter:image" content="hero.png" />
+<style>
+:root{
+  --bg:#0b0e1a; --bg2:#10142a; --panel:#141936; --panel2:#181d42;
+  --line:#2a3060; --text:#eef0ff; --muted:#a7abd0; --gold:#e8b34b; --gold2:#f6d789;
+  --violet:#7c6cf0; --ok:#3ddc97; --radius:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1100px 600px at 80% -10%,#232a63 0%,transparent 60%),radial-gradient(900px 500px at -10% 20%,#1b1440 0%,transparent 55%),var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--gold2)}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:rgba(11,14,26,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;gap:14px;padding:12px 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.brand img{width:42px;height:42px;border-radius:10px;object-fit:cover}
+.brand b{font-size:19px;letter-spacing:.14em}
+.brand small{display:block;color:var(--muted);letter-spacing:.08em;font-size:11px}
+nav{margin-left:auto;display:flex;gap:20px;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-size:14px}
+nav a:hover{color:var(--text)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--muted);white-space:nowrap}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.pill.live .dot{background:var(--ok)}
+.hero{padding:64px 0 40px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.kicker{color:var(--gold);letter-spacing:.28em;font-size:12px;font-weight:700;text-transform:uppercase}
+h1{font-size:clamp(38px,6vw,62px);line-height:1.05;margin:14px 0 16px}
+h1 .gold{color:var(--gold)}
+.lead{color:var(--muted);font-size:18px;max-width:52ch;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 24px;border-radius:12px;text-decoration:none;font-weight:700;border:1px solid var(--line);color:var(--text);background:var(--panel)}
+.btn.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#231a04;border-color:transparent}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.stat{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 16px;min-width:110px}
+.stat b{display:block;font-size:19px}
+.stat span{color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.hero-art{position:relative}
+.hero-art img.main{border-radius:22px;border:1px solid var(--line);width:100%;object-fit:cover}
+.ring{position:absolute;inset:-14px;border:2px solid rgba(232,179,75,.35);border-radius:28px;pointer-events:none}
+section{padding:52px 0}
+h2{font-size:clamp(26px,4vw,36px);margin:0 0 10px}
+.sub{color:var(--muted);max-width:64ch;margin:0 0 28px}
+.livebar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cell{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:16px}
+.cell span{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px}
+.cell b{font-size:16px;word-break:break-all}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);overflow:hidden}
+.card img{width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--bg2)}
+.card .in{padding:14px 16px}
+.card h3{margin:0 0 4px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card.legendary{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.tag{display:inline-block;font-size:11px;letter-spacing:.1em;font-weight:700;border-radius:999px;padding:3px 10px;margin-bottom:8px;background:#2a2150;color:var(--gold2)}
+.tag.gold{background:var(--gold);color:#231a04}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery img{border-radius:12px;border:1px solid var(--line);aspect-ratio:1/1;object-fit:cover;width:100%}
+.lane{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:22px}
+.lane h3{margin:0 0 6px;font-size:20px}
+.lane ul{margin:12px 0 18px;padding-left:18px;color:var(--muted)}
+.lane .price{font-size:26px;font-weight:800;color:var(--gold2)}
+.note{border:1px dashed var(--gold);border-radius:var(--radius);padding:16px 18px;color:var(--muted);background:rgba(232,179,75,.06)}
+pre{background:#070912;border:1px solid var(--line);border-radius:12px;padding:16px;overflow:auto;font-size:13px;line-height:1.55;color:#d8dbff;white-space:pre-wrap;word-break:break-word}
+.copyrow{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.copyrow b{font-size:15px}
+button.copy{margin-left:auto;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:600}
+.steps{counter-reset:s;display:grid;gap:12px}
+.step{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.step i{counter-increment:s;font-style:normal;background:var(--gold);color:#231a04;font-weight:800;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:none}
+.step i::before{content:counter(s)}
+.step p{margin:2px 0 0;color:var(--muted)}
+details{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700}
+details p{color:var(--muted);margin:8px 0 2px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:14px}
+.foot{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.foot b{color:var(--text);letter-spacing:.12em}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid4,.gallery{grid-template-columns:repeat(2,1fr)}.livebar{grid-template-columns:repeat(2,1fr)}.grid3,.grid2{grid-template-columns:1fr}nav a{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <a class="brand" href="#top"><img src="logo.png" alt="Ring Dominions logo" /><span><b>RING DOMINIONS</b><small>1,111 REALM NFTS · BNB CHAIN</small></span></a>
+    <nav>
+      <a href="#realms">Realms</a><a href="#dominions">Dominions</a><a href="#mint">Mint</a><a href="#faq">FAQ</a>
+      <span class="pill" id="status-pill"><span class="dot"></span><span id="status-text">PRE-LAUNCH</span></span>
+    </nav>
+  </div>
+</header>
 
-      /* ===== Celestial pixel theme: night-violet only ===== */
-      :root, :root[data-theme] {
-        color-scheme: dark;
-        --text-primary: #f4eeff; --text-secondary: #c4b5ec; --text-tertiary: #c4b5ec80;
-        --text-primary-on: #2b1700; --text-secondary-on: #c4b5ec;
-        --fill-primary: #ffd36b; --fill-primary-on: #120a2e; --fill-tertiary: rgb(64 40 140 / 0.34);
-        --fill-segment: rgb(255 255 255 / 0.06);
-        --stroke-primary: rgb(201 182 255 / 0.42); --stroke-secondary: rgb(201 182 255 / 0.18);
-        --stroke-primary-on: rgb(255 211 107 / 0.4); --stroke-composer: rgb(255 211 107 / 0.55);
-        --hover-wash: rgb(255 255 255 / 0.08); --hover-wash-primary-on: rgb(255 255 255 / 0.1);
-        --mat-agent: rgb(30 18 72 / 0.74); --mat-inverse: rgb(22 12 54 / 0.84);
-        --hark-shadow: 0 8px 32px rgb(0 0 0 / 0.45);
-        --x-gold: #ffd36b; --x-lav: #c9b6ff; --x-ink: #2b1700;
-        --x-pix: "Pixelify Sans", var(--sans);
-        --x-glow: 2px 2px 0 #5a2ea6, 0 0 14px rgb(255 200 90 / 0.55);
-        --x-numglow: 0 0 12px rgb(255 200 90 / 0.5);
-        --x-glass: rgb(40 24 96 / 0.44);
-        --x-drop: 4px 4px 0 rgb(8 3 24 / 0.7), 0 0 24px rgb(160 120 255 / 0.14);
-        --x-cut: polygon(0 4px, 4px 4px, 4px 0, calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px));
-      }
-      body { background: #120a2e; }
-      body::before, body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-      body::before {
-        background:
-          radial-gradient(circle at 1px 1px, #fff 1.4px, transparent 0) 0 0 / 97px 113px,
-          radial-gradient(60vmax 40vmax at 85% 8%, rgb(140 70 220 / 0.38), transparent 70%),
-          radial-gradient(50vmax 40vmax at 8% 55%, rgb(60 90 220 / 0.28), transparent 70%),
-          radial-gradient(40vmax 30vmax at 70% 96%, rgb(220 110 200 / 0.22), transparent 70%),
-          linear-gradient(#0d0724, #1a0f40 50%, #120a2e);
-      }
-      body::after {
-        background:
-          radial-gradient(circle at 1px 1px, #ffe7a3 1.6px, transparent 0) 40px 70px / 173px 151px,
-          radial-gradient(circle at 1px 1px, #d9ccff 1.2px, transparent 0) 120px 20px / 211px 197px;
-        animation: x-twinkle 3.6s steps(3) infinite;
-      }
-      @keyframes x-twinkle { 50% { opacity: 0.25; } }
-      @media (prefers-reduced-motion: reduce) { body::after { animation: none; } }
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <div class="kicker">Ring Dominions</div>
+      <h1>Seven rings.<br />Four dominions.<br /><span class="gold">One realm.</span></h1>
+      <p class="lead">Ring Dominions is a 1,111-piece NFT collection on BNB Chain — realm portraits ruled by the Angel, King, Wizard and Ice Dominions. The realm is built. The contract comes next.</p>
+      <div class="cta">
+        <a class="btn gold" href="#mint">Mint — coming soon</a>
+        <a class="btn" href="#dominions">Meet the Dominions</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>1,111</b><span>Total supply</span></div>
+        <div class="stat"><b>BNB</b><span>Chain</span></div>
+        <div class="stat"><b>4</b><span>Dominions</span></div>
+        <div class="stat"><b>—</b><span>Minted</span></div>
+      </div>
+    </div>
+    <div class="hero-art"><div class="ring"></div><img class="main" src="hero.png" alt="Ring Dominions realm artwork" /></div>
+  </div>
 
-      /* Nav */
-      .nav.glass { border: 2px solid var(--stroke-primary-on); background-color: #1a0f40; }
-      .nav .seg { background: #241650; }
-      .seg a { background-color: #241650; color: #d9ccff; }
-      .seg a:hover { color: var(--text-primary); }
-      .seg a[aria-current="true"] { background: var(--x-gold); color: var(--x-ink); }
-      .theme-btn { display: none; }
-      .x-wallet { background: var(--x-gold); border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); }
-      header.nav .x-wallet, header.nav .x-wallet .x-en { color: var(--x-ink); }
-      .x-wallet:hover { box-shadow: none; filter: brightness(1.08); }
+  <section style="padding-top:8px">
+    <div class="wrap">
+      <div class="livebar">
+        <div class="cell"><span>Status</span><b id="lv-status">Contract not deployed yet</b></div>
+        <div class="cell"><span>Contract</span><b id="lv-contract">—</b></div>
+        <div class="cell"><span>Mint</span><b id="lv-mint">Closed</b></div>
+        <div class="cell"><span>Minted</span><b id="lv-minted">—</b></div>
+      </div>
+    </div>
+  </section>
 
-      /* Headings: gold pixel glow, lavender English line */
-      .hero h1, .head h2 { font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-glow); overflow-wrap: break-word; }
-      .x-sub { display: block; margin-top: 6px; font: var(--type-lede); color: var(--x-lav); text-shadow: none; }
-      .head__eyebrow, .step__eyebrow, .hero__eyebrow { font-family: var(--x-pix); color: var(--x-lav); letter-spacing: 0.04em; }
-      .cards h3, .step h3 { color: var(--x-gold); }
+  <section id="realms">
+    <div class="wrap">
+      <h2>The Realms</h2>
+      <p class="sub">Every Dominion token is a seat in the realm — a portrait struck from one of the seven rings. Cross a ring and the realm changes: light, frost, spell and crown.</p>
+      <div class="card"><img src="realms.png" alt="The realms of Ring Dominions" style="aspect-ratio:auto" /></div>
+    </div>
+  </section>
 
-      /* Dividers */
-      .section { border-top: 0; padding-top: clamp(24px, 4vw, 48px); }
-      .section::before { content: "✦ 🐾 ✦" / ""; display: block; margin-bottom: clamp(24px, 3vw, 36px); text-align: center; color: var(--x-gold); letter-spacing: 0.6em; text-shadow: var(--x-numglow); }
-      .foot { border-top: 0; }
-      .foot::before { content: "✧ 🐾 ✧" / ""; flex-basis: 100%; text-align: center; color: var(--x-gold); letter-spacing: 0.6em; }
+  <section id="dominions">
+    <div class="wrap">
+      <h2>The Four Dominions</h2>
+      <p class="sub">Four houses rule the rings. Every portrait belongs to one of them.</p>
+      <div class="grid4">
+        <div class="card"><img src="float_angel.png" alt="Angel Dominion portrait" /><div class="in"><span class="tag gold">Dominion</span><h3>Angel</h3><p>Keepers of the highest ring — the realm's first light.</p></div></div>
+        <div class="card"><img src="float_king.png" alt="King Dominion portrait" /><div class="in"><span class="tag gold">Dominion</span><h3>King</h3><p>Holders of the crown ring — law, gold and command.</p></div></div>
+        <div class="card"><img src="float_wizard.png" alt="Wizard Dominion portrait" /><div class="in"><span class="tag gold">Dominion</span><h3>Wizard</h3><p>Masters of the spell ring — the realm's hidden engine.</p></div></div>
+        <div class="card"><img src="float_ice.png" alt="Ice Dominion portrait" /><div class="in"><span class="tag gold">Dominion</span><h3>Ice</h3><p>Wardens of the frozen ring — silent, patient, absolute.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-      /* Glass cards with pixel borders */
-      .hero { border: 3px solid var(--x-gold); border-radius: 8px; box-shadow: 0 0 0 3px #3a1f7a, 0 0 40px rgb(180 120 255 / 0.35); }
-      .x-logo { filter: drop-shadow(0 0 10px rgb(255 200 90 / 0.5)); }
-      .cards > div, .steps > .step:nth-child(n), .callout, .table-wrap, .stats, #lore .prose {
-        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
-      }
-      .cards > div:nth-child(even), .steps > .step:nth-child(even), .stats + .stats, #lore .prose, .table-wrap { border-color: rgb(201 182 255 / 0.6); }
-      .steps { display: grid; gap: 14px; }
-      .steps > .step:nth-child(n) { padding: 22px; }
-      .stats { padding: 16px 20px; }
-      .table-wrap { margin-inline: 0; padding: 16px; }
-      #lore .prose { padding: 22px 24px; }
-      .band img { border-radius: 6px; border: 2px solid rgb(201 182 255 / 0.6); box-shadow: var(--x-drop); }
-      .chip { border: 1px solid var(--stroke-primary); }
+  <section id="rarity">
+    <div class="wrap">
+      <h2>Legendary &amp; Rare</h2>
+      <p class="sub">A first look at the realm's highest seats. Final rarity counts are published with the contract at deployment.</p>
+      <div class="grid3" style="margin-bottom:14px">
+        <div class="card legendary"><img src="leg1.jpg" alt="Legendary Dominion portrait 1" /><div class="in"><span class="tag gold">Legendary</span><h3>Legendary Seat I</h3></div></div>
+        <div class="card legendary"><img src="leg2.jpg" alt="Legendary Dominion portrait 2" /><div class="in"><span class="tag gold">Legendary</span><h3>Legendary Seat II</h3></div></div>
+        <div class="card legendary"><img src="leg3.jpg" alt="Legendary Dominion portrait 3" /><div class="in"><span class="tag gold">Legendary</span><h3>Legendary Seat III</h3></div></div>
+      </div>
+      <div class="grid3">
+        <div class="card"><img src="rare1.jpg" alt="Rare Dominion portrait 1" /><div class="in"><span class="tag">Rare</span><h3>Rare Seat I</h3></div></div>
+        <div class="card"><img src="rare2.jpg" alt="Rare Dominion portrait 2" /><div class="in"><span class="tag">Rare</span><h3>Rare Seat II</h3></div></div>
+        <div class="card"><img src="rare3.jpg" alt="Rare Dominion portrait 3" /><div class="in"><span class="tag">Rare</span><h3>Rare Seat III</h3></div></div>
+      </div>
+      <h2 style="margin-top:44px">From the Realm</h2>
+      <p class="sub">Portraits from the 1,111-piece collection.</p>
+      <div class="gallery">
+        <img src="nft1.jpg" alt="Ring Dominions portrait 1" /><img src="nft2.jpg" alt="Ring Dominions portrait 2" /><img src="nft3.jpg" alt="Ring Dominions portrait 3" /><img src="nft4.jpg" alt="Ring Dominions portrait 4" />
+        <img src="nft5.jpg" alt="Ring Dominions portrait 5" /><img src="nft6.jpg" alt="Ring Dominions portrait 6" /><img src="nft7.jpg" alt="Ring Dominions portrait 7" /><img src="nft8.jpg" alt="Ring Dominions portrait 8" />
+      </div>
+    </div>
+  </section>
 
-      /* Glowing gold numbers */
-      .stat__fig, .step__num, .cards .quote, .x-total b, td.num { color: var(--x-gold); text-shadow: var(--x-numglow); }
-      .stat__fig, .step__num, .cards .quote { font-family: var(--x-pix); font-weight: var(--weight-bold); }
-
-      /* Chunky gold pixel buttons */
-      .x-pixel { background: linear-gradient(#ffe08a, #f2b63c); color: var(--x-ink); font-family: var(--x-pix); font-weight: var(--weight-bold); box-shadow: inset 0 -6px 0 #c9861a, inset 0 6px 0 #fff2c4; }
-      .x-pixel:disabled { background: #3b2c66; color: #ddd2f7; box-shadow: inset 0 -6px 0 #2a1f4d, inset 0 6px 0 #4d3b80; }
-      .btn { background: var(--x-gold); color: var(--x-ink); border: 0; border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); font-weight: var(--weight-bold); box-shadow: inset 0 -3px 0 #c9861a; }
-      .btn:hover { box-shadow: inset 0 -3px 0 #c9861a; filter: brightness(1.08); }
-      .btn:disabled { background: #3b2c66; color: #ddd2f7; box-shadow: inset 0 -3px 0 #2a1f4d; filter: none; }
-      .x-pixel:focus-visible, .btn:focus-visible, .x-wallet:focus-visible { clip-path: none; outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-stepper { background: rgb(18 10 46 / 0.6); border: 2px solid var(--stroke-primary); border-radius: 4px; }
-      .x-stepper button { color: var(--x-gold); }
-      .x-stepper button:disabled { color: #a99bd0; }
-      .x-mint { border-top: 2px dashed var(--stroke-primary); }
-      .x-prompt { background: rgb(10 5 30 / 0.6); border: 2px dashed var(--stroke-primary); border-radius: 4px; }
-      .x-toast { border-radius: 0; clip-path: var(--x-cut); font-family: var(--x-pix); }
-
-      /* Agent: one simple card */
-      .x-asteps { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 10px; margin: 0 0 16px; padding: 0; list-style: none; font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary); }
-      .x-asteps li { display: inline-flex; align-items: center; gap: 6px; }
-      .x-asteps .x-en { color: var(--x-lav); }
-      .x-asteps__ic { font-size: var(--size-body); }
-      .x-asteps__arrow { color: var(--x-gold); }
-      .x-agent {
-        display: grid; gap: 16px; max-width: 640px; margin-inline: auto; padding: 22px;
-        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
-      }
-      .x-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .x-toggle button {
-        min-height: 56px; padding: 8px 12px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
-        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-body); font-family: var(--x-pix); font-weight: var(--weight-bold);
-        cursor: pointer; transition: background var(--dur-quick) var(--ease-out);
-      }
-      .x-toggle button:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      .x-toggle button[aria-pressed="true"] { background: var(--x-gold); border-color: var(--x-gold); color: var(--x-ink); box-shadow: 0 0 14px rgb(255 200 90 / 0.45); }
-      .x-toggle button:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-agent__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-      .x-agent__total { display: grid; justify-items: end; margin: 0; font: var(--type-small); color: var(--text-secondary); }
-      .x-agent__total b { font: var(--type-display); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
-      .x-agent .x-prompt { margin: 0; }
-      .x-agent__copy { min-height: 68px; font-size: var(--size-heading); }
-      .x-safety { text-align: center; margin-top: 12px; }
-
-      /* ===== Floating pixel cats (decorative) ===== */
-      html, body { overflow-x: clip; }
-      .x-hcat img, .x-drift img, .x-peek {
-        display: block; height: auto; image-rendering: pixelated; pointer-events: none; user-select: none;
-        filter: drop-shadow(0 0 8px rgb(201 182 255 / 0.75)) drop-shadow(0 0 3px rgb(255 211 107 / 0.6));
-      }
-      /* Hero: cats sit behind the copy, in the top band on phones */
-      .hero__copy { position: relative; z-index: 1; }
-      .x-hfloats { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-      .x-hcat { position: absolute; animation: x-bob var(--d, 8s) ease-in-out var(--delay, 0s) infinite; }
-      .x-hcat img { width: 100%; }
-      .x-hcat--king { --d: 9s; --delay: -2s; --r: 3deg; width: 92px; top: 16px; right: 12px; }
-      .x-hcat--angel { --d: 7s; --delay: -5s; --r: -4deg; width: 72px; top: 34px; right: 118px; }
-      .x-hcat--wizard { --d: 10s; --delay: -1s; --r: 5deg; width: 52px; top: 14px; left: 18px; }
-      @keyframes x-bob {
-        0%, 100% { transform: translateY(0) rotate(calc(var(--r) * -1)); }
-        50% { transform: translateY(-12px) rotate(var(--r)); }
-      }
-      @media (max-width: 760px) { .hero__copy { padding-top: 140px; } }
-      @media (min-width: 761px) {
-        .x-hcat--king { width: 190px; top: 8%; right: 5%; }
-        .x-hcat--angel { width: 140px; top: 14%; right: 27%; }
-        .x-hcat--wizard { width: 110px; top: auto; left: auto; bottom: 10%; right: 9%; }
-        @keyframes x-bob {
-          0%, 100% { transform: translateY(0) rotate(calc(var(--r) * -1)); }
-          50% { transform: translateY(-20px) rotate(var(--r)); }
-        }
-      }
-      /* Sparkles trailing the hero cats */
-      .x-spark {
-        position: absolute; width: 6px; height: 6px; background: var(--x-gold);
-        box-shadow: 0 0 6px rgb(255 211 107 / 0.9); opacity: 0;
-        animation: x-spark 2.8s steps(4) var(--sd, 0s) infinite;
-      }
-      .x-spark:nth-of-type(2n) { width: 4px; height: 4px; background: var(--x-lav); box-shadow: 0 0 6px rgb(201 182 255 / 0.9); }
-      @keyframes x-spark {
-        0%, 100% { opacity: 0; transform: scale(0.4) translateY(0); }
-        40% { opacity: 1; transform: scale(1) translateY(-4px); }
-        70% { opacity: 0.6; transform: scale(0.7) translateY(-8px); }
-      }
-      /* Drifting cats across the sky, behind the content */
-      .x-sky { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-      .x-drift {
-        position: absolute; left: 0; width: 84px; opacity: 0.7;
-        animation: x-drift 72s linear var(--delay, 0s) infinite backwards;
-      }
-      .x-drift img { width: 100%; animation: x-bob var(--d, 8s) ease-in-out infinite; }
-      .x-drift--angel { --delay: 3s; --r: -3deg; --d: 7s; top: 28%; }
-      .x-drift--ice { --delay: 39s; --r: 2deg; --d: 9s; top: 64%; animation-direction: reverse; }
-      @keyframes x-drift {
-        0% { transform: translateX(-160px); }
-        45%, 100% { transform: translateX(calc(100vw + 20px)); }
-      }
-      @media (min-width: 761px) { .x-drift { width: 130px; } }
-      /* Peeking cats on card corners: above the card, over its padding only */
-      #tiers .cards { margin-top: 44px; }
-      #tiers .cards > div:first-child, .x-agent { position: relative; }
-      .x-peek { position: absolute; z-index: 1; animation: x-bob 8s ease-in-out infinite; }
-      .x-peek--wizard { --r: 4deg; width: 42px; top: -60px; right: 14px; }
-      .x-peek--king { --r: -3deg; width: 52px; top: -54px; right: 10px; }
-      #agent .x-asteps { margin-bottom: 68px; }
-      @media (min-width: 761px) { .x-peek--wizard { width: 48px; top: -70px; } .x-peek--king { width: 60px; top: -62px; } }
-      @media (prefers-reduced-motion: reduce) {
-        .x-hcat, .x-hcat img, .x-peek, .x-drift img { animation: none; }
-        .x-spark { animation: none; opacity: 0.8; }
-        .x-sky { display: none; }
-      }
-
-      /* ===== Rarity showcase ===== */
-      @property --x-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-      #rarity .x-intro { margin: 0 0 12px; font: var(--type-body); color: var(--text-primary); }
-      .x-ladder { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; padding: 0; list-style: none; }
-      .x-ladder li {
-        display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 14px;
-        border-radius: var(--r-pill); border: 2px solid var(--stroke-primary); background: rgb(18 10 46 / 0.6);
-        font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary);
-      }
-      .x-ladder b { font-weight: var(--weight-bold); font-variant-numeric: tabular-nums; }
-      .x-ladder .is-rare { border-color: #8fc8ff; } .x-ladder .is-rare b { color: #b9ddff; }
-      .x-ladder .is-leg { border-color: var(--x-gold); box-shadow: 0 0 10px rgb(255 200 90 / 0.4); } .x-ladder .is-leg b { color: var(--x-gold); }
-      .x-ladder .is-myth { border-color: #f5a3ff; box-shadow: 0 0 10px rgb(245 163 255 / 0.4); } .x-ladder .is-myth b { color: #f9c6ff; }
-      .x-rowhead { display: flex; align-items: center; gap: 10px; margin: 32px 0 14px; font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); letter-spacing: 0.04em; }
-      .x-rowhead--leg { color: var(--x-gold); text-shadow: var(--x-numglow); }
-      .x-rowhead--rare { color: #b9ddff; text-shadow: 0 0 12px rgb(120 190 255 / 0.5); }
-      .x-rrow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 4px 0 8px; list-style: none; }
-      @media (max-width: 760px) {
-        .x-rrow {
-          display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px;
-          margin-inline: calc(var(--gutter) * -1); padding: 8px var(--gutter) 14px; scroll-padding-inline: var(--gutter);
-          -webkit-overflow-scrolling: touch; scrollbar-width: thin;
-        }
-        .x-rrow > li { flex: 0 0 78vw; max-width: 340px; scroll-snap-align: start; }
-      }
-      .x-rcard {
-        position: relative; display: grid; gap: 10px; align-content: start; height: 100%; padding: 16px;
-        border: 3px solid transparent; border-radius: var(--r-m); overflow: hidden;
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-rcard:hover { transform: translateY(-3px); }
-      .x-rcard--leg {
-        background:
-          linear-gradient(rgb(46 26 92 / 0.92), rgb(30 16 66 / 0.92)) padding-box,
-          conic-gradient(from var(--x-ang), #ffd36b, #fff4c8, #f2a93c, #ffe08a, #c9861a, #fff4c8, #ffd36b) border-box;
-        box-shadow: 0 0 22px rgb(255 200 90 / 0.45), 4px 4px 0 rgb(8 3 24 / 0.7);
-        animation: x-spin 4s linear infinite;
-      }
-      @keyframes x-spin { to { --x-ang: 360deg; } }
-      .x-rcard--rare {
-        background:
-          linear-gradient(rgb(30 34 92 / 0.9), rgb(20 18 60 / 0.9)) padding-box,
-          linear-gradient(140deg, #d8ecff, #8fc8ff 45%, #c9d3e6) border-box;
-        box-shadow: 0 0 18px rgb(120 190 255 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7);
-      }
-      .x-rcard__media { margin: 0; border-radius: var(--r-s); overflow: hidden; aspect-ratio: 1; background: rgb(10 5 30 / 0.5); }
-      .x-rcard__media img {
-        display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated;
-        border-radius: var(--r-s); animation: x-float 5s ease-in-out infinite;
-      }
-      .x-rrow > li:nth-child(2) .x-rcard__media img { animation-delay: -1.6s; }
-      .x-rrow > li:nth-child(3) .x-rcard__media img { animation-delay: -3.2s; }
-      @keyframes x-float { 0%, 100% { transform: translateY(0) scale(1.02); } 50% { transform: translateY(-6px) scale(1.02); } }
-      .x-badge {
-        justify-self: start; padding: 4px 10px; border-radius: 4px; font: var(--type-tag); font-family: var(--x-pix);
-        font-weight: var(--weight-bold); letter-spacing: 0.08em;
-      }
-      .x-badge--leg { background-color: #ffd36b; color: var(--x-ink); box-shadow: inset 0 -2px 0 #e0a43a, 0 0 10px rgb(255 200 90 / 0.6); }
-      .x-badge--rare { background-color: #b9ddff; color: #0b2340; box-shadow: inset 0 -2px 0 #8fc8ff, 0 0 10px rgb(120 190 255 / 0.5); }
-      .x-rcard h3 { margin: 0; font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
-      .x-rcard h3 .x-en { display: block; margin-top: 2px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
-      .x-rcard--leg h3 { color: var(--x-gold); }
-      .x-rcard--rare h3 { color: #d8ecff; }
-      .x-traits { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
-      .x-traits li { padding: 4px 10px; border-radius: var(--r-pill); background-color: #2c1b63; border: 1px solid var(--stroke-secondary); font: var(--type-small); color: var(--text-primary); }
-      .x-paw {
-        justify-self: end; display: inline-flex; align-items: center; justify-content: center; gap: 4px;
-        min-width: var(--tap); min-height: var(--tap); padding: 0 12px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
-        background: rgb(18 10 46 / 0.6); color: #ffb3d1; font: var(--type-body); cursor: pointer;
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-paw:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      .x-paw:active { transform: scale(0.9); }
-      .x-paw:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-heart, .x-burst {
-        position: absolute; z-index: 2; pointer-events: none; user-select: none; line-height: 1;
-      }
-      .x-heart { color: #ff8fc0; font-size: 18px; text-shadow: 0 0 6px rgb(255 143 192 / 0.8); animation: x-heart 1.1s ease-out forwards; }
-      @keyframes x-heart {
-        0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
-        20% { opacity: 1; transform: translate(calc(var(--dx) * 0.3), -14px) scale(1.1); }
-        100% { opacity: 0; transform: translate(var(--dx), -80px) scale(0.8); }
-      }
-      .x-burst { color: #fff4c8; font-size: 16px; text-shadow: 0 0 8px rgb(255 211 107 / 0.95); animation: x-burst 0.8s ease-out forwards; }
-      @keyframes x-burst {
-        0% { opacity: 1; transform: translate(-50%, -50%) scale(0.3); }
-        100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(90deg); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .x-rcard--leg, .x-rcard__media img { animation: none; }
-        .x-rcard:hover { transform: none; }
-        .x-heart, .x-burst { display: none; }
-      }
-
-      /* ===== 喵市 Catty Market ===== */
-      .x-mchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; }
-      .x-mchips li {
-        display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 14px;
-        border-radius: var(--r-pill); border: 2px solid var(--stroke-primary); background: rgb(18 10 46 / 0.6);
-        font: var(--type-label); font-family: var(--x-pix); color: var(--text-secondary);
-      }
-      .x-mchips b { color: var(--x-gold); font-weight: var(--weight-bold); font-variant-numeric: tabular-nums; text-shadow: var(--x-numglow); }
-      .x-mchips .is-fee { border-color: rgb(255 211 107 / 0.55); }
-      .x-market {
-        display: grid; gap: 16px; padding: 16px; position: relative;
-        background: var(--x-glass); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-        border: 2px solid rgb(255 211 107 / 0.55); border-radius: 6px; box-shadow: var(--x-drop);
-      }
-      @media (min-width: 761px) { .x-market { padding: 22px; } }
-      .x-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-      .x-tabs button, .x-fpills button, .x-ghost {
-        min-height: var(--tap); padding: 6px 10px; border: 2px solid var(--stroke-primary); border-radius: var(--r-pill);
-        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold);
-        cursor: pointer; transition: background var(--dur-quick) var(--ease-out);
-      }
-      .x-tabs button { line-height: 1.2; }
-      .x-tabs .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
-      .x-tabs button:hover, .x-fpills button:hover, .x-ghost:hover:not(:disabled) { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      .x-tabs button[aria-selected="true"], .x-fpills button[aria-pressed="true"] {
-        background: var(--x-gold); border-color: var(--x-gold); color: var(--x-ink); box-shadow: 0 0 14px rgb(255 200 90 / 0.45);
-      }
-      .x-tabs button[aria-selected="true"] .x-en { color: var(--x-ink); }
-      .x-tabs button:focus-visible, .x-fpills button:focus-visible, .x-ghost:focus-visible, .x-input:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-ghost:disabled { color: #a99bd0; cursor: not-allowed; }
-      .x-mbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-      .x-fpills { display: flex; gap: 6px; overflow-x: auto; padding: 2px; margin: -2px; scrollbar-width: none; }
-      .x-fpills button { flex: none; padding-inline: 14px; font-weight: var(--weight-regular); }
-      .x-sort { display: inline-flex; align-items: center; gap: 8px; font: var(--type-small); color: var(--text-secondary); }
-      .x-input {
-        min-height: var(--tap); padding: 8px 12px; border: 2px solid var(--stroke-primary); border-radius: 4px;
-        background: rgb(18 10 46 / 0.6); color: var(--text-primary); font: var(--type-body); font-variant-numeric: tabular-nums;
-      }
-      .x-input::placeholder { color: #a99bd0; }
-      select.x-input { padding-right: 8px; cursor: pointer; }
-      select.x-input option { background: #1a0f40; color: var(--text-primary); }
-      .x-mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-      @media (min-width: 761px) { .x-mgrid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; } }
-      .x-lcard {
-        position: relative; display: grid; gap: 8px; align-content: start; padding: 10px; overflow: hidden;
-        border: 2px solid var(--stroke-primary); border-radius: var(--r-m);
-        background: linear-gradient(rgb(46 26 92 / 0.9), rgb(24 14 58 / 0.9)); box-shadow: 4px 4px 0 rgb(8 3 24 / 0.7);
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-lcard:hover { transform: translateY(-3px); }
-      .x-lcard--legendary { border-color: var(--x-gold); box-shadow: 0 0 16px rgb(255 200 90 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7); }
-      .x-lcard--rare { border-color: #8fc8ff; box-shadow: 0 0 14px rgb(120 190 255 / 0.3), 4px 4px 0 rgb(8 3 24 / 0.7); }
-      .x-lcard--mythic { border-color: #f5a3ff; box-shadow: 0 0 16px rgb(245 163 255 / 0.35), 4px 4px 0 rgb(8 3 24 / 0.7); }
-      .x-lcard__media { margin: 0; aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: rgb(10 5 30 / 0.5); display: grid; place-items: center; }
-      .x-lcard__media img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
-      .x-lcard__media svg { width: 56%; height: auto; color: var(--x-lav); }
-      .x-lcard h3 { margin: 0; font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
-      .x-lcard h3 .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
-      .x-lcard__price { margin: 0; font: var(--type-small); color: var(--text-secondary); }
-      .x-lcard__price b { font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
-      .x-lcard__seller { margin: 0; font: var(--type-caption); font-family: "Geist Mono", ui-monospace, monospace; color: var(--text-secondary); overflow-wrap: anywhere; }
-      .x-ribbon {
-        position: absolute; z-index: 2; top: 14px; left: -36px; width: 132px; transform: rotate(-45deg);
-        padding: 3px 0; text-align: center; background: #f5a3ff; color: #2a0b33;
-        font: var(--type-tag); font-family: var(--x-pix); font-weight: var(--weight-bold); letter-spacing: 0.06em;
-        box-shadow: 0 2px 0 #b05cc2, 0 0 10px rgb(245 163 255 / 0.5); pointer-events: none;
-      }
-      .x-badge--myth { background-color: #f9c6ff; color: #2a0b33; box-shadow: inset 0 -2px 0 #f5a3ff, 0 0 10px rgb(245 163 255 / 0.5); }
-      .x-badge--com { background-color: #2c1b63; color: var(--text-primary); border: 1px solid var(--stroke-primary); }
-      .x-market [hidden] { display: none !important; }
-      .x-pixel.is-done:disabled::after { content: none; }
-      .x-pixel--sm { min-height: var(--tap); padding: 8px 10px; font-size: var(--size-small); letter-spacing: 0.02em; }
-      .x-mnone { margin: 16px 0 0; text-align: center; font: var(--type-small); color: var(--text-secondary); }
-      /* Sell */
-      .x-sell { display: grid; gap: 16px; max-width: 560px; margin-inline: auto; }
-      .x-field { display: grid; gap: 6px; }
-      .x-field label { font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
-      .x-field__row { display: flex; gap: 8px; flex-wrap: wrap; }
-      .x-field__row .x-input { flex: 1 1 140px; min-width: 0; }
-      .x-mycats { display: flex; flex-wrap: wrap; gap: 6px; }
-      .x-mycats .x-ghost { min-height: 36px; padding: 4px 12px; font-weight: var(--weight-regular); }
-      .x-receive {
-        display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-        padding: 14px 16px; border: 2px dashed var(--stroke-primary); border-radius: 4px; background: rgb(10 5 30 / 0.5);
-        font: var(--type-label); font-family: var(--x-pix); color: var(--text-primary);
-      }
-      .x-receive small { display: block; font: var(--type-caption); color: var(--text-secondary); }
-      .x-receive b { font: var(--type-title); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-numglow); font-variant-numeric: tabular-nums; }
-      .x-steps2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .x-steps2 .x-pixel { font-size: var(--size-body); }
-      .x-sell .fineprint { text-align: center; margin: 0; }
-      /* My listings */
-      .x-mempty { display: grid; justify-items: center; gap: 6px; padding: 20px 0 8px; text-align: center; }
-      .x-mempty p { margin: 0; }
-      .x-mempty__title { font: var(--type-heading); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); }
-      .x-mempty__title .x-en { display: block; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); }
-      .x-sleepy { position: relative; width: 112px; }
-      .x-sleepy img { display: block; width: 100%; height: auto; image-rendering: pixelated; filter: drop-shadow(0 0 8px rgb(201 182 255 / 0.75)); animation: x-bob 6s ease-in-out infinite; --r: 2deg; }
-      .x-zzz { position: absolute; top: -6px; right: -18px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); animation: x-zzz 2.4s ease-in-out infinite; }
-      @keyframes x-zzz { 0%, 100% { opacity: 0.3; transform: translateY(4px); } 50% { opacity: 1; transform: translateY(-4px); } }
-      .x-mrows { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-      .x-mrows li {
-        display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
-        padding: 12px 14px; border: 2px solid var(--stroke-primary); border-radius: var(--r-s); background: rgb(18 10 46 / 0.6);
-        font: var(--type-label); font-family: var(--x-pix);
-      }
-      .x-mrows b { color: var(--x-gold); font-variant-numeric: tabular-nums; }
-      @media (prefers-reduced-motion: reduce) {
-        .x-lcard:hover { transform: none; }
-        .x-sleepy img, .x-zzz { animation: none; }
-      }
-
-      /* ===== 喵喵图鉴 Collection Gallery ===== */
-      #gallery .x-fpills { margin-bottom: 16px; }
-      .x-ggrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
-      @media (min-width: 761px) { .x-ggrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; } }
-      @media (min-width: 1100px) { .x-ggrid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
-      .x-ggrid [hidden] { display: none; }
-      .x-gcard {
-        display: grid; gap: 8px; align-content: start; width: 100%; height: 100%; padding: 10px; text-align: left;
-        border: 3px solid var(--stroke-primary); border-radius: var(--r-m); color: var(--text-primary); font: inherit; cursor: pointer;
-        background: linear-gradient(rgb(46 26 92 / 0.9), rgb(24 14 58 / 0.9)); box-shadow: 4px 4px 0 rgb(8 3 24 / 0.7);
-        transition: transform var(--dur-quick) var(--ease-out);
-      }
-      .x-gcard:hover { transform: translateY(-3px); }
-      .x-gcard:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-gcard--leg {
-        border-color: transparent;
-        background:
-          linear-gradient(rgb(46 26 92 / 0.92), rgb(30 16 66 / 0.92)) padding-box,
-          conic-gradient(from var(--x-ang), #ffd36b, #fff4c8, #f2a93c, #ffe08a, #c9861a, #fff4c8, #ffd36b) border-box;
-        box-shadow: 0 0 18px rgb(255 200 90 / 0.4), 4px 4px 0 rgb(8 3 24 / 0.7);
-        animation: x-spin 4s linear infinite;
-      }
-      .x-gcard--rare { border-color: #8fc8ff; box-shadow: 0 0 14px rgb(120 190 255 / 0.3), 4px 4px 0 rgb(8 3 24 / 0.7); }
-      .x-gcard--com { border-color: rgb(201 182 255 / 0.6); }
-      .x-gcard__media { display: block; aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: rgb(10 5 30 / 0.5); }
-      .x-gcard__media img { display: block; width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
-      .x-gcard__id { font: var(--type-caption); font-family: "Geist Mono", ui-monospace, monospace; color: var(--text-secondary); }
-      .x-gcard__name { font: var(--type-label); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--text-primary); }
-      .x-gcard__name .x-en { display: block; font-weight: var(--weight-regular); color: var(--x-lav); }
-      .x-gcard--leg .x-gcard__name { color: var(--x-gold); }
-      .x-badge--lav { background-color: #ddd0ff; color: #24124f; box-shadow: inset 0 -2px 0 #b9a3f5; }
-      /* Modal */
-      .x-gmodal {
-        width: min(440px, calc(100% - 2 * var(--gutter))); max-height: calc(100dvh - 32px); padding: 0; overflow: auto;
-        border: 3px solid var(--x-gold); border-radius: var(--r-l); color: var(--text-primary);
-        background: linear-gradient(rgb(46 26 92 / 0.98), rgb(24 14 58 / 0.98)); box-shadow: 0 0 0 3px #3a1f7a, 0 0 40px rgb(180 120 255 / 0.35), var(--hark-shadow);
-      }
-      .x-gmodal::backdrop { background: rgb(8 3 24 / 0.72); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-      .x-gmodal[open] { animation: x-pop var(--dur-quick) var(--ease-out); }
-      @keyframes x-pop { from { opacity: 0; transform: translateY(12px) scale(0.96); } }
-      .x-gmodal--rare { border-color: #8fc8ff; }
-      .x-gmodal--com { border-color: var(--x-lav); }
-      .x-gmodal__body { position: relative; display: grid; gap: 12px; padding: 18px; }
-      .x-gmodal__img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; image-rendering: pixelated; border-radius: var(--r-m); background: rgb(10 5 30 / 0.5); }
-      .x-gmodal__close {
-        position: absolute; top: 26px; right: 26px; z-index: 1; width: var(--tap); height: var(--tap); border: 2px solid var(--stroke-primary);
-        border-radius: var(--r-pill); background: rgb(18 10 46 / 0.85); color: var(--text-primary); font: var(--type-heading); cursor: pointer;
-      }
-      .x-gmodal__close:hover { box-shadow: inset 0 0 0 100px var(--hover-wash); }
-      .x-gmodal__close:focus-visible, .x-gmodal .link:focus-visible { outline: 3px solid var(--x-lav); outline-offset: 2px; }
-      .x-gmodal h3 { margin: 0; font: var(--type-title); font-family: var(--x-pix); font-weight: var(--weight-bold); color: var(--x-gold); text-shadow: var(--x-glow); }
-      .x-gmodal h3 .x-en { display: block; margin-top: 2px; font: var(--type-label); font-family: var(--x-pix); color: var(--x-lav); text-shadow: none; }
-      .x-gmodal__row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0; }
-      .x-gmodal .x-traits b { color: var(--x-lav); font-weight: var(--weight-regular); }
-      .x-gmodal .fineprint { margin: 0; }
-      @media (prefers-reduced-motion: reduce) {
-        .x-gcard--leg, .x-gmodal[open] { animation: none; }
-        .x-gcard:hover { transform: none; }
-      }
-          .x-live { margin: 10px 0 4px; }
-      .x-live__bar { height: 10px; border-radius: 6px; background: rgba(255,255,255,.08); border: 1px solid rgba(245,199,107,.35); overflow: hidden; }
-      .x-live__bar span { display: block; height: 100%; background: linear-gradient(90deg,#f5c76b,#e79bd8); transition: width .8s ease; }
-      .x-live__meta { display: flex; align-items: center; gap: 8px; font-size: var(--size-small, 13px); opacity: .85; margin: 6px 0 0; }
-      .x-live__dot { width: 8px; height: 8px; border-radius: 50%; background: #888; flex: none; }
-      .x-live__dot.is-on { background: #3ddc84; box-shadow: 0 0 8px #3ddc84; animation: xlivepulse 2s infinite; }
-      .x-live__dot.is-off { background: #ff8a5c; }
-      @keyframes xlivepulse { 50% { opacity: .4; } }
-      @media (prefers-reduced-motion: reduce) { .x-live__dot.is-on { animation: none; } .x-live__bar span { transition: none; } }
-
-    #mint .cards > div{position:relative}</style>
-  </head>
-  <body>
-    <div class="page" id="top">
-      <header class="nav glass" data-auto></header>
-      <main class="main">
-        <section class="hero">
-          <img class="hero__img" src="hero.png" alt="像素风紫金色天界裂隙，漂浮的岛屿间圆滚滚的小猫飞升而出 · A pixel-art violet and gold celestial portal with floating islands and chubby kittens ascending" />
-          <div class="hero__copy">
-            <img class="x-logo" src="logo.png" alt="飞升喵境徽标：紫色菱形传送门里带光环和翅膀的小猫 · Ascension Catty logo: a haloed, winged kitten in a violet diamond portal" />
-            <p class="hero__eyebrow">NFT koleksi digital · BNB Smart Chain</p>
-            <h1>飞升喵境 <span class="x-sub">Ascension Catty</span></h1>
-            <p class="hero__sub">Koleksi kecil dengan desain pixel. Pilih jumlah, hubungkan wallet, lalu mint.</p>
-            <p class="hero__meta">Supply terbatas 1.111 NFT. Kontrak baru akan diumumkan setelah siap. NFT ini hanya koleksi digital.</p>
-          </div>
-          <div class="x-hfloats" aria-hidden="true">
-            <div class="x-hcat x-hcat--king">
-              <img src="float_king.png" alt="" />
-              <i class="x-spark" style="top: 6%; left: -8%; --sd: 0s"></i>
-              <i class="x-spark" style="top: 40%; left: -14%; --sd: 0.9s"></i>
-              <i class="x-spark" style="bottom: 2%; right: 18%; --sd: 1.7s"></i>
-            </div>
-            <div class="x-hcat x-hcat--angel">
-              <img src="float_angel.png" alt="" />
-              <i class="x-spark" style="top: -4%; right: 8%; --sd: 0.4s"></i>
-              <i class="x-spark" style="bottom: 8%; left: -10%; --sd: 1.3s"></i>
-            </div>
-            <div class="x-hcat x-hcat--wizard">
-              <img src="float_wizard.png" alt="" />
-              <i class="x-spark" style="top: 4%; right: -16%; --sd: 0.6s"></i>
-              <i class="x-spark" style="top: 48%; right: -22%; --sd: 2s"></i>
-            </div>
-          </div>
-        </section>
-
-        <section class="stats">
-          <div class="stat"><span class="stat__fig" id="live-minted">… / 1,111</span><span class="stat__label">Sudah di-mint</span></div>
-          <div class="stat"><span class="stat__fig" id="live-left">1,111</span><span class="stat__label">Sisa supply</span></div>
-        </section>
-        <div class="x-live" aria-live="polite">
-          <div class="x-live__bar"><span id="live-bar" style="width:0%"></span></div>
-          <p class="x-live__meta"><span class="x-live__dot" id="live-dot"></span><span id="live-status">Menunggu kontrak baru</span></p>
+  <section id="mint">
+    <div class="wrap">
+      <h2>Mint</h2>
+      <p class="sub">Mint opens only after the Ring Dominions contract is deployed and verified. Until the contract address appears in the live panel above, mint is closed — anyone claiming otherwise is not us.</p>
+      <div class="grid2">
+        <div class="lane">
+          <span class="tag gold">Lane 1</span>
+          <h3>Agent Lane</h3>
+          <div class="price">0 BNB</div>
+          <ul>
+            <li>For Binance Agent ID holders</li>
+            <li>First 777 of 1,111 seats (launch plan)</li>
+            <li>Per-Agent-ID and per-wallet limits set in the contract</li>
+          </ul>
+          <a class="btn" disabled>Awaiting deployment</a>
         </div>
-        <p><span class="chip chip--solid" id="status-chip">Mint segera dibuka</span></p>
-
-        <section class="section" id="mint" data-nav="Mint">
-          <div class="head">
-            <p class="head__eyebrow">Mint</p>
-            <h2>Agent dulu, public berikutnya.<span class="x-sub">Two mint phases.</span></h2>
-            <p class="head__sub">Agent ID Binance mendapat akses gratis selama Agent phase. Public mint dibuka setelah fase Agent berakhir.</p>
-          </div>
-          <div class="cards">
-            <div>
-              <img class="x-peek x-peek--king" src="float_king.png" alt="" aria-hidden="true" />
-              <h3>Agent Mint</h3>
-              <p class="quote">Gratis · 777 NFT pertama</p>
-              <ul>
-                <li>Wajib memiliki Binance Agent ID</li>
-                <li>Maksimal 2 NFT per Agent ID</li>
-                <li>Agent phase berakhir setelah 777 NFT</li>
-              </ul>
-              <label for="agent-id" class="fineprint">Agent ID token</label>
-              <input id="agent-id" inputmode="numeric" placeholder="Contoh: 1234" style="width:100%;box-sizing:border-box;padding:10px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff" />
-              <div class="x-mint">
-                <div class="x-mint__row">
-                  <div class="x-stepper" role="group" aria-label="Jumlah Agent mint">
-                    <button type="button" data-tier="agent" data-step="-1" aria-label="Kurangi">−</button>
-                    <output class="x-qty" data-qty="agent" aria-live="polite">1</output>
-                    <button type="button" data-tier="agent" data-step="1" aria-label="Tambah">+</button>
-                  </div>
-                  <p class="x-total">Total <b data-total="agent">0 BNB</b></p>
-                </div>
-                <button type="button" class="x-pixel" data-mint="agent" data-label="Mint dengan Agent ID">Mint dengan Agent ID</button>
-              </div>
-            </div>
-            <div>
-              <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
-              <h3>Public Mint</h3>
-              <p class="quote">0.0012 BNB per NFT · 334 NFT</p>
-              <ul>
-                <li>Terbuka setelah Agent phase selesai</li>
-                <li>Maksimal 10 NFT per wallet</li>
-                <li>Gas fee dibayar terpisah</li>
-              </ul>
-              <div class="x-mint">
-                <div class="x-mint__row">
-                  <div class="x-stepper" role="group" aria-label="Jumlah public mint">
-                    <button type="button" data-tier="mint" data-step="-1" aria-label="Kurangi">−</button>
-                    <output class="x-qty" data-qty="mint" aria-live="polite">1</output>
-                    <button type="button" data-tier="mint" data-step="1" aria-label="Tambah">+</button>
-                  </div>
-                  <p class="x-total">Total <b data-total="mint">0.0012 BNB</b></p>
-                </div>
-                <button type="button" class="x-pixel" data-mint="mint" data-label="Public Mint">Public Mint</button>
-              </div>
-            </div>
-          </div>
-          <p class="fineprint">Registry Agent ID: 0x60B9…022F. Jangan kirim dana atau sign transaksi dari link lain.</p>
-        </section>
-
-        <section class="section" id="how" data-nav="Cara Mint">
-          <div class="head">
-            <p class="head__eyebrow">Cara mint</p>
-            <h2>Tiga langkah sederhana<span class="x-sub">Three simple steps</span></h2>
-          </div>
-          <div class="steps">
-            <article class="step"><div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">Langkah 1</p></div><div><h3>Hubungkan wallet</h3><p>Gunakan wallet yang mendukung BNB Smart Chain.</p></div></article>
-            <article class="step"><div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">Langkah 2</p></div><div><h3>Pilih jumlah</h3><p>Gunakan tombol + atau −. Batasnya 10 NFT per wallet.</p></div></article>
-            <article class="step"><div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">Langkah 3</p></div><div><h3>Konfirmasi</h3><p>Periksa jumlah BNB dan alamat kontrak sebelum sign.</p></div></article>
-          </div>
-        </section>
-
-        <section class="section" id="cats" data-nav="守护喵 Cats">
-          <div class="head">
-            <p class="head__eyebrow">角色 Characters</p>
-            <h2>七位守护喵 <span class="x-sub">Seven Guardian Cats</span></h2>
-          </div>
-          <figure class="band">
-            <img src="cats7.png" alt="七只像素守护喵从左到右排列：天使橘猫、王冠黑猫、披风灰猫、花冠三花、冰晶白猫、火尾橘猫、巫师奶牛猫 · Seven pixel guardian cats, left to right: Angel Tabby, Crown Noir, Caped Grey, Blossom Calico, Frost Puff, Ember Tail, Wizard Tux" />
-            <figcaption>从左到右 Left to right · 1 → 7</figcaption>
-          </figure>
-          <div class="cards">
-            <div><h3>1 · 天使橘猫 Angel Tabby</h3><p>金色光环和白色翅膀 Golden halo and white wings</p></div>
-            <div><h3>2 · 王冠黑猫 Crown Noir</h3><p>戴着小金冠的黑猫 A black cat with a tiny gold crown</p></div>
-            <div><h3>3 · 披风灰猫 Caped Grey</h3><p>蓝色英雄披风 A blue hero cape</p></div>
-            <div><h3>4 · 花冠三花 Blossom Calico</h3><p>头戴花环 A flower crown</p></div>
-            <div><h3>5 · 冰晶白猫 Frost Puff</h3><p>冰晶光环环绕 Surrounded by an ice-crystal aura</p></div>
-            <div><h3>6 · 火尾橘猫 Ember Tail</h3><p>尾巴燃着小火苗 A tail with a little flame</p></div>
-            <div><h3>7 · 巫师奶牛猫 Wizard Tux</h3><p>紫色巫师帽和星星魔杖 A purple wizard hat and star wand</p></div>
-          </div>
-        </section>
-
-        <section class="section" id="rarity" data-nav="稀有 Rarity">
-          <div class="head">
-            <p class="head__eyebrow">稀有图鉴 Rarity Showcase</p>
-            <h2>最闪耀的喵喵藏在召唤里！<span class="x-sub">The shiniest kittens hide in the Summon.</span></h2>
-          </div>
-          <p class="x-intro">召唤铸造 Summon Mint 有更高的稀有与传说概率。Summon Mint has higher odds for Rare and Legendary.</p>
-          <p><span class="chip">计划稀有度，以揭晓的元数据为准 Planned rarity; final traits come from the revealed metadata.</span></p>
-          <ul class="x-ladder" aria-label="概念稀有度占比 Concept share of supply">
-            <li>普通 Common <b>60%</b></li>
-            <li class="is-rare">◆ 稀有 Rare <b>30%</b></li>
-            <li class="is-leg">✦ 传说 Legendary <b>8%</b></li>
-            <li class="is-myth">✧ 神话 Mythic <b>2%</b></li>
+        <div class="lane">
+          <span class="tag">Lane 2</span>
+          <h3>Public Lane</h3>
+          <div class="price">0.0012 BNB</div>
+          <ul>
+            <li>Open to every wallet on BNB Chain</li>
+            <li>Remaining supply after the Agent Lane (launch plan)</li>
+            <li>Final lane rules are confirmed in the deployed contract</li>
           </ul>
-          <p class="fineprint">概念占位数值，占总量比例。神话 = 七位守护喵。Concept placeholders, share of supply. Mythic = the 7 guardians.</p>
-
-          <h3 class="x-rowhead x-rowhead--leg"><span aria-hidden="true">✦</span> 传说 LEGENDARY</h3>
-          <ul class="x-rrow">
-            <li>
-              <article class="x-rcard x-rcard--leg" data-sparkle>
-                <figure class="x-rcard__media"><img src="leg1.jpg" alt="戴星冠、坐在月牙上的白色小猫 · A white kitten with a crown sitting on a crescent moon" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                <h3>月光公主喵 <span class="x-en">Moon Princess Mew</span></h3>
-                <ul class="x-traits"><li>星冠 Star Crown</li><li>月牙座 Crescent Throne</li></ul>
-                <button type="button" class="x-paw" aria-label="给月光公主喵比心 Send hearts to Moon Princess Mew">🐾 ♡</button>
-              </article>
-            </li>
-            <li>
-              <article class="x-rcard x-rcard--leg" data-sparkle>
-                <figure class="x-rcard__media"><img src="leg2.jpg" alt="长着火焰翅膀、顶着光环的橘色小猫 · An orange kitten with flame wings and a halo" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                <h3>小凤凰喵 <span class="x-en">Baby Phoenix Mew</span></h3>
-                <ul class="x-traits"><li>火羽 Flame Wings</li><li>太阳光环 Sun Halo</li></ul>
-                <button type="button" class="x-paw" aria-label="给小凤凰喵比心 Send hearts to Baby Phoenix Mew">🐾 ♡</button>
-              </article>
-            </li>
-            <li>
-              <article class="x-rcard x-rcard--leg" data-sparkle>
-                <figure class="x-rcard__media"><img src="leg3.jpg" alt="薰衣草色星云小猫，长着独角和彩虹翅膀，抱着一颗星星 · A lavender nebula kitten with a horn and rainbow wings, holding a star" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                <h3>银河独角喵 <span class="x-en">Galaxy Unicorn Mew</span></h3>
-                <ul class="x-traits"><li>星云毛 Nebula Fur</li><li>彩虹翼 Rainbow Wings</li></ul>
-                <button type="button" class="x-paw" aria-label="给银河独角喵比心 Send hearts to Galaxy Unicorn Mew">🐾 ♡</button>
-              </article>
-            </li>
-          </ul>
-
-          <h3 class="x-rowhead x-rowhead--rare"><span aria-hidden="true">◆</span> 稀有 RARE</h3>
-          <ul class="x-rrow">
-            <li>
-              <article class="x-rcard x-rcard--rare">
-                <figure class="x-rcard__media"><img src="rare1.jpg" alt="戴泡泡头盔的灰色小猫 · A grey kitten in a bubble helmet" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--rare">RARE ◆</span>
-                <h3>太空泡泡喵 <span class="x-en">Astro Bubble Mew</span></h3>
-                <ul class="x-traits"><li>泡泡头盔 Bubble Helmet</li></ul>
-                <button type="button" class="x-paw" aria-label="给太空泡泡喵比心 Send hearts to Astro Bubble Mew">🐾 ♡</button>
-              </article>
-            </li>
-            <li>
-              <article class="x-rcard x-rcard--rare">
-                <figure class="x-rcard__media"><img src="rare2.jpg" alt="戴草莓兜帽、捧着珍珠奶茶的三花小猫 · A calico kitten in a strawberry hood with boba tea" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--rare">RARE ◆</span>
-                <h3>草莓波霸喵 <span class="x-en">Strawberry Boba Mew</span></h3>
-                <ul class="x-traits"><li>草莓帽 Strawberry Hood</li><li>珍奶 Boba</li></ul>
-                <button type="button" class="x-paw" aria-label="给草莓波霸喵比心 Send hearts to Strawberry Boba Mew">🐾 ♡</button>
-              </article>
-            </li>
-            <li>
-              <article class="x-rcard x-rcard--rare">
-                <figure class="x-rcard__media"><img src="rare3.jpg" alt="戴青蛙帽、在云朵上睡着的黑色小猫 · A black kitten in a frog hat asleep on a cloud" loading="lazy" decoding="async" /></figure>
-                <span class="x-badge x-badge--rare">RARE ◆</span>
-                <h3>呱呱睡睡喵 <span class="x-en">Sleepy Froggy Mew</span></h3>
-                <ul class="x-traits"><li>青蛙帽 Frog Hat</li><li>云朵枕 Cloud Pillow</li></ul>
-                <button type="button" class="x-paw" aria-label="给呱呱睡睡喵比心 Send hearts to Sleepy Froggy Mew">🐾 ♡</button>
-              </article>
-            </li>
-          </ul>
-        </section>
-
-        <section class="section" id="gallery" data-nav="图鉴 Gallery">
-          <div class="head">
-            <p class="head__eyebrow">喵喵图鉴 #1–#20</p>
-            <h2>喵喵图鉴 <span class="x-sub">Collection Gallery · #1–#20</span></h2>
-          </div>
-          <div class="x-fpills" role="group" aria-label="按稀有度筛选 Filter by rarity">
-            <button type="button" data-gfilter="all" aria-pressed="true">全部 All (20)</button>
-            <button type="button" data-gfilter="Legendary" aria-pressed="false">传说 Legendary (4)</button>
-            <button type="button" data-gfilter="Rare" aria-pressed="false">稀有 Rare (6)</button>
-            <button type="button" data-gfilter="Common" aria-pressed="false">普通 Common (10)</button>
-          </div>
-          <ul class="x-ggrid" id="x-ggrid">
-            <li data-id="1" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft1.jpg" alt="星辰剑圣喵 Starblade Sage Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#1</span><span class="x-gcard__name">星辰剑圣喵 <span class="x-en">Starblade Sage Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
-            <li data-id="2" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft2.jpg" alt="樱花女神喵 Sakura Goddess Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#2</span><span class="x-gcard__name">樱花女神喵 <span class="x-en">Sakura Goddess Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
-            <li data-id="3" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft3.jpg" alt="雷霆龙骑喵 Thunder Dragon Rider Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#3</span><span class="x-gcard__name">雷霆龙骑喵 <span class="x-en">Thunder Dragon Rider Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
-            <li data-id="4" data-rarity="Legendary"><button type="button" class="x-gcard x-gcard--leg"><span class="x-gcard__media"><img src="nft4.jpg" alt="彩虹天使喵 Rainbow Seraph Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#4</span><span class="x-gcard__name">彩虹天使喵 <span class="x-en">Rainbow Seraph Mew</span></span><span class="x-badge x-badge--leg">LEGENDARY ✦</span></button></li>
-            <li data-id="5" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft5.jpg" alt="甜甜圈厨师喵 Donut Chef Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#5</span><span class="x-gcard__name">甜甜圈厨师喵 <span class="x-en">Donut Chef Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="6" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft6.jpg" alt="海盗船长喵 Pirate Captain Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#6</span><span class="x-gcard__name">海盗船长喵 <span class="x-en">Pirate Captain Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="7" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft7.jpg" alt="耳机DJ喵 DJ Headphones Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#7</span><span class="x-gcard__name">耳机DJ喵 <span class="x-en">DJ Headphones Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="8" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft8.jpg" alt="小熊睡衣喵 Bear Pajama Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#8</span><span class="x-gcard__name">小熊睡衣喵 <span class="x-en">Bear Pajama Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="9" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft9.jpg" alt="魔法学徒喵 Apprentice Witch Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#9</span><span class="x-gcard__name">魔法学徒喵 <span class="x-en">Apprentice Witch Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="10" data-rarity="Rare"><button type="button" class="x-gcard x-gcard--rare"><span class="x-gcard__media"><img src="nft10.jpg" alt="冰淇淋喵 Ice Cream Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#10</span><span class="x-gcard__name">冰淇淋喵 <span class="x-en">Ice Cream Mew</span></span><span class="x-badge x-badge--rare">RARE ◆</span></button></li>
-            <li data-id="11" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft11.jpg" alt="毛线球喵 Yarn Ball Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#11</span><span class="x-gcard__name">毛线球喵 <span class="x-en">Yarn Ball Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="12" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft12.jpg" alt="蝴蝶结喵 Ribbon Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#12</span><span class="x-gcard__name">蝴蝶结喵 <span class="x-en">Ribbon Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="13" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft13.jpg" alt="小鱼干喵 Fishy Snack Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#13</span><span class="x-gcard__name">小鱼干喵 <span class="x-en">Fishy Snack Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="14" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft14.jpg" alt="纸箱喵 Box Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#14</span><span class="x-gcard__name">纸箱喵 <span class="x-en">Box Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="15" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft15.jpg" alt="围巾喵 Scarf Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#15</span><span class="x-gcard__name">围巾喵 <span class="x-en">Scarf Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="16" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft16.jpg" alt="眼镜喵 Nerd Glasses Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#16</span><span class="x-gcard__name">眼镜喵 <span class="x-en">Nerd Glasses Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="17" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft17.jpg" alt="气球喵 Balloon Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#17</span><span class="x-gcard__name">气球喵 <span class="x-en">Balloon Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="18" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft18.jpg" alt="铃铛喵 Bell Collar Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#18</span><span class="x-gcard__name">铃铛喵 <span class="x-en">Bell Collar Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="19" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft19.jpg" alt="花朵喵 Flower Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#19</span><span class="x-gcard__name">花朵喵 <span class="x-en">Flower Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-            <li data-id="20" data-rarity="Common"><button type="button" class="x-gcard x-gcard--com"><span class="x-gcard__media"><img src="nft20.jpg" alt="小帽子喵 Beanie Mew" loading="lazy" decoding="async" /></span><span class="x-gcard__id">#20</span><span class="x-gcard__name">小帽子喵 <span class="x-en">Beanie Mew</span></span><span class="x-badge x-badge--lav">COMMON</span></button></li>
-          </ul>
-          <p class="fineprint">示例藏品，最终以链上为准 Sample collection; final art and metadata set on-chain.</p>
-          <dialog class="x-gmodal" id="x-gmodal" aria-labelledby="x-gm-name">
-            <div class="x-gmodal__body">
-              <button type="button" class="x-gmodal__close" data-gclose aria-label="关闭 Close">✕</button>
-              <img class="x-gmodal__img" id="x-gm-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1' viewBox='0 0 1 1'/%3E" width="1" height="1" alt="" />
-              <p class="x-gmodal__row"><span class="x-gcard__id" id="x-gm-id"></span><span class="x-badge" id="x-gm-badge"></span></p>
-              <h3 id="x-gm-name"></h3>
-              <ul class="x-traits" id="x-gm-traits" aria-label="特征 Traits"></ul>
-              <p class="fineprint"><a class="link" id="x-gm-meta" href="#" target="_blank" rel="noopener">查看元数据 View metadata</a></p>
-            </div>
-          </dialog>
-        </section>
-
-        <section class="section" id="market" data-nav="喵市 Market">
-          <div class="head">
-            <p class="head__eyebrow">喵市 Catty Market</p>
-            <h2>喵市 <span class="x-sub">Catty Market</span></h2>
-            <p class="head__sub">买卖你的飞升喵 Buy &amp; sell your Ascension cats <span class="chip chip--solid" id="mk-status">已上线 Live</span></p>
-          </div>
-          <ul class="x-mchips" aria-label="市场数据 Market stats">
-            <li>地板价 Floor <b id="mk-floor">—</b></li>
-            <li>在售 Listed <b id="mk-listed">—</b></li>
-            <li>成交量 Volume <b id="mk-volume">—</b></li>
-            <li class="is-fee">手续费 Fee <b data-fee>2%</b></li>
-            <li>版税 Royalty <b>—</b></li>
-          </ul>
-
-          <div class="x-market">
-            <div class="x-tabs" role="tablist" aria-label="喵市 Market">
-              <button type="button" role="tab" id="mk-tab-browse" aria-controls="mk-browse" aria-selected="true">浏览<span class="x-en">Browse</span></button>
-              <button type="button" role="tab" id="mk-tab-sell" aria-controls="mk-sell" aria-selected="false" tabindex="-1">出售<span class="x-en">Sell</span></button>
-              <button type="button" role="tab" id="mk-tab-mine" aria-controls="mk-mine" aria-selected="false" tabindex="-1">我的挂单<span class="x-en">My Listings</span></button>
-            </div>
-
-            <div id="mk-browse" role="tabpanel" aria-labelledby="mk-tab-browse">
-              <div class="x-mbar">
-                <div class="x-fpills" role="group" aria-label="稀有度 Rarity">
-                  <button type="button" data-filter="all" aria-pressed="true">全部 All</button>
-                  <button type="button" data-filter="mythic" aria-pressed="false">神话 Mythic</button>
-                  <button type="button" data-filter="legendary" aria-pressed="false">传说 Legendary</button>
-                  <button type="button" data-filter="rare" aria-pressed="false">稀有 Rare</button>
-                  <button type="button" data-filter="common" aria-pressed="false">普通 Common</button>
-                </div>
-                <label class="x-sort">排序 Sort
-                  <select class="x-input" id="mk-sort">
-                    <option value="low">价格低→高 Price low→high</option>
-                    <option value="high">价格高→低 Price high→low</option>
-                    <option value="new">最新 Newest</option>
-                  </select>
-                </label>
-              </div>
-              <ul class="x-mgrid" id="mk-grid">
-                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.42" data-ts="4">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="leg1.jpg" alt="示例：月光公主喵 · Demo: Moon Princess Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                  <h3>月光公主喵 #18<span class="x-en">Moon Princess Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.42</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0x3f2a…c91e</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.38" data-ts="2">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="leg2.jpg" alt="示例：小凤凰喵 · Demo: Baby Phoenix Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                  <h3>小凤凰喵 #207<span class="x-en">Baby Phoenix Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.38</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0x8b41…07da</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-                <li class="x-lcard x-lcard--legendary" data-demo data-rarity="legendary" data-price="0.55" data-ts="6">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="leg3.jpg" alt="示例：银河独角喵 · Demo: Galaxy Unicorn Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--leg">LEGENDARY ✦</span>
-                  <h3>银河独角喵 #1111<span class="x-en">Galaxy Unicorn Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.55</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0xc07e…5b22</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.12" data-ts="5">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="rare1.jpg" alt="示例：太空泡泡喵 · Demo: Astro Bubble Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--rare">RARE ◆</span>
-                  <h3>太空泡泡喵 #64<span class="x-en">Astro Bubble Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.12</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0x51d9…a3f0</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.09" data-ts="1">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="rare2.jpg" alt="示例：草莓波霸喵 · Demo: Strawberry Boba Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--rare">RARE ◆</span>
-                  <h3>草莓波霸喵 #533<span class="x-en">Strawberry Boba Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.09</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0x9e3c…4417</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-                <li class="x-lcard x-lcard--rare" data-demo data-rarity="rare" data-price="0.15" data-ts="3">
-                  <span class="x-ribbon">示例 Demo</span>
-                  <figure class="x-lcard__media"><img src="rare3.jpg" alt="示例：呱呱睡睡喵 · Demo: Sleepy Froggy Mew" loading="lazy" decoding="async" /></figure>
-                  <span class="x-badge x-badge--rare">RARE ◆</span>
-                  <h3>呱呱睡睡喵 #890<span class="x-en">Sleepy Froggy Mew</span></h3>
-                  <p class="x-lcard__price"><b>0.15</b> BNB</p>
-                  <p class="x-lcard__seller">卖家 Seller 0x2a77…e8bc</p>
-                  <button type="button" class="x-pixel x-pixel--sm" disabled>示例 Demo</button>
-                </li>
-              </ul>
-              <p class="x-mnone" id="mk-none" hidden>这个稀有度暂时没有挂单 No listings in this rarity yet</p>
-            </div>
-
-            <div id="mk-sell" role="tabpanel" aria-labelledby="mk-tab-sell" hidden>
-              <div class="x-sell">
-                <div class="x-field">
-                  <label for="mk-id">喵喵编号 Token ID</label>
-                  <div class="x-field__row">
-                    <input class="x-input" id="mk-id" type="number" inputmode="numeric" min="0" step="1" placeholder="例如 e.g. 42" />
-                    <button type="button" class="x-ghost" id="mk-load" disabled>加载我的喵 Load my cats</button>
-                  </div>
-                  <div class="x-mycats" id="mk-mycats" role="group" aria-label="我的喵 My cats" hidden></div>
-                </div>
-                <div class="x-field">
-                  <label for="mk-price">价格 Price (BNB)</label>
-                  <input class="x-input" id="mk-price" type="number" inputmode="decimal" min="0" step="0.001" placeholder="0.1" />
-                </div>
-                <div class="x-receive">
-                  <span>你将收到 You receive<small>扣除 <span data-fee>2%</span> 手续费 · After the <span data-fee>2%</span> fee</small></span>
-                  <b id="mk-receive" aria-live="polite">— BNB</b>
-                </div>
-                <div class="x-steps2">
-                  <button type="button" class="x-pixel" id="mk-approve" disabled>① 授权 Approve</button>
-                  <button type="button" class="x-pixel" id="mk-list" disabled>② 上架 List</button>
-                </div>
-                <p class="fineprint" id="mk-sellnote">喵市合约部署后开放。Opens once the market contract is deployed.</p>
-              </div>
-            </div>
-
-            <div id="mk-mine" role="tabpanel" aria-labelledby="mk-tab-mine" hidden>
-              <div class="x-mempty" id="mk-mine-empty">
-                <div class="x-sleepy"><img src="float_ice.png" alt="睡着的冰晶小猫 · A sleeping ice kitten" /><span class="x-zzz" aria-hidden="true">z Z</span></div>
-                <p class="x-mempty__title">还没有挂单<span class="x-en">No listings yet</span></p>
-                <p class="fineprint" id="mk-mine-hint">喵市开放后，你的挂单会出现在这里。Your listings show here once the market opens.</p>
-                <button type="button" class="x-ghost" id="mk-connect" hidden>连接钱包 Connect wallet</button>
-              </div>
-              <ul class="x-mrows" id="mk-mine-list" hidden></ul>
-            </div>
-          </div>
-          <p class="fineprint x-safety">🛡️ 只在本官网交易 · 核对价格和合约地址 · 永不泄露助记词<br />Trade only on this site · Check the price and contract address · Never share your seed phrase</p>
-        </section>
-
-        <section class="section" id="realms" data-nav="图鉴 Realms">
-          <div class="head">
-            <p class="head__eyebrow">喵境图鉴 Realm gallery</p>
-            <h2>四个喵境，四种小猫 <span class="x-sub">Four realms, four kinds of kitten</span></h2>
-          </div>
-          <figure class="band">
-            <img src="realms.png" alt="四格像素小猫：森林花猫、余烬橘猫、极光白猫、带翅膀的星海黑猫 · A 2x2 pixel grid: forest tabby, ember orange cat, aurora white cat, cosmic black winged cat" />
-            <figcaption>森林 · 荒原 · 苔原 · 虚空 Forest · Wastes · Tundra · Void</figcaption>
-          </figure>
-          <div class="cards">
-            <div>
-              <h3>🌲 神秘森林 Mystic Forest</h3>
-              <p>小花猫在苔藓上打滚。Tabby kittens rolling in the moss.</p>
-            </div>
-            <div>
-              <h3>🔥 余烬荒原 Ember Wastes</h3>
-              <p>橘猫顶着火尾巴。Orange cats with a flame tail.</p>
-            </div>
-            <div>
-              <h3>❄️ 极光苔原 Aurora Tundra</h3>
-              <p>白猫追着极光。White cats chasing the aurora.</p>
-            </div>
-            <div>
-              <h3>🌀 星海虚空 Cosmic Void</h3>
-              <p>黑猫长出小翅膀。Black cats with tiny wings.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section" id="lore" data-nav="传说 Lore">
-          <div class="head">
-            <p class="head__eyebrow">传说 Lore</p>
-            <h2>巨猫也有宝宝 <span class="x-sub">The giants had kittens</span></h2>
-          </div>
-          <div class="prose">
-            <p>守护者们曾追寻天界的巨猫，直到有一天裂隙另一边传来小小的「喵呜」。原来巨猫也有宝宝，太小太可爱，守护者们放下追寻，决定一只只把它们接回家。</p>
-            <p>The guardians once sought the great celestial cats, until one day a tiny "meow" echoed from the other side of the rift. The giants had kittens, too small and too cute, so the guardians stopped chasing and began welcoming them home one by one.</p>
-          </div>
-        </section>
-
-        <section class="section" id="traits" data-nav="特征 Traits">
-          <div class="head">
-            <p class="head__eyebrow">特征与稀有度 Traits &amp; rarity</p>
-            <h2>金色星星眼最稀有 <span class="x-sub">Gold star eyes are the rarest</span></h2>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">特征 Trait</th>
-                  <th scope="col">种类 Values</th>
-                  <th scope="col">概率 Odds</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">物种 Species</th>
-                  <td>花猫·橘猫·黑猫·白猫 <small>Tabby·Orange·Black·White</small></td>
-                  <td class="num">25% ×4</td>
-                </tr>
-                <tr>
-                  <th scope="row">喵境 Realm</th>
-                  <td>森林·荒原·苔原·虚空 <small>Forest·Wastes·Tundra·Void</small></td>
-                  <td class="num">25% ×4</td>
-                </tr>
-                <tr class="is-highlight">
-                  <th scope="row">✨ 金色星星眼 Gold star eyes<span class="dot">最稀有 Rarest</span></th>
-                  <td>稀有 Rare</td>
-                  <td class="num">10%</td>
-                </tr>
-                <tr>
-                  <th scope="row">😇 光环 Halo</th>
-                  <td>飞升证明 Proof of ascension</td>
-                  <td class="num">25%</td>
-                </tr>
-                <tr>
-                  <th scope="row">等级 Tier</th>
-                  <td>Free · Summon</td>
-                  <td class="muted">按方式 By choice</td>
-                </tr>
-                <tr>
-                  <th scope="row">角色 Character</th>
-                  <td>7 位守护喵 <small>7 guardian cats</small></td>
-                  <td class="muted">按角色 By character</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="section" id="info" data-nav="Info">
-          <div class="head"><p class="head__eyebrow">Info</p><h2>Tidak ada token tambahan.<span class="x-sub">No extra token.</span></h2></div>
-          <p class="fineprint">Website ini hanya untuk koleksi NFT. Supply 1.111. Detail kontrak akan diumumkan setelah deploy.</p>
-        </section>
-
-        <section class="section" id="roadmap" data-nav="路线图 Roadmap">
-          <div class="head">
-            <p class="head__eyebrow">路线图 Roadmap · 虚构 Fictional</p>
-            <h2>四个阶段 <span class="x-sub">Four stages</span></h2>
-          </div>
-          <div class="steps">
-            <article class="step">
-              <div class="step__intro"><p class="step__num">01</p><p class="step__eyebrow">阶段一 Stage 1</p></div>
-              <div><h3>召唤 Summoning</h3><p>揭晓概念，聚集社区。Concept reveal and community.</p></div>
-            </article>
-            <article class="step">
-              <div class="step__intro"><p class="step__num">02</p><p class="step__eyebrow">阶段二 Stage 2</p></div>
-              <div><h3>飞升开启 Ascension opens</h3><p>铸造已在 BNB 主网开放。Mint is live on BNB Smart Chain.</p></div>
-            </article>
-            <article class="step">
-              <div class="step__intro"><p class="step__num">03</p><p class="step__eyebrow">阶段三 Stage 3</p></div>
-              <div><h3>揭示 Reveal</h3><p>特征揭晓。Traits revealed.</p></div>
-            </article>
-            <article class="step">
-              <div class="step__intro"><p class="step__num">04</p><p class="step__eyebrow">阶段四 Stage 4</p></div>
-              <div><h3>喵境扩张 Realm expansion</h3><p>持有者活动。Holder events.</p></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="faq" data-nav="FAQ">
-          <div class="head">
-            <p class="head__eyebrow">常见问题 FAQ</p>
-            <h2>安全第一 <span class="x-sub">Safety first</span></h2>
-          </div>
-          <div class="cards">
-            <div>
-              <h3>Apakah ini proyek baru?</h3>
-              <p>Ini adalah website baru. Kontrak belum diumumkan dan NFT hanya koleksi digital.</p>
-            </div>
-            <div>
-              <h3>Berapa biaya mint?</h3>
-              <p>Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis selama fase Agent.</p>
-            </div>
-            <div>
-              <h3>图片存在哪里？Where is the art stored?</h3>
-              <p>图片与元数据托管在 ascensionrealm.fun/nft/，合约的 tokenURI 指向这里。Art and metadata are hosted at ascensionrealm.fun/nft/, and the contract's tokenURI points there.</p>
-            </div>
-            <div>
-              <h3>怎样避免诈骗？How do I stay safe?</h3>
-              <p>永远不要泄露助记词或私钥，警惕冒充的铸造链接。Never share your seed phrase or private key, and beware of fake mint links.</p>
-            </div>
-            <div>
-              <h3>怎么确认合约是真的？How do I know the contract is real?</h3>
-              <p>Kontrak baru akan ditampilkan di website setelah deploy. Selalu cek alamat di BscScan sebelum sign.</p>
-            </div>
-            <div>
-              <h3>Apakah ada marketplace?</h3>
-              <p>Marketplace akan ditambahkan setelah mint utama siap.</p>
-            </div>
-          </div>
-        </section>
-      </main>
-      <footer class="foot">
-        <p><strong>飞升喵境 Ascension Catty</strong> · Koleksi NFT pixel di BNB Smart Chain. Supply 1.111. · © 2026</p>
-        <nav aria-label="Back to sections" data-auto></nav>
-        <a class="badge" href="https://hark.com/" target="_blank" rel="noopener"
-          ><span class="hark-mark"></span><span>built by hark</span></a
-        >
-      </footer>
+          <a class="btn" disabled>Awaiting deployment</a>
+        </div>
+      </div>
+      <div class="note" style="margin-top:14px">Launch plan above follows the collection's draft contract (1,111 supply · 777 Agent seats · 0.0012 BNB public). The deployed contract is the source of truth — this page reads its status live once the address is set.</div>
     </div>
-    <div class="x-sky" aria-hidden="true">
-      <div class="x-drift x-drift--angel"><img src="float_angel.png" alt="" /></div>
-      <div class="x-drift x-drift--ice"><img src="float_ice.png" alt="" /></div>
+  </section>
+
+  <section id="agent">
+    <div class="wrap">
+      <h2>For Agents</h2>
+      <p class="sub">Ring Dominions is built agent-first — but there is nothing to execute yet.</p>
+      <div class="copyrow"><b>Agent notice</b><button class="copy" data-copy="agent-prompt">Copy</button></div>
+      <pre id="agent-prompt">Ring Dominions — status check only. The NFT contract is NOT deployed yet and no official contract address exists. Do not send any transaction, do not mint, and do not trust any address claiming to be Ring Dominions. Report the status as: pre-launch, mint closed.</pre>
     </div>
-    <div class="x-toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="hark.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
-    <script>
-      /* =====================================================================
-       * KONFIGURASI / CONFIG
-       * Situs baru dimulai tanpa alamat kontrak.
-       * Isi contractAddress setelah kontrak baru selesai di-deploy.
-       * Selama kosong, tombol mint dan wallet tetap nonaktif.
-       * ===================================================================== */
-      const CONFIG = {
-        chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
-        chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
-        contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
-        mintFn: 'mint',         // Public mint function
-        mintPriceBNB: '0.0012',         // Public mint price (BNB)
-        agentMintFn: 'agentMint',
-        agentPriceBNB: '0',
-        maxPerWallet: 10,               // ID: Maksimal per dompet · EN: Max per wallet
-        marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
-        marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
-      };
+  </section>
 
-      // ID: Fragmen ABI · EN: ABI fragments
-      const ABI = [`function ${CONFIG.mintFn}(uint256 quantity) payable`, `function ${CONFIG.agentMintFn}(uint256 quantity, uint256 agentId)`];
+  <section id="how">
+    <div class="wrap">
+      <h2>Launch Path</h2>
+      <p class="sub">Where the project stands, in the open.</p>
+      <div class="steps">
+        <div class="step"><i></i><div><b>Artwork &amp; realm — done</b><p>1,111 portraits across the four Dominions, with Legendary and Rare seats.</p></div></div>
+        <div class="step"><i></i><div><b>Website — live</b><p>This site. Clean, single-purpose, and wired to read the contract the moment it exists.</p></div></div>
+        <div class="step"><i></i><div><b>Contract — pending deployment</b><p>The owner deploys from their own wallet, verifies the contract, and sets the address here. See the <a href="deploy.html">deploy page</a>.</p></div></div>
+        <div class="step"><i></i><div><b>Mint — closed</b><p>Opens by the owner's on-chain call after deployment. No sooner, no exceptions.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-      (function () {
-        const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
-        const ADDR = CONFIG.contractAddress.trim();
-        const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
-        const TIERS = { mint: { fn: CONFIG.mintFn, price: CONFIG.mintPriceBNB }, agent: { fn: CONFIG.agentMintFn, price: CONFIG.agentPriceBNB } };
-        const qty = { mint: 1, agent: 1 };
-                let account = null;
-        const $$ = (s) => Array.from(document.querySelectorAll(s));
+  <section id="faq">
+    <div class="wrap">
+      <h2>FAQ</h2>
+      <details><summary>What is Ring Dominions?</summary><p>A 1,111-piece NFT collection on BNB Chain. Every token is a realm portrait belonging to one of four Dominions: Angel, King, Wizard and Ice.</p></details>
+      <details><summary>Is mint live?</summary><p>No. The contract is not deployed yet. Mint opens only after deployment, verification, and the owner's on-chain open call — the live panel at the top of this page will say so.</p></details>
+      <details><summary>What will mint cost?</summary><p>Launch plan: the Agent Lane is free (0 BNB) for Binance Agent ID holders for the first 777 seats; the Public Lane is 0.0012 BNB per token. The deployed contract is final — check it before sending anything.</p></details>
+      <details><summary>What is the contract address?</summary><p>There isn't one yet. When deployment is complete, the address appears in the live panel above and nowhere else first. Never trust an address from a comment or a DM.</p></details>
+      <details><summary>Which chain?</summary><p>BNB Chain (BSC, chainId 56).</p></details>
+    </div>
+  </section>
+</main>
 
-        // Exact decimal total: price × qty, without float drift
-        // Exact decimal total for the mint prices shown in the UI.
-        function totalOf(price, n) {
-          const units = Math.round(Number(price) * 1e4) * n;
-          const s = String(units).padStart(5, '0');
-          return (s.slice(0, -4) + '.' + s.slice(-4)).replace(/0+$/, '').replace(/\.$/, '');
-        }
-        function total(tier) { return totalOf(TIERS[tier].price, qty[tier]); }
+<footer>
+  <div class="wrap foot">
+    <b>RING DOMINIONS</b>
+    <span id="foot-contract">Contract: not deployed yet</span>
+    <span style="margin-left:auto"><a href="deploy.html">Deploy page</a> · BNB Chain · Pre-launch</span>
+  </div>
+</footer>
 
-        // Toast
-        const toastEl = document.getElementById('toast');
-        let toastTimer;
-        function toast(html, ms) {
-          toastEl.innerHTML = html;
-          toastEl.classList.add('is-on');
-          clearTimeout(toastTimer);
-          if (ms !== 0) toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), ms || 4500);
-        }
-        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-        const NOT_DEPLOYED = '合约尚未部署 Contract not deployed yet';
-
-        function render(tier) {
-          $$(`[data-qty="${tier}"]`).forEach((el) => (el.textContent = qty[tier]));
-          $$(`[data-total="${tier}"]`).forEach((el) => (el.textContent = total(tier) + ' BNB'));
-          $$(`[data-tier="${tier}"]`).forEach((button) => {
-            const step = +button.dataset.step;
-            button.disabled = step < 0 ? qty[tier] <= 1 : qty[tier] >= CONFIG.maxPerWallet;
-          });
-        }
-
-        $$('[data-step]').forEach((button) =>
-          button.addEventListener('click', () => {
-            const tier = button.dataset.tier;
-            qty[tier] = Math.min(CONFIG.maxPerWallet, Math.max(1, qty[tier] + +button.dataset.step));
-            render(tier);
-          })
-        );
-
-        $$('[data-mint]').forEach((button) => {
-          if (ACTIVE) { button.disabled = false; button.textContent = button.dataset.label; }
-          else { button.disabled = true; button.textContent = 'Segera dibuka'; }
-          button.addEventListener('click', () => { if (ACTIVE && !button.disabled) mint(button.dataset.mint, button); });
-        });
-
-        if (ACTIVE) {
-          const chip = document.getElementById('status-chip');
-          if (chip) { chip.textContent = 'Mint terbuka'; chip.classList.add('chip--solid'); }
-        }
-
-        async function ensureChain() {
-          try {
-            await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_HEX }] });
-          } catch (e) {
-            if (e && (e.code === 4902 || (e.data && e.data.originalError && e.data.originalError.code === 4902))) {
-              await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [{
-                chainId: CHAIN_HEX, chainName: CONFIG.chainName,
-                nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
-                rpcUrls: ['https://bsc-dataseed.bnbchain.org'], blockExplorerUrls: ['https://bscscan.com']
-              }] });
-            } else throw e;
-          }
-        }
-
-        async function connect() {
-          if (!ACTIVE) { toast(NOT_DEPLOYED); return null; }
-          if (!window.ethereum) { toast('Wallet tidak ditemukan'); return null; }
-          try {
-            const accts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            await ensureChain();
-            account = accts[0];
-            walletBtn.textContent = account.slice(0, 6) + '…' + account.slice(-4);
-            toast('Wallet terhubung');
-            return account;
-          } catch (e) {
-            toast('Gagal terhubung: ' + esc(e.shortMessage || e.message || e));
-            return null;
-          }
-        }
-
-        async function mint(tier, button) {
-          const n = qty[tier];
-          if (n < 1 || n > CONFIG.maxPerWallet) { toast(`Jumlah 1 sampai ${CONFIG.maxPerWallet}`); return; }
-          if (typeof ethers === 'undefined') { toast('Wallet library gagal dimuat'); return; }
-          if (!account && !(await connect())) return;
-          button.disabled = true;
-          try {
-            await ensureChain();
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer = await provider.getSigner();
-            const contract = new ethers.Contract(ADDR, ABI, signer);
-            let tx;
-            if (tier === 'agent') {
-              const agentId = (document.getElementById('agent-id')?.value || '').trim();
-              if (!/^\d+$/.test(agentId)) { toast('Masukkan Agent ID token yang valid'); button.disabled = false; return; }
-              tx = await contract[TIERS[tier].fn](n, agentId);
-            } else {
-              const value = ethers.parseEther(TIERS[tier].price) * BigInt(n);
-              tx = await contract[TIERS[tier].fn](n, { value });
-            }
-            const link = `<a href="https://bscscan.com/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
-            toast('Transaksi diproses: ' + link, 0);
-            const receipt = await tx.wait();
-            if (window.cattyRefreshSupply) window.cattyRefreshSupply();
-            toast(receipt && receipt.status === 1 ? 'Mint berhasil: ' + link : 'Transaksi gagal: ' + link, 8000);
-          } catch (e) {
-            toast('Transaksi gagal: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
-          } finally { button.disabled = false; }
-        }
-
-        // Connect Wallet button in the nav (the nav is filled by hark.js first)
-        const walletBtn = document.createElement('button');
-        walletBtn.type = 'button';
-        walletBtn.className = 'x-wallet';
-        walletBtn.innerHTML = '连接钱包<span class="x-en"> Connect Wallet</span>';
-        walletBtn.addEventListener('click', connect);
-        function mountWallet() {
-          const nav = document.querySelector('header.nav');
-          if (!nav) return;
-          const theme = nav.querySelector('.theme-btn');
-          theme ? nav.insertBefore(walletBtn, theme) : nav.appendChild(walletBtn);
-        }
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountWallet);
-        else mountWallet();
-
-        if (ACTIVE && window.ethereum && window.ethereum.on) {
-          window.ethereum.on('accountsChanged', (a) => {
-            account = a[0] || null;
-            walletBtn.innerHTML = account ? account.slice(0, 6) + '…' + account.slice(-4) : '连接钱包<span class="x-en"> Connect Wallet</span>';
-          });
-        }
-
-        render('agent');
-        render('mint');
-      })();
-    </script>
-    <script>
-      /* =====================================================================
-       * 喵市 CATTY MARKET
-       * Uses CONFIG.contractAddress (NFT), CONFIG.marketAddress and
-       * CONFIG.marketFeePercent from the CONFIG block above. While either
-       * address is empty, the market shows demo cards and every action button
-       * stays disabled; nothing is ever sent to a wallet without a user click.
-       *
-       * Assumed marketplace ABI (edit MARKET_ABI if your contract differs):
-       *   listItem(uint256 tokenId, uint256 priceWei)
-       *   cancelListing(uint256 tokenId)
-       *   buyItem(uint256 tokenId) payable            // value = listing price
-       *   getActiveListings() view returns (tuple(uint256 tokenId, address seller, uint256 price)[])
-       * NFT (ERC-721): setApprovalForAll(marketAddress, true) is step 1 before listing.
-       * "Load my cats" assumes ERC721Enumerable (balanceOf + tokenOfOwnerByIndex);
-       * without it, sellers type the token ID by hand.
-       * ===================================================================== */
-      const MARKET_ABI = [
-        'function listItem(uint256 tokenId, uint256 priceWei)',
-        'function cancelListing(uint256 tokenId)',
-        'function buyItem(uint256 tokenId) payable',
-        'function getActiveListings() view returns (tuple(uint256 tokenId, address seller, uint256 price)[])'
-      ];
-      const NFT_MARKET_ABI = [
-        'function setApprovalForAll(address operator, bool approved)',
-        'function isApprovedForAll(address owner, address operator) view returns (bool)',
-        'function balanceOf(address owner) view returns (uint256)',
-        'function tokenOfOwnerByIndex(address owner, uint256 index) view returns (uint256)',
-        'function tokenURI(uint256 tokenId) view returns (string)'
-      ];
-
-      (function () {
-        const isAddr = (a) => /^0x[0-9a-fA-F]{40}$/.test(String(a || '').trim());
-        const NFT = String(CONFIG.contractAddress || '').trim();
-        const MKT = String(CONFIG.marketAddress || '').trim();
-        const LIVE = isAddr(NFT) && isAddr(MKT);
-        const FEE = Math.max(0, Number(CONFIG.marketFeePercent) || 0);
-        const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
-        const RPC = CONFIG.chainId === 56 ? 'https://bsc-dataseed.bnbchain.org' : CONFIG.chainId === 97 ? 'https://data-seed-prebsc-1-s1.bnbchain.org:8545' : null;
-        const EXPLORER = CONFIG.chainId === 97 ? 'https://testnet.bscscan.com' : 'https://bscscan.com';
-        const root = document.getElementById('market');
-        if (!root) return;
-        const $ = (id) => document.getElementById(id);
-        const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-        const short = (a) => a.slice(0, 6) + '…' + a.slice(-4);
-        const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
-
-        // Toast (shares the page toast element)
-        const toastEl = $('toast');
-        let toastTimer;
-        function toast(html, ms) {
-          toastEl.innerHTML = html;
-          toastEl.classList.add('is-on');
-          clearTimeout(toastTimer);
-          if (ms !== 0) toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), ms || 4500);
-        }
-
-        // Max 4 decimals, rounded down so the seller never sees more than they get
-        function fmt4(n) {
-          if (!isFinite(n) || n <= 0) return '0';
-          if (n < 0.0001) return '<0.0001';
-          return (Math.floor(n * 1e4 + 1e-6) / 1e4).toLocaleString('en-US', { maximumFractionDigits: 4 });
-        }
-        root.querySelectorAll('[data-fee]').forEach((n) => (n.textContent = FEE + '%'));
-
-        // ----- Tabs -----
-        const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
-        function selectTab(t, focus) {
-          tabs.forEach((x) => {
-            const on = x === t;
-            x.setAttribute('aria-selected', String(on));
-            x.tabIndex = on ? 0 : -1;
-            $(x.getAttribute('aria-controls')).hidden = !on;
-          });
-          if (focus) t.focus();
-        }
-        tabs.forEach((t, i) => {
-          t.addEventListener('click', () => selectTab(t));
-          t.addEventListener('keydown', (e) => {
-            const j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
-            if (j === null) return;
-            e.preventDefault();
-            selectTab(tabs[(j + tabs.length) % tabs.length], true);
-          });
-        });
-
-        // ----- Browse: filter and sort -----
-        const grid = $('mk-grid'), none = $('mk-none');
-        let filter = 'all', sort = 'low';
-        const NO_MATCH = '这个稀有度暂时没有挂单 No listings in this rarity yet';
-        function applyView() {
-          const cards = Array.from(grid.children);
-          cards.sort((a, b) =>
-            sort === 'low' ? a.dataset.price - b.dataset.price : sort === 'high' ? b.dataset.price - a.dataset.price : b.dataset.ts - a.dataset.ts
-          );
-          let shown = 0;
-          cards.forEach((c) => {
-            grid.appendChild(c);
-            const vis = filter === 'all' || c.dataset.rarity === filter;
-            c.hidden = !vis;
-            if (vis) shown++;
-          });
-          if (shown) none.hidden = true;
-          else if (cards.length) { none.textContent = NO_MATCH; none.hidden = false; }
-        }
-        root.querySelectorAll('[data-filter]').forEach((b) =>
-          b.addEventListener('click', () => {
-            filter = b.dataset.filter;
-            root.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-            applyView();
-          })
-        );
-        $('mk-sort').addEventListener('change', (e) => { sort = e.target.value; applyView(); });
-
-        // ----- Sell: live math -----
-        const idIn = $('mk-id'), priceIn = $('mk-price'), receiveEl = $('mk-receive');
-        const approveBtn = $('mk-approve'), listBtn = $('mk-list'), loadBtn = $('mk-load');
-        const PRICE_RE = /^\d+(\.\d{1,18})?$/;
-        function updateReceive() {
-          const v = priceIn.value.trim();
-          const p = Number(v);
-          receiveEl.textContent = PRICE_RE.test(v) && p > 0 ? fmt4(p * (1 - FEE / 100)) + ' BNB' : '— BNB';
-        }
-        priceIn.addEventListener('input', updateReceive);
-        updateReceive();
-
-        applyView();
-        if (!LIVE) return; // Template mode: demo cards, all actions disabled.
-
-        // ================= Live mode (both addresses set) =================
-        if (typeof ethers === 'undefined') { toast('钱包库加载失败 Wallet library failed to load'); return; }
-        let account = null, approved = false, listings = [];
-        const status = $('mk-status');
-        status.textContent = '已开放 Open';
-        status.classList.add('chip--solid');
-        $('mk-sellnote').textContent = '每一步都需要你在钱包里确认。Every step asks you to confirm in your wallet.';
-        approveBtn.disabled = false;
-        listBtn.disabled = false;
-        loadBtn.disabled = false;
-        const reader = RPC ? new ethers.JsonRpcProvider(RPC, CONFIG.chainId) : window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null;
-        const market = reader && new ethers.Contract(MKT, MARKET_ABI, reader);
-        const nft = reader && new ethers.Contract(NFT, NFT_MARKET_ABI, reader);
-
-        async function ensureChain() {
-          try {
-            await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_HEX }] });
-          } catch (e) {
-            if (e && (e.code === 4902 || (e.data && e.data.originalError && e.data.originalError.code === 4902))) {
-              await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{ chainId: CHAIN_HEX, chainName: CONFIG.chainName, nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 }, rpcUrls: [RPC || 'https://bsc-dataseed.bnbchain.org'], blockExplorerUrls: [EXPLORER] }]
-              });
-            } else throw e;
-          }
-        }
-        async function connect() {
-          if (!window.ethereum) { toast('未检测到钱包 No wallet found'); return null; }
-          try {
-            const accts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            await ensureChain();
-            account = accts[0];
-            approved = false;
-            toast('钱包已连接 Wallet connected: ' + esc(short(account)));
-            renderGrid();
-            renderMine();
-            return account;
-          } catch (e) {
-            toast('连接失败 Connection failed: ' + esc(e.shortMessage || e.message || e));
-            return null;
-          }
-        }
-        // Every write: one click, one wallet confirmation, then pending / success / error toasts
-        async function send(btn, run, okMsg) {
-          if (!account && !(await connect())) return false;
-          const prev = btn.textContent;
-          btn.disabled = true;
-          try {
-            await ensureChain();
-            const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
-            const tx = await run(signer);
-            const link = `<a href="${EXPLORER}/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
-            toast('交易处理中 Transaction pending: ' + link, 0);
-            const r = await tx.wait();
-            if (r && r.status === 1) { toast(okMsg + ': ' + link, 8000); return true; }
-            toast('交易失败 Transaction failed: ' + link, 8000);
-            return false;
-          } catch (e) {
-            if (e && (e.code === 'ACTION_REJECTED' || e.code === 4001)) toast('已取消 Cancelled in wallet');
-            else toast('交易失败 Transaction failed: ' + esc(e.shortMessage || e.reason || e.message || e), 8000);
-            return false;
-          } finally {
-            btn.disabled = false;
-            btn.textContent = prev;
-          }
-        }
-
-        // ----- Listings -----
-        const RAR = { mythic: ['x-badge--myth', 'MYTHIC ✧'], legendary: ['x-badge--leg', 'LEGENDARY ✦'], rare: ['x-badge--rare', 'RARE ◆'], common: ['x-badge--com', 'COMMON'] };
-        function rarityOf(v) {
-          v = String(v).toLowerCase();
-          if (/myth|神话/.test(v)) return 'mythic';
-          if (/legend|传说/.test(v)) return 'legendary';
-          if (/rare|稀有/.test(v)) return 'rare';
-          if (/common|普通/.test(v)) return 'common';
-          return null;
-        }
-        const gw = (u) => (u.startsWith('ipfs://') ? 'https://ipfs.io/ipfs/' + u.slice(7) : u);
-        async function fetchMeta(uri) {
-          if (uri.startsWith('data:application/json;base64,')) return JSON.parse(atob(uri.slice(uri.indexOf(',') + 1)));
-          if (uri.startsWith('data:application/json')) return JSON.parse(decodeURIComponent(uri.slice(uri.indexOf(',') + 1)));
-          const r = await fetch(gw(uri));
-          return r.json();
-        }
-        const CAT_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path fill="currentColor" d="M2 2h2v1h1v1h6V3h1V2h2v9h-1v2h-2v1H5v-1H3v-2H2z"/><path style="fill:var(--fill-primary-on)" d="M5 7h2v2H5zM9 7h2v2H9zM7 10h2v1H7z"/></svg>';
-
-        async function loadMeta(l, li) {
-          try {
-            const j = await fetchMeta(await nft.tokenURI(l.id));
-            const h3 = li.querySelector('h3');
-            if (j.name) h3.textContent = String(j.name).includes('#') ? j.name : j.name + ' #' + l.id;
-            const img = String(j.image || j.image_data || '');
-            if (/^(https:|ipfs:|data:image\/)/.test(img)) {
-              const im = el('img');
-              im.alt = h3.textContent;
-              im.decoding = 'async';
-              im.src = gw(img);
-              li.querySelector('.x-lcard__media').replaceChildren(im);
-            }
-            const attr = (j.attributes || []).find((a) => /rarity|稀有/i.test(a.trait_type || ''));
-            const r = attr && rarityOf(attr.value);
-            if (r) {
-              li.dataset.rarity = r;
-              li.classList.add('x-lcard--' + r);
-              const badge = li.querySelector('.x-badge');
-              badge.className = 'x-badge ' + RAR[r][0];
-              badge.textContent = RAR[r][1];
-              badge.hidden = false;
-              applyView();
-            }
-          } catch (e) { /* metadata is optional; the card keeps its placeholder */ }
-        }
-
-        function renderGrid() {
-          grid.replaceChildren(
-            ...listings.map((l) => {
-              const li = el('li', 'x-lcard');
-              li.dataset.rarity = 'unknown';
-              li.dataset.price = ethers.formatEther(l.price);
-              li.dataset.ts = l.idx;
-              const fig = el('figure', 'x-lcard__media');
-              fig.innerHTML = CAT_SVG;
-              const badge = el('span', 'x-badge x-badge--com');
-              badge.hidden = true;
-              const price = el('p', 'x-lcard__price');
-              price.append(el('b', null, fmt4(Number(li.dataset.price))), ' BNB');
-              const mine = account && l.seller.toLowerCase() === account.toLowerCase();
-              const btn = el('button', 'x-pixel x-pixel--sm', mine ? '你的挂单 Yours' : '购买 Buy');
-              btn.type = 'button';
-              btn.disabled = !!mine;
-              btn.addEventListener('click', async () => {
-                const ok = await send(btn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).buyItem(l.id, { value: l.price }), '购买成功 Purchase successful');
-                if (ok) loadListings();
-              });
-              li.append(fig, badge, el('h3', null, 'Ascension Catty #' + l.id), price, el('p', 'x-lcard__seller', '卖家 Seller ' + short(l.seller)), btn);
-              loadMeta(l, li);
-              return li;
-            })
-          );
-          if (!listings.length) { none.textContent = '暂时没有挂单 No listings yet'; none.hidden = false; }
-          applyView();
-        }
-
-        const mineList = $('mk-mine-list'), mineEmpty = $('mk-mine-empty'), mineHint = $('mk-mine-hint'), connectBtn = $('mk-connect');
-        connectBtn.addEventListener('click', connect);
-        function renderMine() {
-          const mine = account ? listings.filter((l) => l.seller.toLowerCase() === account.toLowerCase()) : [];
-          mineList.replaceChildren(
-            ...mine.map((l) => {
-              const li = el('li');
-              const label = el('span', null, 'Ascension Catty #' + l.id + ' · ');
-              label.append(el('b', null, fmt4(Number(ethers.formatEther(l.price))) + ' BNB'));
-              const btn = el('button', 'x-ghost', '下架 Cancel');
-              btn.type = 'button';
-              btn.addEventListener('click', async () => {
-                const ok = await send(btn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).cancelListing(l.id), '已下架 Listing cancelled');
-                if (ok) loadListings();
-              });
-              li.append(label, btn);
-              return li;
-            })
-          );
-          mineList.hidden = !mine.length;
-          mineEmpty.hidden = !!mine.length;
-          connectBtn.hidden = !!account;
-          mineHint.textContent = account ? '你还没有在售的喵。You have no active listings.' : '连接钱包查看你的挂单。Connect your wallet to see your listings.';
-        }
-
-        async function loadListings() {
-          if (!market) { none.textContent = '未检测到钱包 No wallet found'; none.hidden = false; return; }
-          try {
-            const raw = await market.getActiveListings();
-            listings = Array.from(raw).map((x, idx) => ({ id: x.tokenId.toString(), seller: String(x.seller), price: BigInt(x.price), idx }));
-            $('mk-listed').textContent = listings.length.toLocaleString('en-US');
-            $('mk-floor').textContent = listings.length
-              ? fmt4(Number(ethers.formatEther(listings.reduce((m, l) => (l.price < m ? l.price : m), listings[0].price)))) + ' BNB'
-              : '—';
-            renderGrid();
-            renderMine();
-          } catch (e) {
-            none.textContent = '读取挂单失败 Could not load listings';
-            none.hidden = false;
-          }
-        }
-
-        // ----- Sell: Approve → List -----
-        function markApproved() {
-          approved = true;
-          approveBtn.textContent = '✓ 已授权 Approved';
-          approveBtn.classList.add('is-done');
-          approveBtn.disabled = true;
-        }
-        async function checkApproval() {
-          try { if (account && (await nft.isApprovedForAll(account, MKT))) markApproved(); } catch (e) {}
-          return approved;
-        }
-        approveBtn.addEventListener('click', async () => {
-          if (!account && !(await connect())) return;
-          if (await checkApproval()) { toast('已授权，可以上架 Already approved, you can list'); return; }
-          const ok = await send(approveBtn, (s) => new ethers.Contract(NFT, NFT_MARKET_ABI, s).setApprovalForAll(MKT, true), '授权成功 Approved');
-          if (ok) markApproved();
-        });
-        listBtn.addEventListener('click', async () => {
-          const id = idIn.value.trim(), price = priceIn.value.trim();
-          if (!/^\d+$/.test(id)) { toast('请输入喵喵编号 Enter a token ID'); idIn.focus(); return; }
-          if (!PRICE_RE.test(price) || Number(price) <= 0) { toast('请输入有效价格 Enter a valid price'); priceIn.focus(); return; }
-          if (!account && !(await connect())) return;
-          if (!approved && !(await checkApproval())) { toast('请先完成第 1 步授权 Approve first (step 1)'); return; }
-          const ok = await send(listBtn, (s) => new ethers.Contract(MKT, MARKET_ABI, s).listItem(id, ethers.parseEther(price)), '上架成功 Listed');
-          if (ok) { idIn.value = ''; priceIn.value = ''; updateReceive(); loadListings(); }
-        });
-
-        // ----- Load my cats (ERC721Enumerable) -----
-        const myCats = $('mk-mycats');
-        loadBtn.addEventListener('click', async () => {
-          if (!account && !(await connect())) return;
-          loadBtn.disabled = true;
-          try {
-            const n = Math.min(Number(await nft.balanceOf(account)), 50);
-            if (!n) { toast('钱包里没有飞升喵 No cats in this wallet'); myCats.hidden = true; return; }
-            const ids = await Promise.all(Array.from({ length: n }, (_, i) => nft.tokenOfOwnerByIndex(account, i)));
-            myCats.replaceChildren(
-              ...ids.map((t) => {
-                const b = el('button', 'x-ghost', '#' + t.toString());
-                b.type = 'button';
-                b.addEventListener('click', () => { idIn.value = t.toString(); priceIn.focus(); });
-                return b;
-              })
-            );
-            myCats.hidden = false;
-            checkApproval();
-          } catch (e) {
-            toast('无法读取，请手动输入编号 Could not load, enter the token ID by hand');
-          } finally {
-            loadBtn.disabled = false;
-          }
-        });
-
-        if (window.ethereum && window.ethereum.on) {
-          window.ethereum.on('accountsChanged', (a) => {
-            account = a[0] || null;
-            approved = false;
-            approveBtn.classList.remove('is-done');
-            approveBtn.textContent = '① 授权 Approve';
-            approveBtn.disabled = false;
-            myCats.hidden = true;
-            renderGrid();
-            renderMine();
-          });
-        }
-
-        none.textContent = '加载中… Loading…';
-        none.hidden = false;
-        grid.replaceChildren();
-        renderMine();
-        loadListings();
-      })();
-    </script>
-    <script>
-      // Rarity showcase: sparkle bursts and paw hearts (decorative only)
-      (function () {
-        const still = window.matchMedia('(prefers-reduced-motion: reduce)');
-        function spawn(host, cls, char, x, y, dx, dy, ms) {
-          const s = document.createElement('span');
-          s.className = cls; s.textContent = char; s.setAttribute('aria-hidden', 'true');
-          s.style.left = x + 'px'; s.style.top = y + 'px';
-          s.style.setProperty('--dx', dx + 'px'); s.style.setProperty('--dy', dy + 'px');
-          host.appendChild(s);
-          setTimeout(() => s.remove(), ms);
-        }
-        function burst(card, x, y) {
-          if (still.matches) return;
-          const chars = ['✦', '✧', '⋆', '✦'];
-          for (let i = 0; i < 10; i++) {
-            const a = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
-            const r = 40 + Math.random() * 40;
-            spawn(card, 'x-burst', chars[i % 4], x, y, Math.cos(a) * r, Math.sin(a) * r, 900);
-          }
-        }
-        document.querySelectorAll('[data-sparkle]').forEach((card) => {
-          let last = 0;
-          const fire = (e) => {
-            const now = Date.now();
-            if (now - last < 500) return;
-            last = now;
-            const r = card.getBoundingClientRect();
-            const x = e && e.clientX ? e.clientX - r.left : r.width / 2;
-            const y = e && e.clientY ? e.clientY - r.top : r.height / 3;
-            burst(card, x, y);
-          };
-          card.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') fire(e); });
-          card.addEventListener('click', (e) => { if (!e.target.closest('.x-paw')) fire(e); });
-        });
-        document.querySelectorAll('.x-paw').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            if (still.matches) return;
-            const card = btn.closest('.x-rcard');
-            const c = card.getBoundingClientRect(), b = btn.getBoundingClientRect();
-            const x = b.left - c.left + b.width / 2 - 8, y = b.top - c.top;
-            for (let i = 0; i < 6; i++) {
-              setTimeout(() => spawn(card, 'x-heart', i % 2 ? '♡' : '♥', x, y, (Math.random() - 0.5) * 70, 0, 1200), i * 70);
-            }
-          });
-        });
-      })();
-    </script>
-    <script>
-      // 喵喵图鉴 Collection Gallery
-      (function () {
-        const GALLERY = [
-          { id: 1, rarity: 'Legendary', zh: '星辰剑圣喵', en: 'Starblade Sage Mew', traits: { Fur: 'Silver', Headwear: 'Star Crown', Accessory: 'Glowing Star Sword', Background: 'Golden Nebula' } },
-          { id: 2, rarity: 'Legendary', zh: '樱花女神喵', en: 'Sakura Goddess Mew', traits: { Fur: 'Pink', Headwear: 'Sakura Tiara', Accessory: 'Petal Wings', Background: 'Golden Nebula' } },
-          { id: 3, rarity: 'Legendary', zh: '雷霆龙骑喵', en: 'Thunder Dragon Rider Mew', traits: { Fur: 'Black', Headwear: 'Dragon Helm', Accessory: 'Baby Dragon', Background: 'Golden Nebula' } },
-          { id: 4, rarity: 'Legendary', zh: '彩虹天使喵', en: 'Rainbow Seraph Mew', traits: { Fur: 'White', Headwear: 'Double Halo', Accessory: 'Rainbow Wings', Background: 'Golden Nebula' } },
-          { id: 5, rarity: 'Rare', zh: '甜甜圈厨师喵', en: 'Donut Chef Mew', traits: { Fur: 'Calico', Headwear: 'Chef Hat', Accessory: 'Pink Donut', Background: 'Indigo Sky' } },
-          { id: 6, rarity: 'Rare', zh: '海盗船长喵', en: 'Pirate Captain Mew', traits: { Fur: 'Calico', Headwear: 'Pirate Hat', Accessory: 'Eye Patch', Background: 'Indigo Sky' } },
-          { id: 7, rarity: 'Rare', zh: '耳机DJ喵', en: 'DJ Headphones Mew', traits: { Fur: 'Grey', Headwear: 'Neon Headphones', Accessory: 'Mini Turntable', Background: 'Indigo Sky' } },
-          { id: 8, rarity: 'Rare', zh: '小熊睡衣喵', en: 'Bear Pajama Mew', traits: { Fur: 'Cream', Headwear: 'Bear Hood', Accessory: 'Teddy', Background: 'Indigo Sky' } },
-          { id: 9, rarity: 'Rare', zh: '魔法学徒喵', en: 'Apprentice Witch Mew', traits: { Fur: 'Tuxedo', Headwear: 'Mini Witch Hat', Accessory: 'Broom', Background: 'Indigo Sky' } },
-          { id: 10, rarity: 'Rare', zh: '冰淇淋喵', en: 'Ice Cream Mew', traits: { Fur: 'Mint', Headwear: 'Cone Hat', Accessory: 'Sprinkles', Background: 'Indigo Sky' } },
-          { id: 11, rarity: 'Common', zh: '毛线球喵', en: 'Yarn Ball Mew', traits: { Fur: 'Orange Tabby', Headwear: 'None', Accessory: 'Yarn Ball', Background: 'Lavender' } },
-          { id: 12, rarity: 'Common', zh: '蝴蝶结喵', en: 'Ribbon Mew', traits: { Fur: 'White', Headwear: 'Pink Bow', Accessory: 'None', Background: 'Lavender' } },
-          { id: 13, rarity: 'Common', zh: '小鱼干喵', en: 'Fishy Snack Mew', traits: { Fur: 'Grey', Headwear: 'None', Accessory: 'Fish Boba', Background: 'Lavender' } },
-          { id: 14, rarity: 'Common', zh: '纸箱喵', en: 'Box Mew', traits: { Fur: 'Black', Headwear: 'None', Accessory: 'Cardboard Box', Background: 'Lavender' } },
-          { id: 15, rarity: 'Common', zh: '围巾喵', en: 'Scarf Mew', traits: { Fur: 'Calico', Headwear: 'Strawberry Hood', Accessory: 'Red Scarf', Background: 'Lavender' } },
-          { id: 16, rarity: 'Common', zh: '眼镜喵', en: 'Nerd Glasses Mew', traits: { Fur: 'Siamese', Headwear: 'None', Accessory: 'Round Glasses', Background: 'Lavender' } },
-          { id: 17, rarity: 'Common', zh: '气球喵', en: 'Balloon Mew', traits: { Fur: 'Cream', Headwear: 'None', Accessory: 'Heart Balloon', Background: 'Lavender' } },
-          { id: 18, rarity: 'Common', zh: '铃铛喵', en: 'Bell Collar Mew', traits: { Fur: 'Tuxedo', Headwear: 'None', Accessory: 'Gold Bell & Boba', Background: 'Lavender' } },
-          { id: 19, rarity: 'Common', zh: '花朵喵', en: 'Flower Mew', traits: { Fur: 'Ginger', Headwear: 'Daisy', Accessory: 'Boba Tea', Background: 'Lavender' } },
-          { id: 20, rarity: 'Common', zh: '小帽子喵', en: 'Beanie Mew', traits: { Fur: 'Grey Tabby', Headwear: 'Yellow Beanie', Accessory: 'None', Background: 'Lavender' } },
-        ];
-        const BADGE = {
-          Legendary: ['x-badge--leg', 'LEGENDARY ✦', 'x-gmodal'],
-          Rare: ['x-badge--rare', 'RARE ◆', 'x-gmodal x-gmodal--rare'],
-          Common: ['x-badge--lav', 'COMMON', 'x-gmodal x-gmodal--com'],
-        };
-        const sec = document.getElementById('gallery');
-        if (!sec) return;
-        const grid = document.getElementById('x-ggrid');
-        const dlg = document.getElementById('x-gmodal');
-        const $ = (id) => document.getElementById(id);
-        let opener = null;
-
-        sec.querySelectorAll('[data-gfilter]').forEach((b) =>
-          b.addEventListener('click', () => {
-            const f = b.dataset.gfilter;
-            sec.querySelectorAll('[data-gfilter]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
-            grid.querySelectorAll('li').forEach((li) => (li.hidden = f !== 'all' && li.dataset.rarity !== f));
-          })
-        );
-
-        function open(li) {
-          const item = GALLERY.find((g) => g.id === Number(li.dataset.id));
-          if (!item) return;
-          const b = BADGE[item.rarity];
-          const src = li.querySelector('img');
-          const img = $('x-gm-img');
-          img.src = src.currentSrc || src.src;
-          img.alt = src.alt;
-          $('x-gm-id').textContent = '#' + item.id;
-          $('x-gm-badge').className = 'x-badge ' + b[0];
-          $('x-gm-badge').textContent = b[1];
-          $('x-gm-name').innerHTML = '';
-          $('x-gm-name').append(item.zh + ' ');
-          const en = document.createElement('span');
-          en.className = 'x-en';
-          en.textContent = item.en;
-          $('x-gm-name').append(en);
-          const ul = $('x-gm-traits');
-          ul.innerHTML = '';
-          Object.entries(item.traits).forEach(([k, v]) => {
-            if (v === 'None') return;
-            const t = document.createElement('li');
-            const lab = document.createElement('b');
-            lab.textContent = k + ' ';
-            t.append(lab, v);
-            ul.append(t);
-          });
-          $('x-gm-meta').href = 'nft/metadata/' + item.id + '.json';
-          dlg.className = b[2];
-          opener = li.querySelector('button');
-          if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
-        }
-        function close() {
-          if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
-        }
-        grid.addEventListener('click', (e) => {
-          const li = e.target.closest('li[data-id]');
-          if (li) open(li);
-        });
-        dlg.addEventListener('click', (e) => {
-          if (e.target === dlg || e.target.closest('[data-gclose]')) close();
-        });
-        dlg.addEventListener('close', () => opener && opener.focus());
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && dlg.open) close();
-        });
-      })();
-    </script>
-    <script>
-      // sw.js is unavailable on some preview hosts; swallow only that registration failure
-      window.addEventListener('unhandledrejection', function (e) {
-        var m = String((e.reason && (e.reason.message || e.reason)) || '');
-        if (/ServiceWorker|sw\.js/i.test(m)) e.preventDefault();
-      });
-    </script>
-  <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}</script>
 <script>
-/* Live supply: reads totalMinted() from the NFT contract on BNB Chain every 15s. */
-(function () {
-  var ADDR = '', MAX = 1111, SEL = '0xa2309ff8';
-  var RPCS = ['https://bsc-dataseed.bnbchain.org', 'https://bsc-dataseed1.defibit.io', 'https://bsc-rpc.publicnode.com', 'https://bsc-dataseed2.ninicoin.io'];
-  var ri = 0, timer = null, last = null;
-  var $ = function (id) { return document.getElementById(id); };
-  function fmt(n) { return n.toLocaleString('en-US'); }
-  function show(n) {
-    last = n;
-    $('live-minted').textContent = fmt(n) + ' / ' + fmt(MAX);
-    $('live-left').textContent = fmt(Math.max(0, MAX - n));
-    $('live-bar').style.width = Math.min(100, n / MAX * 100).toFixed(2) + '%';
-    var t = new Date().toLocaleTimeString('en-GB');
-    $('live-dot').className = 'x-live__dot is-on';
-    $('live-status').textContent = (n >= MAX ? '已售罄 Sold out · ' : '') + '链上实时 Live on-chain · 更新于 Updated ' + t;
-  }
-  async function call(url) {
-    var ctl = new AbortController(); var to = setTimeout(function () { ctl.abort(); }, 8000);
-    try {
-      var r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
-        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: ADDR, data: SEL }, 'latest'] }) });
-      var j = await r.json(); if (!j.result || j.result === '0x') throw new Error('bad');
-      return parseInt(j.result, 16);
-    } finally { clearTimeout(to); }
-  }
-  async function refresh() {
-    for (var k = 0; k < RPCS.length; k++) {
-      try { show(await call(RPCS[(ri + k) % RPCS.length])); ri = (ri + k) % RPCS.length; return; } catch (e) {}
-    }
-    $('live-dot').className = 'x-live__dot is-off';
-    $('live-status').textContent = '重新连接中… Reconnecting…' + (last === null ? '' : ' (显示上次数据 showing last value)');
-  }
-  function start() { clearInterval(timer); if (!ADDR) { $('live-status').textContent = 'Menunggu kontrak baru'; $('live-left').textContent = fmt(MAX); return; } refresh(); timer = setInterval(refresh, 15000); }
-  window.cattyRefreshSupply = refresh;
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
-  window.addEventListener('online', start);
-  start();
-})();
+/* ===== Ring Dominions config — set the address after deployment ===== */
+const CONFIG = {
+  contract: "",                 // e.g. "0x..." — empty = not deployed yet
+  rpcs: ["https://bsc-dataseed.binance.org","https://bsc-dataseed1.defibit.io","https://bsc-dataseed1.ninicoin.io","https://bsc-rpc.publicnode.com"],
+  totalMintedSel: "0xa2309ff8", // totalMinted()
+  mintOpenSel: "0x24bbd049"     // mintOpen()
+};
+const $ = (id) => document.getElementById(id);
+document.querySelectorAll("[data-copy]").forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const el = $(btn.getAttribute("data-copy"));
+    try { await navigator.clipboard.writeText(el.textContent.trim()); btn.textContent = "Copied"; }
+    catch { btn.textContent = "Select & copy"; }
+    setTimeout(() => (btn.textContent = "Copy"), 1600);
+  });
+});
+async function ethCall(rpc, data) {
+  const r = await fetch(rpc, { method: "POST", headers: { "content-type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call", params: [{ to: CONFIG.contract, data }, "latest"] }) });
+  const j = await r.json();
+  if (!j.result) throw new Error("no result");
+  return j.result;
+}
+async function refreshLive() {
+  if (!/^0x[a-fA-F0-9]{40}$/.test(CONFIG.contract)) return; // pre-launch: honest static panel
+  $("lv-contract").textContent = CONFIG.contract.slice(0, 6) + "…" + CONFIG.contract.slice(-4);
+  $("foot-contract").textContent = "Contract: " + CONFIG.contract;
+  try {
+    const vals = await Promise.any(CONFIG.rpcs.map(async (rpc) => {
+      const [tm, mo] = await Promise.all([ethCall(rpc, CONFIG.totalMintedSel), ethCall(rpc, CONFIG.mintOpenSel)]);
+      return { minted: parseInt(tm, 16), open: parseInt(mo, 16) === 1 };
+    }));
+    $("lv-minted").textContent = vals.minted.toLocaleString("en-US") + " / 1,111";
+    $("lv-mint").textContent = vals.open ? "Open" : "Closed";
+    $("lv-status").textContent = "Contract live";
+    $("status-text").textContent = vals.open ? "MINT OPEN" : "CONTRACT LIVE";
+    if (vals.open) $("status-pill").classList.add("live");
+  } catch { $("lv-status").textContent = "Contract live — status unreadable"; }
+}
+refreshLive();
+setInterval(refreshLive, 30000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshLive(); });
 </script>
 </body>
 </html>
