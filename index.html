@@ -594,33 +594,56 @@
         <section class="section" id="mint" data-nav="Mint">
           <div class="head">
             <p class="head__eyebrow">Mint</p>
-            <h2>Satu cara. 1.111 NFT.<span class="x-sub">Simple mint.</span></h2>
-            <p class="head__sub">Hubungkan wallet, pilih jumlah, lalu konfirmasi transaksi di BNB Smart Chain.</p>
+            <h2>Agent dulu, public berikutnya.<span class="x-sub">Two mint phases.</span></h2>
+            <p class="head__sub">Agent ID Binance mendapat akses gratis selama Agent phase. Public mint dibuka setelah fase Agent berakhir.</p>
           </div>
           <div class="cards">
             <div>
-              <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
-              <h3>Mint NFT</h3>
-              <p class="quote">0.0005 BNB per NFT</p>
+              <img class="x-peek x-peek--king" src="float_king.png" alt="" aria-hidden="true" />
+              <h3>Agent Mint</h3>
+              <p class="quote">Gratis · 777 NFT pertama</p>
               <ul>
+                <li>Wajib memiliki Binance Agent ID</li>
+                <li>Maksimal 2 NFT per Agent ID</li>
+                <li>Agent phase berakhir setelah 777 NFT</li>
+              </ul>
+              <label for="agent-id" class="fineprint">Agent ID token</label>
+              <input id="agent-id" inputmode="numeric" placeholder="Contoh: 1234" style="width:100%;box-sizing:border-box;padding:10px;border-radius:6px;border:1px solid var(--stroke-primary);background:#0d0b1f;color:#fff" />
+              <div class="x-mint">
+                <div class="x-mint__row">
+                  <div class="x-stepper" role="group" aria-label="Jumlah Agent mint">
+                    <button type="button" data-tier="agent" data-step="-1" aria-label="Kurangi">−</button>
+                    <output class="x-qty" data-qty="agent" aria-live="polite">1</output>
+                    <button type="button" data-tier="agent" data-step="1" aria-label="Tambah">+</button>
+                  </div>
+                  <p class="x-total">Total <b data-total="agent">0 BNB</b></p>
+                </div>
+                <button type="button" class="x-pixel" data-mint="agent" data-label="Mint dengan Agent ID">Mint dengan Agent ID</button>
+              </div>
+            </div>
+            <div>
+              <img class="x-peek x-peek--wizard" src="float_wizard.png" alt="" aria-hidden="true" />
+              <h3>Public Mint</h3>
+              <p class="quote">0.0012 BNB per NFT · 334 NFT</p>
+              <ul>
+                <li>Terbuka setelah Agent phase selesai</li>
                 <li>Maksimal 10 NFT per wallet</li>
                 <li>Gas fee dibayar terpisah</li>
-                <li>Pastikan detail transaksi benar sebelum sign</li>
               </ul>
               <div class="x-mint">
                 <div class="x-mint__row">
-                  <div class="x-stepper" role="group" aria-label="Jumlah mint">
+                  <div class="x-stepper" role="group" aria-label="Jumlah public mint">
                     <button type="button" data-tier="mint" data-step="-1" aria-label="Kurangi">−</button>
                     <output class="x-qty" data-qty="mint" aria-live="polite">1</output>
                     <button type="button" data-tier="mint" data-step="1" aria-label="Tambah">+</button>
                   </div>
-                  <p class="x-total">Total <b data-total="mint">0.0005 BNB</b></p>
+                  <p class="x-total">Total <b data-total="mint">0.0012 BNB</b></p>
                 </div>
-                <button type="button" class="x-pixel" data-mint="mint" data-label="Mint NFT">Mint NFT</button>
+                <button type="button" class="x-pixel" data-mint="mint" data-label="Public Mint">Public Mint</button>
               </div>
             </div>
           </div>
-          <p class="fineprint">Kontrak baru belum diumumkan. Jangan kirim dana atau sign transaksi dari link lain.</p>
+          <p class="fineprint">Registry Agent ID: 0x60B9…022F. Jangan kirim dana atau sign transaksi dari link lain.</p>
         </section>
 
         <section class="section" id="how" data-nav="Cara Mint">
@@ -1047,7 +1070,7 @@
             </div>
             <div>
               <h3>Berapa biaya mint?</h3>
-              <p>Biaya mint 0.0005 BNB per NFT, di luar gas. Maksimal 10 NFT per wallet.</p>
+              <p>Public mint 0.0012 BNB per NFT, di luar gas. Agent mint gratis selama fase Agent.</p>
             </div>
             <div>
               <h3>图片存在哪里？Where is the art stored?</h3>
@@ -1094,27 +1117,29 @@
         chainId: 56,                    // ID: ID jaringan BNB Smart Chain · EN: BNB Smart Chain network ID
         chainName: 'BNB Smart Chain',   // ID: Nama jaringan · EN: Network name
         contractAddress: '',            // ID: Alamat kontrak (kosong = nonaktif) · EN: Contract address (empty = inactive)
-        mintFn: 'mint',         // ID: Nama fungsi Free Mint · EN: Free Mint function name
-        mintPriceBNB: '0.0005',         // ID: Harga per NFT Mint (BNB) · EN: Mint price per NFT (BNB)
+        mintFn: 'mint',         // Public mint function
+        mintPriceBNB: '0.0012',         // Public mint price (BNB)
+        agentMintFn: 'agentMint',
+        agentPriceBNB: '0',
         maxPerWallet: 10,               // ID: Maksimal per dompet · EN: Max per wallet
         marketAddress: '',              // ID: Alamat kontrak marketplace (kosong = nonaktif) · EN: Marketplace contract (empty = inactive, not deployed)
         marketFeePercent: 2             // ID: Biaya marketplace % (placeholder) · EN: Marketplace fee % (placeholder, shown in UI)
       };
 
       // ID: Fragmen ABI · EN: ABI fragments
-      const ABI = [`function ${CONFIG.mintFn}(uint256 quantity) payable`];
+      const ABI = [`function ${CONFIG.mintFn}(uint256 quantity) payable`, `function ${CONFIG.agentMintFn}(uint256 quantity, uint256 agentId)`];
 
       (function () {
         const ACTIVE = /^0x[0-9a-fA-F]{40}$/.test(CONFIG.contractAddress.trim());
         const ADDR = CONFIG.contractAddress.trim();
         const CHAIN_HEX = '0x' + CONFIG.chainId.toString(16);
-        const TIERS = { mint: { fn: CONFIG.mintFn, price: CONFIG.mintPriceBNB } };
-        const qty = { mint: 1 };
+        const TIERS = { mint: { fn: CONFIG.mintFn, price: CONFIG.mintPriceBNB }, agent: { fn: CONFIG.agentMintFn, price: CONFIG.agentPriceBNB } };
+        const qty = { mint: 1, agent: 1 };
                 let account = null;
         const $$ = (s) => Array.from(document.querySelectorAll(s));
 
         // Exact decimal total: price × qty, without float drift
-        // (integer math in 1e-4 units, so at most 4 decimals: 0.0005 × 20 = 0.01)
+        // Exact decimal total for the mint prices shown in the UI.
         function totalOf(price, n) {
           const units = Math.round(Number(price) * 1e4) * n;
           const s = String(units).padStart(5, '0');
@@ -1203,8 +1228,15 @@
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer = await provider.getSigner();
             const contract = new ethers.Contract(ADDR, ABI, signer);
-            const value = ethers.parseEther(TIERS[tier].price) * BigInt(n);
-            const tx = await contract[TIERS[tier].fn](n, { value });
+            let tx;
+            if (tier === 'agent') {
+              const agentId = (document.getElementById('agent-id')?.value || '').trim();
+              if (!/^\d+$/.test(agentId)) { toast('Masukkan Agent ID token yang valid'); button.disabled = false; return; }
+              tx = await contract[TIERS[tier].fn](n, agentId);
+            } else {
+              const value = ethers.parseEther(TIERS[tier].price) * BigInt(n);
+              tx = await contract[TIERS[tier].fn](n, { value });
+            }
             const link = `<a href="https://bscscan.com/tx/${esc(tx.hash)}" target="_blank" rel="noopener">${esc(tx.hash.slice(0, 10))}…${esc(tx.hash.slice(-6))}</a>`;
             toast('Transaksi diproses: ' + link, 0);
             const receipt = await tx.wait();
@@ -1237,6 +1269,7 @@
           });
         }
 
+        render('agent');
         render('mint');
       })();
     </script>
