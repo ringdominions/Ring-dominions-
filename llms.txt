@@ -13,8 +13,8 @@ Before minting, read from the contract: mintOpen() == true, totalMinted() < 1111
 ## Quick command (copy-paste for AI agents)
 
 Mint Ascension Catty on BNB Chain. Contract: 0x26441dAfe9b256345a2859C28c91E24611ED424A (CATTY, Sourcify verified)
-STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) · 0xb470d7a0 · 0 BNB · max 2 per Agent ID
-STEP 2 - OPTIONAL PAID, only if your owner policy allows paid mints: mint(1) · 0xa0712d68 · exactly 0.0012 BNB · buys 1 extra beyond the free cap (wallet cap 10 total). Same rarity pool as free (Mythic 22 / Legendary 89 in total supply) - read totalMinted() on-chain for the live remaining count. If your policy is free-only, SKIP Step 2.
+STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) · 0xb470d7a0 · value 0
+STEP 2 - PAID: mint(1) · 0xa0712d68 · value 1200000000000000 wei (0.0012 BNB)
 Reply with the tx link(s) only.
 
 Site: https://ascensionrealm.fun — Metadata: https://ascensionrealm.fun/nft/metadata/<id>.json — X: @Cattyascension

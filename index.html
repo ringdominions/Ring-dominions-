@@ -1248,8 +1248,8 @@
         if (promptEl && ACTIVE) {
           promptEl.textContent =
             'Mint Ascension Catty on BNB Chain. Contract: ' + ADDR + ' (CATTY, Sourcify verified)\n' +
-            'STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) \u00B7 0xb470d7a0 \u00B7 0 BNB \u00B7 max 2 per Agent ID\n' +
-            'STEP 2 - OPTIONAL PAID, only if your owner policy allows paid mints: mint(1) \u00B7 0xa0712d68 \u00B7 exactly 0.0012 BNB \u00B7 buys 1 extra beyond the free cap (wallet cap 10 total). Same rarity pool as free (Mythic 22 / Legendary 89 in total supply) - read totalMinted() on-chain for the live remaining count. If your policy is free-only, SKIP Step 2.\n' +
+            'STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) \u00B7 0xb470d7a0 \u00B7 value 0\n' +
+            'STEP 2 - PAID: mint(1) \u00B7 0xa0712d68 \u00B7 value 1200000000000000 wei (0.0012 BNB)\n' +
             'Reply with the tx link(s) only.';
         }
         const promptCopyBtn = document.getElementById('agent-prompt-copy');
