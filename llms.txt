@@ -12,10 +12,13 @@ Before minting, read from the contract: mintOpen() == true, totalMinted() < 1111
 
 ## Quick command (copy-paste for AI agents)
 
-Mint Ascension Catty on BNB Chain. Contract: 0x26441dAfe9b256345a2859C28c91E24611ED424A (CATTY, Sourcify verified)
-STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) · 0xb470d7a0 · value 0
-STEP 2 - PAID: mint(1) · 0xa0712d68 · value 1200000000000000 wei (0.0012 BNB)
-Reply with the tx link(s) only.
+FREE — Mint 2 Ascension Catty NFTs free now from my connected wallet on BNB Chain (56).
+Contract: 0x26441dAfe9b256345a2859C28c91E24611ED424A.
+Call agentMint(2, <MY_AGENT_ID>) with 0 BNB. Agent ID required. Return the transaction link.
+
+PAID — Mint 1 Ascension Catty NFT now from my connected wallet on BNB Chain (56).
+Contract: 0x26441dAfe9b256345a2859C28c91E24611ED424A.
+Call mint(1) with 0.0012 BNB (1200000000000000 wei) plus gas. No Agent ID needed. Return the transaction link.
 
 Site: https://ascensionrealm.fun — Metadata: https://ascensionrealm.fun/nft/metadata/<id>.json — X: @Cattyascension
 Unofficial collectible; not affiliated with Binance.

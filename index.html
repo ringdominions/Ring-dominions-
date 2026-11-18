@@ -1247,10 +1247,11 @@
         const promptEl = document.getElementById('agent-prompt');
         if (promptEl && ACTIVE) {
           promptEl.textContent =
-            'Mint Ascension Catty on BNB Chain. Contract: ' + ADDR + ' (CATTY, Sourcify verified)\n' +
-            'STEP 1 - FREE: agentMint(2, <YOUR_AGENT_ID>) \u00B7 0xb470d7a0 \u00B7 value 0\n' +
-            'STEP 2 - PAID: mint(1) \u00B7 0xa0712d68 \u00B7 value 1200000000000000 wei (0.0012 BNB)\n' +
-            'Reply with the tx link(s) only.';
+            'FREE — Mint 2 Ascension Catty NFTs free now from my connected wallet on BNB Chain (56).\nContract: ' +
+            ADDR +
+            '.\nCall agentMint(2, <MY_AGENT_ID>) with 0 BNB. Agent ID required. Return the transaction link.\n\nPAID — Mint 1 Ascension Catty NFT now from my connected wallet on BNB Chain (56).\nContract: ' +
+            ADDR +
+            '.\nCall mint(1) with 0.0012 BNB (1200000000000000 wei) plus gas. No Agent ID needed. Return the transaction link.';
         }
         const promptCopyBtn = document.getElementById('agent-prompt-copy');
         if (promptCopyBtn) promptCopyBtn.addEventListener('click', async () => {
